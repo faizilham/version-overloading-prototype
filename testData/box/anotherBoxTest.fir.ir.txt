@@ -33,30 +33,3 @@ FILE fqName:<root> fileName:/anotherBoxTest.kt
             then: STRING_CONCATENATION type=kotlin.String
               CONST String type=kotlin.String value="Fail: "
               GET_VAR 'val result: kotlin.Int declared in <root>.box' type=kotlin.Int origin=null
-  FUN name:manualOverload visibility:public modality:FINAL <> (a:kotlin.Int) returnType:kotlin.Int
-    VALUE_PARAMETER name:a index:0 type:kotlin.Int
-    BLOCK_BODY
-      RETURN type=kotlin.Nothing from='public final fun manualOverload (a: kotlin.Int): kotlin.Int declared in <root>'
-        CALL 'public final fun manualOverload (a: kotlin.Int, b: kotlin.Int): kotlin.Int declared in <root>' type=kotlin.Int origin=null
-          a: GET_VAR 'a: kotlin.Int declared in <root>.manualOverload' type=kotlin.Int origin=null
-          b: CONST Int type=kotlin.Int value=0
-  FUN name:manualOverload visibility:public modality:FINAL <> (a:kotlin.Int, b:kotlin.Int) returnType:kotlin.Int
-    VALUE_PARAMETER name:a index:0 type:kotlin.Int
-    VALUE_PARAMETER name:b index:1 type:kotlin.Int
-    BLOCK_BODY
-      RETURN type=kotlin.Nothing from='public final fun manualOverload (a: kotlin.Int, b: kotlin.Int): kotlin.Int declared in <root>'
-        CALL 'public final fun plus (other: kotlin.Int): kotlin.Int declared in kotlin.Int' type=kotlin.Int origin=PLUS
-          $this: GET_VAR 'a: kotlin.Int declared in <root>.manualOverload' type=kotlin.Int origin=null
-          other: GET_VAR 'b: kotlin.Int declared in <root>.manualOverload' type=kotlin.Int origin=null
-  FUN name:overloadExample visibility:public modality:FINAL <> (a:kotlin.Int, b:kotlin.Int) returnType:kotlin.Int
-    annotations:
-      JvmOverloads
-    VALUE_PARAMETER name:a index:0 type:kotlin.Int
-    VALUE_PARAMETER name:b index:1 type:kotlin.Int
-      EXPRESSION_BODY
-        CONST Int type=kotlin.Int value=0
-    BLOCK_BODY
-      RETURN type=kotlin.Nothing from='public final fun overloadExample (a: kotlin.Int, b: kotlin.Int): kotlin.Int declared in <root>'
-        CALL 'public final fun plus (other: kotlin.Int): kotlin.Int declared in kotlin.Int' type=kotlin.Int origin=PLUS
-          $this: GET_VAR 'a: kotlin.Int declared in <root>.overloadExample' type=kotlin.Int origin=null
-          other: GET_VAR 'b: kotlin.Int declared in <root>.overloadExample' type=kotlin.Int origin=null

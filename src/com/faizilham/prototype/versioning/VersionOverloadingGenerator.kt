@@ -12,6 +12,7 @@ import org.jetbrains.kotlin.ir.expressions.IrConst
 import org.jetbrains.kotlin.ir.expressions.impl.IrCallImpl
 import org.jetbrains.kotlin.ir.expressions.impl.IrDelegatingConstructorCallImpl
 import org.jetbrains.kotlin.ir.expressions.impl.IrGetValueImpl
+import org.jetbrains.kotlin.ir.expressions.impl.fromSymbolOwner
 import org.jetbrains.kotlin.ir.types.defaultType
 import org.jetbrains.kotlin.ir.util.*
 import org.jetbrains.kotlin.ir.visitors.IrElementVisitor
@@ -89,7 +90,7 @@ class VersionOverloadingGenerator(pluginContext: IrPluginContext) : IrElementVis
 
     private fun IrValueParameter.getVersionNumber() : VersionNumber {
         val annotation = getAnnotation(VersionAnnotation) ?: return ""
-        val versionNumber = (annotation.valueArguments[0] as? IrConst<*>)?.value as? VersionNumber ?: ""
+        val versionNumber = (annotation.valueArguments[0] as? IrConst)?.value as? VersionNumber ?: ""
         return versionNumber
     }
 

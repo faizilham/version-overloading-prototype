@@ -15,15 +15,6 @@ FILE: anotherBoxTest.kt
         }
 
     }
-    @R|kotlin/jvm/JvmOverloads|() public final fun overloadExample(a: R|kotlin/Int|, b: R|kotlin/Int| = Int(0)): R|kotlin/Int| {
-        ^overloadExample R|<local>/a|.R|kotlin/Int.plus|(R|<local>/b|)
-    }
-    public final fun manualOverload(a: R|kotlin/Int|, b: R|kotlin/Int|): R|kotlin/Int| {
-        ^manualOverload R|<local>/a|.R|kotlin/Int.plus|(R|<local>/b|)
-    }
-    public final fun manualOverload(a: R|kotlin/Int|): R|kotlin/Int| {
-        ^manualOverload R|/manualOverload|(R|<local>/a|, Int(0))
-    }
 FILE: __GENERATED DECLARATIONS__.kt
     package foo.bar
 

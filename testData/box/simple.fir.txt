@@ -13,19 +13,6 @@ FILE: simple.kt
         }
 
     }
-    @R|com/faizilham/prototype/versioning/VersionOverloads|() public final fun myAdd(x: R|kotlin/Int|, y: R|kotlin/Int| = Int(0), @R|com/faizilham/prototype/versioning/Version|(versionNumber = String(1.2)) z1: R|kotlin/Int| = Int(0), @R|com/faizilham/prototype/versioning/Version|(versionNumber = String(1.2)) z2: R|kotlin/Int| = Int(0), @R|com/faizilham/prototype/versioning/Version|(versionNumber = String(1.3)) a1: R|kotlin/Int| = Int(0), @R|com/faizilham/prototype/versioning/Version|(versionNumber = String(1.3)) a2: R|kotlin/Int| = Int(0)): R|kotlin/Int| {
-        ^myAdd R|<local>/x|.R|kotlin/Int.plus|(R|<local>/y|)
-    }
-    public final class Simple : R|kotlin/Any| {
-        public constructor(): R|foo/bar/Simple| {
-            super<R|kotlin/Any|>()
-        }
-
-        @R|com/faizilham/prototype/versioning/VersionOverloads|() public final fun simpleAdd(x: R|kotlin/Int|, y: R|kotlin/Int| = Int(0), @R|com/faizilham/prototype/versioning/Version|(versionNumber = String(1.2)) z1: R|kotlin/Int| = Int(0)): R|kotlin/Int| {
-            ^simpleAdd R|<local>/x|.R|kotlin/Int.plus|(R|<local>/y|)
-        }
-
-    }
 FILE: __GENERATED DECLARATIONS__.kt
     package foo.bar
 

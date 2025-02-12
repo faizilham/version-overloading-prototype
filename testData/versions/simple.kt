@@ -49,8 +49,9 @@ fun test2() {
 
 public class JavaExample {
     public void f() {
-        MyExample.myAdd(1, 2);
-        MyExample.myAdd(1, 2, 3);
+//        MyExample.myAdd(1, 2);
+//        MyExample.myAdd(1, 2, 3);
+//        MyExample.myAdd(1, 2, 3, 4);
         MyExample.myAdd(1, 2, 3, 4, 5);
         // MyExample.myAdd(1, 2, 3, 4, 5, 6);
     }

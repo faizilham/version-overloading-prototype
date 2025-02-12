@@ -9,20 +9,21 @@ import org.jetbrains.kotlin.ir.builders.declarations.buildFun
 import org.jetbrains.kotlin.ir.builders.setSourceRange
 import org.jetbrains.kotlin.ir.declarations.*
 import org.jetbrains.kotlin.ir.expressions.IrConst
-import org.jetbrains.kotlin.ir.expressions.impl.IrCallImpl
-import org.jetbrains.kotlin.ir.expressions.impl.IrDelegatingConstructorCallImpl
-import org.jetbrains.kotlin.ir.expressions.impl.IrGetValueImpl
-import org.jetbrains.kotlin.ir.expressions.impl.fromSymbolOwner
+import org.jetbrains.kotlin.ir.expressions.IrConstructorCall
+import org.jetbrains.kotlin.ir.expressions.impl.*
 import org.jetbrains.kotlin.ir.types.defaultType
 import org.jetbrains.kotlin.ir.util.*
 import org.jetbrains.kotlin.ir.visitors.IrElementVisitor
 import org.jetbrains.kotlin.name.FqName
+import org.jetbrains.kotlin.name.StandardClassIds
 
 typealias VersionNumber = String
 
-class VersionOverloadingGenerator(pluginContext: IrPluginContext) : IrElementVisitor<Unit, MutableList<IrFunction>?> {
-    private val irFactory = pluginContext.irFactory
-    private val irBuiltIns = pluginContext.irBuiltIns
+class VersionOverloadingGenerator(context: IrPluginContext) : IrElementVisitor<Unit, MutableList<IrFunction>?> {
+    private val irFactory = context.irFactory
+    private val irBuiltIns = context.irBuiltIns
+
+    private val deprecationBuilder = DeprecationBuilder(context)
 
     companion object {
         val VersionAnnotation = FqName("com.faizilham.prototype.versioning.Version")
@@ -65,6 +66,7 @@ class VersionOverloadingGenerator(pluginContext: IrPluginContext) : IrElementVis
         // 1. Version annotations are only added at optional parameters
         // 2. Optional parameters with versions are in the tail positions, non-annotated parameters are in the head
         // 3. Version annotations are in the increasing order
+        // 4. TODO: exception, trailing lambdas are allowed to be non-optional
 
         if (!func.hasAnnotation(VersionOverloadsAnnotation)) return null
 
@@ -104,8 +106,6 @@ class VersionOverloadingGenerator(pluginContext: IrPluginContext) : IrElementVis
                 )
             is IrSimpleFunction ->
                 IrCallImpl.fromSymbolOwner(UNDEFINED_OFFSET, UNDEFINED_OFFSET, target.returnType, target.symbol)
-
-            else -> return null
         }
 
         for (arg in wrapperIrFunction.allTypeParameters) {
@@ -142,7 +142,6 @@ class VersionOverloadingGenerator(pluginContext: IrPluginContext) : IrElementVis
             is IrSimpleFunction -> {
                 irFactory.createExpressionBody(UNDEFINED_OFFSET, UNDEFINED_OFFSET, call)
             }
-            else -> return null
         }
 
         return wrapperIrFunction
@@ -170,16 +169,21 @@ class VersionOverloadingGenerator(pluginContext: IrPluginContext) : IrElementVis
                 isInline = oldFunction.isInline
                 isSuspend = oldFunction.isSuspend
             }
-            else -> return null
         }
 
         res.parent = oldFunction.parent
+        res.addDeprecatedAnnotation()
         res.copyAnnotationsFrom(oldFunction)
         res.copyTypeParametersFrom(oldFunction)
         res.dispatchReceiverParameter = oldFunction.dispatchReceiverParameter?.copyTo(res)
         res.extensionReceiverParameter = oldFunction.extensionReceiverParameter?.copyTo(res)
         res.valueParameters += res.generateNewValueParameters(oldFunction, newParamCounts)
         return res
+    }
+
+    private fun IrFunction.addDeprecatedAnnotation() {
+        val annotation = deprecationBuilder.buildAnnotationCall(DeprecationLevel.HIDDEN) ?: return
+        annotations += annotation
     }
 
     private fun IrFunction.generateNewValueParameters(
@@ -207,4 +211,37 @@ class VersionOverloadingGenerator(pluginContext: IrPluginContext) : IrElementVis
         return result
     }
 
+}
+
+private class DeprecationBuilder(private val context: IrPluginContext) {
+    private val classSymbol = context.referenceClass(StandardClassIds.Annotations.Deprecated)
+    private val deprecationLevelClass = context.referenceClass(StandardClassIds.DeprecationLevel)?.owner
+
+    fun buildAnnotationCall(level: DeprecationLevel) : IrConstructorCall? {
+        if (classSymbol == null || deprecationLevelClass == null) return null
+
+        val levelSymbol = deprecationLevelClass.declarations
+            .filterIsInstance<IrEnumEntry>()
+            .single { it.name.toString() == level.name }.symbol
+
+        return IrConstructorCallImpl.fromSymbolOwner(
+            SYNTHETIC_OFFSET,
+            SYNTHETIC_OFFSET,
+            classSymbol.defaultType,
+            classSymbol.constructors.first()
+        ).apply {
+            putValueArgument(
+                0,
+                IrConstImpl.string(SYNTHETIC_OFFSET, SYNTHETIC_OFFSET, context.irBuiltIns.stringType, "Deprecated")
+            )
+
+            putValueArgument(
+                2,
+                IrGetEnumValueImpl(
+                    SYNTHETIC_OFFSET, SYNTHETIC_OFFSET,
+                    deprecationLevelClass.defaultType, levelSymbol
+                )
+            )
+        }
+    }
 }

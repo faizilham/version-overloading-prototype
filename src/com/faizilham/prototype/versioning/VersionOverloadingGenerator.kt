@@ -18,6 +18,7 @@ import org.jetbrains.kotlin.name.FqName
 import org.jetbrains.kotlin.name.StandardClassIds
 
 typealias VersionNumber = String
+const val EmptyVersion = ""
 
 class VersionOverloadingGenerator(context: IrPluginContext) : IrElementVisitor<Unit, MutableList<IrFunction>?> {
     private val irFactory = context.irFactory
@@ -52,30 +53,31 @@ class VersionOverloadingGenerator(context: IrPluginContext) : IrElementVisitor<U
 
     override fun visitFunction(func: IrFunction, data: MutableList<IrFunction>?) {
         if (data == null) return
-        val overloadCounts = getPreviousVersionsParamCounts(func) ?: return
+        val (previousParamCounts, hasTrailingLambda) = getVersionInfo(func) ?: return
 
-        for (paramCount in overloadCounts) {
-            val wrapper = generateWrapper(func, paramCount) ?: continue
+        for (paramCount in previousParamCounts) {
+            val wrapper = generateWrapper(func, paramCount, hasTrailingLambda) ?: continue
             data.add(wrapper)
         }
     }
 
-    private fun getPreviousVersionsParamCounts(func: IrFunction) : List<Int>? {
+    private fun getVersionInfo(func: IrFunction) : VersionInfo? {
         // Generate previous versions parameter count (since the latest version is equivalent to the original IrFunction)
         // Assumptions (should enforced by checker):
         // 1. Version annotations are only added at optional parameters
         // 2. Optional parameters with versions are in the tail positions, non-annotated parameters are in the head
         // 3. Version annotations are in the increasing order
-        // 4. TODO: exception, trailing lambdas are allowed to be non-optional
+        // 4. Special case: trailing lambdas are allowed to be non-optional
 
         if (!func.hasAnnotation(VersionOverloadsAnnotation)) return null
 
         val versionCounts = mutableListOf<Int>()
-        var latestVersion = ""
+        var latestVersion = EmptyVersion
         var paramsSize = 0
 
-        func.valueParameters.forEach {
-            val versionNumber = it.getVersionNumber()
+
+        func.valueParameters.forEachIndexed { i, param ->
+            val versionNumber = param.getVersionNumber()
 
             if (versionNumber > latestVersion) {
                 versionCounts.add(paramsSize)
@@ -87,8 +89,14 @@ class VersionOverloadingGenerator(context: IrPluginContext) : IrElementVisitor<U
 
         if (versionCounts.isEmpty()) return null
 
-        return versionCounts
+        val hasTrailing = func.valueParameters.lastOrNull()?.let {
+            it.type.isFunction() && it.getVersionNumber() == EmptyVersion
+        } == true
+
+        return VersionInfo(versionCounts, hasTrailing)
     }
+
+    private data class VersionInfo(val previousParamCounts: List<Int>, val hasTrailingLambda: Boolean)
 
     private fun IrValueParameter.getVersionNumber() : VersionNumber {
         val annotation = getAnnotation(VersionAnnotation) ?: return ""
@@ -96,8 +104,8 @@ class VersionOverloadingGenerator(context: IrPluginContext) : IrElementVisitor<U
         return versionNumber
     }
 
-    private fun generateWrapper(target: IrFunction, newParamCounts: Int): IrFunction? {
-        val wrapperIrFunction = irFactory.generateWrapperHeader(target, newParamCounts) ?: return null
+    private fun generateWrapper(target: IrFunction, newParamCounts: Int, hasTrailingLambda: Boolean): IrFunction? {
+        val wrapperIrFunction = irFactory.generateWrapperHeader(target, newParamCounts, hasTrailingLambda) ?: return null
 
         val call = when (target) {
             is IrConstructor ->
@@ -126,13 +134,22 @@ class VersionOverloadingGenerator(context: IrPluginContext) : IrElementVisitor<U
             )
         }
 
+        val lastParamIndex = target.valueParameters.size - 1
+
         for (i in 0..<newParamCounts) {
             val valueParameter = wrapperIrFunction.valueParameters[i]
             call.putValueArgument(i, IrGetValueImpl(UNDEFINED_OFFSET, UNDEFINED_OFFSET, valueParameter.symbol))
         }
 
-        for (i in newParamCounts..<target.valueParameters.size) {
+        for (i in newParamCounts..<lastParamIndex) {
             call.putValueArgument(i, null)
+        }
+
+        if (hasTrailingLambda) {
+            val trailingLambda = wrapperIrFunction.valueParameters.last()
+            call.putValueArgument(lastParamIndex, IrGetValueImpl(UNDEFINED_OFFSET, UNDEFINED_OFFSET, trailingLambda.symbol))
+        } else {
+            call.putValueArgument(lastParamIndex, null)
         }
 
         wrapperIrFunction.body = when (target) {
@@ -147,7 +164,7 @@ class VersionOverloadingGenerator(context: IrPluginContext) : IrElementVisitor<U
         return wrapperIrFunction
     }
 
-    private fun IrFactory.generateWrapperHeader(oldFunction: IrFunction, newParamCounts: Int): IrFunction? {
+    private fun IrFactory.generateWrapperHeader(oldFunction: IrFunction, newParamCounts: Int, hasTrailingLambda: Boolean): IrFunction? {
         val res = when (oldFunction) {
             is IrConstructor -> {
                 buildConstructor {
@@ -172,40 +189,48 @@ class VersionOverloadingGenerator(context: IrPluginContext) : IrElementVisitor<U
         }
 
         res.parent = oldFunction.parent
-        res.addDeprecatedAnnotation()
+//        res.addDeprecatedAnnotation(if (newParamCounts < 3) DeprecationLevel.HIDDEN else DeprecationLevel.ERROR) // TODO: remove this
+        res.addDeprecatedAnnotation(DeprecationLevel.HIDDEN)
         res.copyAnnotationsFrom(oldFunction)
         res.copyTypeParametersFrom(oldFunction)
         res.dispatchReceiverParameter = oldFunction.dispatchReceiverParameter?.copyTo(res)
         res.extensionReceiverParameter = oldFunction.extensionReceiverParameter?.copyTo(res)
-        res.valueParameters += res.generateNewValueParameters(oldFunction, newParamCounts)
+        res.valueParameters += res.generateNewValueParameters(oldFunction, newParamCounts, hasTrailingLambda)
         return res
     }
 
-    private fun IrFunction.addDeprecatedAnnotation() {
-        val annotation = deprecationBuilder.buildAnnotationCall(DeprecationLevel.HIDDEN) ?: return
+    private fun IrFunction.addDeprecatedAnnotation(level: DeprecationLevel) {
+        val annotation = deprecationBuilder.buildAnnotationCall(level) ?: return
         annotations += annotation
     }
 
     private fun IrFunction.generateNewValueParameters(
         oldFunction: IrFunction,
-        newParamCounts: Int
+        newParamCounts: Int,
+        hasTrailingLambda: Boolean
     ): List<IrValueParameter> {
         val result = mutableListOf<IrValueParameter>()
 
         for (i in 0..<newParamCounts) {
             val oldValueParameter = oldFunction.valueParameters[i]
-            if (oldValueParameter.defaultValue != null) {
-                result.add(
-                    oldValueParameter.copyTo(
-                        this,
-                        defaultValue = null,
-                        isCrossinline = oldValueParameter.isCrossinline,
-                        isNoinline = oldValueParameter.isNoinline
-                    )
-                )
-            } else if (oldValueParameter.defaultValue == null) {
-                result.add(oldValueParameter.copyTo(this))
-            }
+//            if (oldValueParameter.defaultValue != null) {
+//                result.add(
+//                    oldValueParameter.copyTo(
+//                        this,
+//                        defaultValue = null,
+//                        isCrossinline = oldValueParameter.isCrossinline,
+//                        isNoinline = oldValueParameter.isNoinline
+//                    )
+//                )
+//            } else if (oldValueParameter.defaultValue == null) {
+//                result.add(oldValueParameter.copyTo(this))
+//            }
+
+            result.add(oldValueParameter.copyTo(this))
+        }
+
+        if (hasTrailingLambda) {
+            result.add(oldFunction.valueParameters.last().copyTo(this))
         }
 
         return result

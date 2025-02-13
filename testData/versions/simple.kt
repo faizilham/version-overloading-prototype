@@ -14,16 +14,11 @@ object MyExample {
     ): Int = 0
 }
 
-//class Simple {
-//    @VersionOverloads
-//    fun simpleAdd(
-//        x: Int,
-//        y: Int = 0,
-//        @Version("1.2") z1: Int = 0,
-//    ) : Int {
-//        return x + y + z1
-//    }
+//class Simple @VersionOverloads constructor(val x: Int, val y: Int = 0, @Version("1.2") val z : Int = 0) {
+//
 //}
+
+//data class DataCls(val x: Int, val y: Int = 0, val z: Int = 0)
 
 // FILE: m2.kt
 
@@ -47,6 +42,7 @@ fun test2() {
 
 // FILE: JavaExample.java
 
+//@SuppressWarnings("deprecated")
 public class JavaExample {
     public void f() {
 //        MyExample.myAdd(1, 2);

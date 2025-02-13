@@ -26,4 +26,10 @@ public class VersionOverloadTestGenerated extends AbstractVersionOverloadTest {
   public void testSimple() {
     runTest("testData/versions/simple.kt");
   }
+
+  @Test
+  @TestMetadata("trailing_lambda.kt")
+  public void testTrailing_lambda() {
+    runTest("testData/versions/trailing_lambda.kt");
+  }
 }

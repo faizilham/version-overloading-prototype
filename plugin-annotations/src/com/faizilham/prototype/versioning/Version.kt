@@ -4,5 +4,5 @@ package com.faizilham.prototype.versioning
 annotation class Version(val versionNumber: String)
 
 
-@Target(AnnotationTarget.FUNCTION)
+@Target(AnnotationTarget.FUNCTION, AnnotationTarget.CONSTRUCTOR)
 annotation class VersionOverloads()

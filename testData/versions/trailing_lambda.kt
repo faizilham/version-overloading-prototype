@@ -50,25 +50,18 @@ import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.stream.Collectors;
+import kotlin.Pair;
 
 public class JavaTest {
     Class<?> clazz = TrailingExample.class;
 
-    public HashSet<String> reflectMethods() {;
+    public HashSet<Pair<String, Boolean>> reflectMethods() {;
         Method[] methods = clazz.getDeclaredMethods();
 
-        HashSet<String> signatures = new HashSet<>();
+        HashSet<Pair<String, Boolean>> signatures = new HashSet<>();
 
         for (Method method : methods) {
-            String signature =
-                method.getName() + "(" +
-                Arrays.stream(method.getParameterTypes())
-                    .map(p -> p.getSimpleName())
-                    .collect(Collectors.joining(",")) +
-                "):" + method.getReturnType().getName() +
-                " syn:" + method.isSynthetic();
-
-            signatures.add(signature);
+            signatures.add(new Pair(method.toGenericString(), method.isSynthetic()));
         }
 
         return signatures;
@@ -81,14 +74,14 @@ fun box() : String {
     val methods = JavaTest().reflectMethods()
 
     val overloads = listOf(
-        "withlam(int,int,Function1):int syn:true",
-        "withlam(int,int,int,Function1):int syn:true",
-        "withlam(int,int,int,int,Function1):int syn:true",
-        "withlam(int,int,int,int,int,Function1):int syn:false",
+        Pair("public static final int TrailingExample.withDefLam(int,int,int,kotlin.jvm.functions.Function1)", true),
+        Pair("public static final int TrailingExample.withDefLam(int,int,kotlin.jvm.functions.Function1)", true),
+        Pair("public static final int TrailingExample.withDefLam(int,int,int,int,kotlin.jvm.functions.Function1<? super java.lang.Integer, java.lang.Integer>)", false),
 
-        "withDefLam(int,int,Function1):int syn:true",
-        "withDefLam(int,int,int,Function1):int syn:true",
-        "withDefLam(int,int,int,int,Function1):int syn:false",
+        Pair("public static final int TrailingExample.withlam(int,int,kotlin.jvm.functions.Function1)", true),
+        Pair("public static final int TrailingExample.withlam(int,int,int,kotlin.jvm.functions.Function1)", true),
+        Pair("public static final int TrailingExample.withlam(int,int,int,int,kotlin.jvm.functions.Function1)", true),
+        Pair("public static final int TrailingExample.withlam(int,int,int,int,int,kotlin.jvm.functions.Function1<? super java.lang.Integer, java.lang.Integer>)", false),
     )
 
     val overloadCounts = mapOf(
@@ -102,7 +95,7 @@ fun box() : String {
 
     for ((name, expected) in overloadCounts) {
         val pattern = "$name("
-        val actual = methods.count { it.startsWith(pattern) }
+        val actual = methods.count { (sign, _) -> sign.contains(pattern) }
         if (actual != expected) return "Fail: overload $name count does not match, expected $expected, actual $actual"
     }
 

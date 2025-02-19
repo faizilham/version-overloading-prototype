@@ -17,13 +17,13 @@ FILE: main.kt
 
     public final fun box(): R|kotlin/String| {
         lval javaTest: R|lib/JavaTest| = R|lib/JavaTest.JavaTest|()
-        lval methods: R|ft<java/util/HashSet<kotlin/String!>, java/util/HashSet<kotlin/String!>?>| = R|<local>/javaTest|.R|lib/JavaTest.reflectMethods|()
-        lval overloads: R|kotlin/collections/List<kotlin/String>| = R|kotlin/collections/listOf|<R|kotlin/String|>(vararg(String(myAdd(int,int):int syn:true), String(myAdd(int,int,int):int syn:true), String(myAdd(int,int,int,int,int):int syn:false)))
+        lval methods: R|ft<java/util/HashSet<ft<kotlin/Pair<kotlin/String!, kotlin/Boolean!>, kotlin/Pair<kotlin/String!, kotlin/Boolean!>?>>, java/util/HashSet<ft<kotlin/Pair<kotlin/String!, kotlin/Boolean!>, kotlin/Pair<kotlin/String!, kotlin/Boolean!>?>>?>| = R|<local>/javaTest|.R|lib/JavaTest.reflectMethods|()
+        lval overloads: R|kotlin/collections/List<kotlin/Pair<kotlin/String, kotlin/Boolean>>| = R|kotlin/collections/listOf|<R|kotlin/Pair<kotlin/String, kotlin/Boolean>|>(vararg(R|kotlin/Pair.Pair|<R|kotlin/String|, R|kotlin/Boolean|>(String(public static final int lib.MyExample.myAdd(int,int)), Boolean(true)), R|kotlin/Pair.Pair|<R|kotlin/String|, R|kotlin/Boolean|>(String(public static final int lib.MyExample.myAdd(int,int,int)), Boolean(true)), R|kotlin/Pair.Pair|<R|kotlin/String|, R|kotlin/Boolean|>(String(public static final int lib.MyExample.myAdd(int,int,int,int,int)), Boolean(false))))
         lval overloadCounts: R|kotlin/collections/Map<kotlin/String, kotlin/Int>| = R|kotlin/collections/mapOf|<R|kotlin/String|, R|kotlin/Int|>(String(myAdd).R|kotlin/to|<R|kotlin/String|, R|kotlin/Int|>(Int(3)))
          {
-            lval <iterator>: R|kotlin/collections/Iterator<kotlin/String>| = R|<local>/overloads|.R|SubstitutionOverride<kotlin/collections/List.iterator: R|kotlin/collections/Iterator<kotlin/String>|>|()
+            lval <iterator>: R|kotlin/collections/Iterator<kotlin/Pair<kotlin/String, kotlin/Boolean>>| = R|<local>/overloads|.R|SubstitutionOverride<kotlin/collections/List.iterator: R|kotlin/collections/Iterator<kotlin/Pair<kotlin/String, kotlin/Boolean>>|>|()
             while(R|<local>/<iterator>|.R|SubstitutionOverride<kotlin/collections/Iterator.hasNext: R|kotlin/Boolean|>|()) {
-                lval overload: R|kotlin/String| = R|<local>/<iterator>|.R|SubstitutionOverride<kotlin/collections/Iterator.next: R|kotlin/String|>|()
+                lval overload: R|kotlin/Pair<kotlin/String, kotlin/Boolean>| = R|<local>/<iterator>|.R|SubstitutionOverride<kotlin/collections/Iterator.next: R|kotlin/Pair<kotlin/String, kotlin/Boolean>|>|()
                  {
                     when () {
                         R|<local>/methods|.R|SubstitutionOverride<java/util/HashSet.contains: R|kotlin/Boolean|>|(R|<local>/overload|).R|kotlin/Boolean.not|() ->  {
@@ -45,8 +45,13 @@ FILE: main.kt
                 lval expected: R|kotlin/Int| = R|<local>/<destruct>|.R|kotlin/collections/component2|<R|kotlin/String|, R|kotlin/Int|>()
                  {
                     lval pattern: R|kotlin/String| = <strcat>(R|<local>/name|, String(())
-                    lval actual: R|kotlin/Int| = R|<local>/methods|.R|kotlin/collections/count|<R|kotlin/String!|>(<L> = count@fun <anonymous>(it: R|kotlin/String!|): R|kotlin/Boolean| <inline=Inline, kind=UNKNOWN>  {
-                        ^ R|<local>/it|.R|kotlin/text/startsWith|(R|<local>/pattern|)
+                    lval actual: R|kotlin/Int| = R|<local>/methods|.R|kotlin/collections/count|<R|ft<kotlin/Pair<kotlin/String!, kotlin/Boolean!>, kotlin/Pair<kotlin/String!, kotlin/Boolean!>?>|>(<L> = count@fun <anonymous>(<destruct>: R|ft<kotlin/Pair<kotlin/String!, kotlin/Boolean!>, kotlin/Pair<kotlin/String!, kotlin/Boolean!>?>|): R|kotlin/Boolean| <inline=Inline, kind=UNKNOWN>  {
+                        lval sign: R|kotlin/String!| = R|<local>/<destruct>|.R|SubstitutionOverride<kotlin/Pair.component1: R|kotlin/String!|>|()
+                        lval <unused var>: R|kotlin/Boolean!| = R|<local>/<destruct>|.R|SubstitutionOverride<kotlin/Pair.component2: R|kotlin/Boolean!|>|()
+                        ^  {
+                            R|<local>/sign|.R|kotlin/text/contains|(R|<local>/pattern|)
+                        }
+
                     }
                     )
                     when () {

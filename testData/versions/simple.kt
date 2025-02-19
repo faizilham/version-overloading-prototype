@@ -30,6 +30,7 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
+import kotlin.Pair;
 
 public class JavaTest {
     Class<?> clazz = MyExample.class;
@@ -51,21 +52,13 @@ public class JavaTest {
         return results;
     }
 
-    public HashSet<String> reflectMethods() {;
+    public HashSet<Pair<String, Boolean>> reflectMethods() {;
         Method[] methods = clazz.getDeclaredMethods();
 
-        HashSet<String> signatures = new HashSet<>();
+        HashSet<Pair<String, Boolean>> signatures = new HashSet<>();
 
         for (Method method : methods) {
-            String signature =
-                method.getName() + "(" +
-                Arrays.stream(method.getParameterTypes())
-                    .map(p -> p.getSimpleName())
-                    .collect(Collectors.joining(",")) +
-                "):" + method.getReturnType().getName() +
-                " syn:" + method.isSynthetic();
-
-            signatures.add(signature);
+            signatures.add(new Pair(method.toGenericString(), method.isSynthetic()));
         }
 
         return signatures;
@@ -82,9 +75,9 @@ fun box() : String {
     val methods = javaTest.reflectMethods()
 
     val overloads = listOf(
-        "myAdd(int,int):int syn:true",
-        "myAdd(int,int,int):int syn:true",
-        "myAdd(int,int,int,int,int):int syn:false"
+        Pair("public static final int lib.MyExample.myAdd(int,int)", true),
+        Pair("public static final int lib.MyExample.myAdd(int,int,int)", true),
+        Pair("public static final int lib.MyExample.myAdd(int,int,int,int,int)", false)
     )
 
     val overloadCounts = mapOf("myAdd" to 3)
@@ -95,7 +88,7 @@ fun box() : String {
 
     for ((name, expected) in overloadCounts) {
         val pattern = "$name("
-        val actual = methods.count { it.startsWith(pattern) }
+        val actual = methods.count { (sign, _) -> sign.contains(pattern) }
         if (actual != expected) return "Fail: overload $name count does not match, expected $expected, actual $actual"
     }
 

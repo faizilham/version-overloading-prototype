@@ -120,16 +120,28 @@ FILE fqName:<root> fileName:/m1.kt
 FILE fqName:<root> fileName:/main.kt
   FUN name:box visibility:public modality:FINAL <> () returnType:kotlin.String
     BLOCK_BODY
-      VAR name:constrs type:@[FlexibleNullability] java.util.HashSet<@[FlexibleNullability] kotlin.String?>? [val]
-        CALL 'public open fun reflectConstructors (): @[FlexibleNullability] java.util.HashSet<@[FlexibleNullability] kotlin.String?>? declared in <root>.JavaTest' type=@[FlexibleNullability] java.util.HashSet<@[FlexibleNullability] kotlin.String?>? origin=null
+      VAR name:constrs type:@[FlexibleNullability] java.util.HashSet<@[FlexibleNullability] kotlin.Pair<@[FlexibleNullability] kotlin.String?, @[FlexibleNullability] kotlin.Boolean?>?>? [val]
+        CALL 'public open fun reflectConstructors (): @[FlexibleNullability] java.util.HashSet<@[FlexibleNullability] kotlin.Pair<@[FlexibleNullability] kotlin.String?, @[FlexibleNullability] kotlin.Boolean?>?>? declared in <root>.JavaTest' type=@[FlexibleNullability] java.util.HashSet<@[FlexibleNullability] kotlin.Pair<@[FlexibleNullability] kotlin.String?, @[FlexibleNullability] kotlin.Boolean?>?>? origin=null
           $this: CONSTRUCTOR_CALL 'public constructor <init> () declared in <root>.JavaTest' type=<root>.JavaTest origin=null
-      VAR name:overloads type:kotlin.collections.List<kotlin.String> [val]
-        CALL 'public final fun listOf <T> (vararg elements: T of kotlin.collections.listOf): kotlin.collections.List<T of kotlin.collections.listOf> declared in kotlin.collections' type=kotlin.collections.List<kotlin.String> origin=null
-          <T>: kotlin.String
-          elements: VARARG type=kotlin.Array<out kotlin.String> varargElementType=kotlin.String
-            CONST String type=kotlin.String value="Simple(int) syn:true"
-            CONST String type=kotlin.String value="Simple(int,int) syn:true"
-            CONST String type=kotlin.String value="Simple(int,int,long,int) syn:false"
+      VAR name:overloads type:kotlin.collections.List<kotlin.Pair<kotlin.String, kotlin.Boolean>> [val]
+        CALL 'public final fun listOf <T> (vararg elements: T of kotlin.collections.listOf): kotlin.collections.List<T of kotlin.collections.listOf> declared in kotlin.collections' type=kotlin.collections.List<kotlin.Pair<kotlin.String, kotlin.Boolean>> origin=null
+          <T>: kotlin.Pair<kotlin.String, kotlin.Boolean>
+          elements: VARARG type=kotlin.Array<out kotlin.Pair<kotlin.String, kotlin.Boolean>> varargElementType=kotlin.Pair<kotlin.String, kotlin.Boolean>
+            CONSTRUCTOR_CALL 'public constructor <init> (first: A of kotlin.Pair, second: B of kotlin.Pair) declared in kotlin.Pair' type=kotlin.Pair<kotlin.String, kotlin.Boolean> origin=null
+              <class: A>: kotlin.String
+              <class: B>: kotlin.Boolean
+              first: CONST String type=kotlin.String value="public Simple(int)"
+              second: CONST Boolean type=kotlin.Boolean value=true
+            CONSTRUCTOR_CALL 'public constructor <init> (first: A of kotlin.Pair, second: B of kotlin.Pair) declared in kotlin.Pair' type=kotlin.Pair<kotlin.String, kotlin.Boolean> origin=null
+              <class: A>: kotlin.String
+              <class: B>: kotlin.Boolean
+              first: CONST String type=kotlin.String value="public Simple(int,int)"
+              second: CONST Boolean type=kotlin.Boolean value=true
+            CONSTRUCTOR_CALL 'public constructor <init> (first: A of kotlin.Pair, second: B of kotlin.Pair) declared in kotlin.Pair' type=kotlin.Pair<kotlin.String, kotlin.Boolean> origin=null
+              <class: A>: kotlin.String
+              <class: B>: kotlin.Boolean
+              first: CONST String type=kotlin.String value="public Simple(int,int,long,int)"
+              second: CONST Boolean type=kotlin.Boolean value=false
       VAR name:overloadCounts type:kotlin.collections.Map<kotlin.String, kotlin.Int> [val]
         CALL 'public final fun mapOf <K, V> (pair: kotlin.Pair<K of kotlin.collections.mapOf, V of kotlin.collections.mapOf>): kotlin.collections.Map<K of kotlin.collections.mapOf, V of kotlin.collections.mapOf> declared in kotlin.collections' type=kotlin.collections.Map<kotlin.String, kotlin.Int> origin=null
           <K>: kotlin.String
@@ -140,27 +152,27 @@ FILE fqName:<root> fileName:/main.kt
             $receiver: CONST String type=kotlin.String value="Simple"
             that: CONST Int type=kotlin.Int value=3
       BLOCK type=kotlin.Unit origin=FOR_LOOP
-        VAR FOR_LOOP_ITERATOR name:tmp_0 type:kotlin.collections.Iterator<kotlin.String> [val]
-          CALL 'public abstract fun iterator (): kotlin.collections.Iterator<E of kotlin.collections.List> declared in kotlin.collections.List' type=kotlin.collections.Iterator<kotlin.String> origin=FOR_LOOP_ITERATOR
-            $this: GET_VAR 'val overloads: kotlin.collections.List<kotlin.String> declared in <root>.box' type=kotlin.collections.List<kotlin.String> origin=null
+        VAR FOR_LOOP_ITERATOR name:tmp_0 type:kotlin.collections.Iterator<kotlin.Pair<kotlin.String, kotlin.Boolean>> [val]
+          CALL 'public abstract fun iterator (): kotlin.collections.Iterator<E of kotlin.collections.List> declared in kotlin.collections.List' type=kotlin.collections.Iterator<kotlin.Pair<kotlin.String, kotlin.Boolean>> origin=FOR_LOOP_ITERATOR
+            $this: GET_VAR 'val overloads: kotlin.collections.List<kotlin.Pair<kotlin.String, kotlin.Boolean>> declared in <root>.box' type=kotlin.collections.List<kotlin.Pair<kotlin.String, kotlin.Boolean>> origin=null
         WHILE label=null origin=FOR_LOOP_INNER_WHILE
           condition: CALL 'public abstract fun hasNext (): kotlin.Boolean declared in kotlin.collections.Iterator' type=kotlin.Boolean origin=FOR_LOOP_HAS_NEXT
-            $this: GET_VAR 'val tmp_0: kotlin.collections.Iterator<kotlin.String> declared in <root>.box' type=kotlin.collections.Iterator<kotlin.String> origin=null
+            $this: GET_VAR 'val tmp_0: kotlin.collections.Iterator<kotlin.Pair<kotlin.String, kotlin.Boolean>> declared in <root>.box' type=kotlin.collections.Iterator<kotlin.Pair<kotlin.String, kotlin.Boolean>> origin=null
           body: BLOCK type=kotlin.Unit origin=FOR_LOOP_INNER_WHILE
-            VAR FOR_LOOP_VARIABLE name:overload type:kotlin.String [val]
-              CALL 'public abstract fun next (): T of kotlin.collections.Iterator declared in kotlin.collections.Iterator' type=kotlin.String origin=FOR_LOOP_NEXT
-                $this: GET_VAR 'val tmp_0: kotlin.collections.Iterator<kotlin.String> declared in <root>.box' type=kotlin.collections.Iterator<kotlin.String> origin=null
+            VAR FOR_LOOP_VARIABLE name:overload type:kotlin.Pair<kotlin.String, kotlin.Boolean> [val]
+              CALL 'public abstract fun next (): T of kotlin.collections.Iterator declared in kotlin.collections.Iterator' type=kotlin.Pair<kotlin.String, kotlin.Boolean> origin=FOR_LOOP_NEXT
+                $this: GET_VAR 'val tmp_0: kotlin.collections.Iterator<kotlin.Pair<kotlin.String, kotlin.Boolean>> declared in <root>.box' type=kotlin.collections.Iterator<kotlin.Pair<kotlin.String, kotlin.Boolean>> origin=null
             BLOCK type=kotlin.Unit origin=null
               WHEN type=kotlin.Unit origin=IF
                 BRANCH
                   if: CALL 'public final fun not (): kotlin.Boolean declared in kotlin.Boolean' type=kotlin.Boolean origin=null
                     $this: CALL 'public open fun contains (p0: @[EnhancedNullability] E of java.util.HashSet): kotlin.Boolean declared in java.util.HashSet' type=kotlin.Boolean origin=null
-                      $this: GET_VAR 'val constrs: @[FlexibleNullability] java.util.HashSet<@[FlexibleNullability] kotlin.String?>? declared in <root>.box' type=@[FlexibleNullability] java.util.HashSet<@[FlexibleNullability] kotlin.String?>? origin=null
-                      p0: GET_VAR 'val overload: kotlin.String declared in <root>.box' type=kotlin.String origin=null
+                      $this: GET_VAR 'val constrs: @[FlexibleNullability] java.util.HashSet<@[FlexibleNullability] kotlin.Pair<@[FlexibleNullability] kotlin.String?, @[FlexibleNullability] kotlin.Boolean?>?>? declared in <root>.box' type=@[FlexibleNullability] java.util.HashSet<@[FlexibleNullability] kotlin.Pair<@[FlexibleNullability] kotlin.String?, @[FlexibleNullability] kotlin.Boolean?>?>? origin=null
+                      p0: GET_VAR 'val overload: kotlin.Pair<kotlin.String, kotlin.Boolean> declared in <root>.box' type=kotlin.Pair<kotlin.String, kotlin.Boolean> origin=null
                   then: RETURN type=kotlin.Nothing from='public final fun box (): kotlin.String declared in <root>'
                     STRING_CONCATENATION type=kotlin.String
                       CONST String type=kotlin.String value="Fail: overload not found "
-                      GET_VAR 'val overload: kotlin.String declared in <root>.box' type=kotlin.String origin=null
+                      GET_VAR 'val overload: kotlin.Pair<kotlin.String, kotlin.Boolean> declared in <root>.box' type=kotlin.Pair<kotlin.String, kotlin.Boolean> origin=null
       BLOCK type=kotlin.Unit origin=FOR_LOOP
         VAR FOR_LOOP_ITERATOR name:tmp_1 type:kotlin.collections.Iterator<kotlin.collections.Map.Entry<kotlin.String, kotlin.Int>> [val]
           CALL 'public final fun iterator <K, V> (): kotlin.collections.Iterator<kotlin.collections.Map.Entry<K of kotlin.collections.iterator, V of kotlin.collections.iterator>> declared in kotlin.collections' type=kotlin.collections.Iterator<kotlin.collections.Map.Entry<kotlin.String, kotlin.Int>> origin=FOR_LOOP_ITERATOR
@@ -191,24 +203,27 @@ FILE fqName:<root> fileName:/main.kt
                   CONST String type=kotlin.String value="("
               VAR name:actual type:kotlin.Int [val]
                 CALL 'public final fun count <T> (predicate: kotlin.Function1<T of kotlin.collections.count, kotlin.Boolean>): kotlin.Int declared in kotlin.collections' type=kotlin.Int origin=null
-                  <T>: @[FlexibleNullability] kotlin.String?
-                  $receiver: TYPE_OP type=java.util.HashSet<@[FlexibleNullability] kotlin.String?> origin=IMPLICIT_NOTNULL typeOperand=java.util.HashSet<@[FlexibleNullability] kotlin.String?>
-                    GET_VAR 'val constrs: @[FlexibleNullability] java.util.HashSet<@[FlexibleNullability] kotlin.String?>? declared in <root>.box' type=@[FlexibleNullability] java.util.HashSet<@[FlexibleNullability] kotlin.String?>? origin=null
-                  predicate: FUN_EXPR type=kotlin.Function1<@[FlexibleNullability] kotlin.String?, kotlin.Boolean> origin=LAMBDA
-                    FUN LOCAL_FUNCTION_FOR_LAMBDA name:<anonymous> visibility:local modality:FINAL <> (it:@[FlexibleNullability] kotlin.String?) returnType:kotlin.Boolean
-                      VALUE_PARAMETER name:it index:0 type:@[FlexibleNullability] kotlin.String?
+                  <T>: @[FlexibleNullability] kotlin.Pair<@[FlexibleNullability] kotlin.String?, @[FlexibleNullability] kotlin.Boolean?>?
+                  $receiver: TYPE_OP type=java.util.HashSet<@[FlexibleNullability] kotlin.Pair<@[FlexibleNullability] kotlin.String?, @[FlexibleNullability] kotlin.Boolean?>?> origin=IMPLICIT_NOTNULL typeOperand=java.util.HashSet<@[FlexibleNullability] kotlin.Pair<@[FlexibleNullability] kotlin.String?, @[FlexibleNullability] kotlin.Boolean?>?>
+                    GET_VAR 'val constrs: @[FlexibleNullability] java.util.HashSet<@[FlexibleNullability] kotlin.Pair<@[FlexibleNullability] kotlin.String?, @[FlexibleNullability] kotlin.Boolean?>?>? declared in <root>.box' type=@[FlexibleNullability] java.util.HashSet<@[FlexibleNullability] kotlin.Pair<@[FlexibleNullability] kotlin.String?, @[FlexibleNullability] kotlin.Boolean?>?>? origin=null
+                  predicate: FUN_EXPR type=kotlin.Function1<@[FlexibleNullability] kotlin.Pair<@[FlexibleNullability] kotlin.String?, @[FlexibleNullability] kotlin.Boolean?>?, kotlin.Boolean> origin=LAMBDA
+                    FUN LOCAL_FUNCTION_FOR_LAMBDA name:<anonymous> visibility:local modality:FINAL <> (<destruct>:@[FlexibleNullability] kotlin.Pair<@[FlexibleNullability] kotlin.String?, @[FlexibleNullability] kotlin.Boolean?>?) returnType:kotlin.Boolean
+                      VALUE_PARAMETER DESTRUCTURED_OBJECT_PARAMETER name:<destruct> index:0 type:@[FlexibleNullability] kotlin.Pair<@[FlexibleNullability] kotlin.String?, @[FlexibleNullability] kotlin.Boolean?>?
                       BLOCK_BODY
-                        RETURN type=kotlin.Nothing from='local final fun <anonymous> (it: @[FlexibleNullability] kotlin.String?): kotlin.Boolean declared in <root>.box'
+                        VAR name:sign type:@[FlexibleNullability] kotlin.String? [val]
+                          CALL 'public final fun component1 (): A of kotlin.Pair declared in kotlin.Pair' type=@[FlexibleNullability] kotlin.String? origin=COMPONENT_N(index=1)
+                            $this: GET_VAR '<destruct>: @[FlexibleNullability] kotlin.Pair<@[FlexibleNullability] kotlin.String?, @[FlexibleNullability] kotlin.Boolean?>? declared in <root>.box.<anonymous>' type=@[FlexibleNullability] kotlin.Pair<@[FlexibleNullability] kotlin.String?, @[FlexibleNullability] kotlin.Boolean?>? origin=null
+                        RETURN type=kotlin.Nothing from='local final fun <anonymous> (<destruct>: @[FlexibleNullability] kotlin.Pair<@[FlexibleNullability] kotlin.String?, @[FlexibleNullability] kotlin.Boolean?>?): kotlin.Boolean declared in <root>.box'
                           WHEN type=kotlin.Boolean origin=ANDAND
                             BRANCH
-                              if: CALL 'public final fun startsWith (prefix: kotlin.String, ignoreCase: kotlin.Boolean): kotlin.Boolean declared in kotlin.text' type=kotlin.Boolean origin=null
+                              if: CALL 'public final fun contains (other: kotlin.CharSequence, ignoreCase: kotlin.Boolean): kotlin.Boolean declared in kotlin.text' type=kotlin.Boolean origin=null
                                 $receiver: TYPE_OP type=kotlin.String origin=IMPLICIT_NOTNULL typeOperand=kotlin.String
-                                  GET_VAR 'it: @[FlexibleNullability] kotlin.String? declared in <root>.box.<anonymous>' type=@[FlexibleNullability] kotlin.String? origin=null
-                                prefix: GET_VAR 'val pattern: kotlin.String declared in <root>.box' type=kotlin.String origin=null
+                                  GET_VAR 'val sign: @[FlexibleNullability] kotlin.String? declared in <root>.box.<anonymous>' type=@[FlexibleNullability] kotlin.String? origin=null
+                                other: GET_VAR 'val pattern: kotlin.String declared in <root>.box' type=kotlin.String origin=null
                               then: CALL 'public final fun not (): kotlin.Boolean declared in kotlin.Boolean' type=kotlin.Boolean origin=null
                                 $this: CALL 'public final fun contains (other: kotlin.CharSequence, ignoreCase: kotlin.Boolean): kotlin.Boolean declared in kotlin.text' type=kotlin.Boolean origin=null
                                   $receiver: TYPE_OP type=kotlin.String origin=IMPLICIT_NOTNULL typeOperand=kotlin.String
-                                    GET_VAR 'it: @[FlexibleNullability] kotlin.String? declared in <root>.box.<anonymous>' type=@[FlexibleNullability] kotlin.String? origin=null
+                                    GET_VAR 'val sign: @[FlexibleNullability] kotlin.String? declared in <root>.box.<anonymous>' type=@[FlexibleNullability] kotlin.String? origin=null
                                   other: CONST String type=kotlin.String value="DefaultConstructorMarker"
                             BRANCH
                               if: CONST Boolean type=kotlin.Boolean value=true

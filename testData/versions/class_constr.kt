@@ -19,24 +19,18 @@ import java.lang.reflect.*;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.stream.Collectors;
+import kotlin.Pair;
 
 public class JavaTest {
     Class<?> clazz = Simple.class;
 
-    public HashSet<String> reflectConstructors() {;
+    public HashSet<Pair<String, Boolean>> reflectConstructors() {;
         Constructor[] constrs = clazz.getDeclaredConstructors();
 
-        HashSet<String> signatures = new HashSet<>();
+        HashSet<Pair<String, Boolean>> signatures = new HashSet<>();
 
         for (Constructor constr : constrs) {
-            String signature =
-                constr.getName() + "(" +
-                    Arrays.stream(constr.getParameterTypes())
-                        .map(p -> p.getSimpleName())
-                        .collect(Collectors.joining(",")) +
-                ") syn:" + constr.isSynthetic();
-
-            signatures.add(signature);
+            signatures.add(new Pair(constr.toGenericString(), constr.isSynthetic()));
         }
 
         return signatures;
@@ -48,13 +42,13 @@ public class JavaTest {
 fun box() : String {
     val constrs = JavaTest().reflectConstructors()
 
-    val overloads = listOf<String>(
-        "Simple(int) syn:true",
-        "Simple(int,int) syn:true",
-        "Simple(int,int,long,int) syn:false",
+    val overloads = listOf(
+        Pair("public Simple(int)", true),
+        Pair("public Simple(int,int)", true),
+        Pair("public Simple(int,int,long,int)", false)
     )
 
-    val overloadCounts = mapOf<String, Int>(
+    val overloadCounts = mapOf(
         "Simple" to 3
     )
 
@@ -65,7 +59,7 @@ fun box() : String {
     for ((name, expected) in overloadCounts) {
         // NOTE: any constructors with DefaultConstructorMarker are not counted
         val pattern = "$name("
-        val actual = constrs.count { it.startsWith(pattern) && !it.contains("DefaultConstructorMarker") }
+        val actual = constrs.count {(sign, _) -> sign.contains(pattern) && !sign.contains("DefaultConstructorMarker") }
         if (actual != expected) return "Fail: overload $name count does not match, expected $expected, actual $actual"
     }
 

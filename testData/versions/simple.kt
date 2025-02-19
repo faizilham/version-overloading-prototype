@@ -35,42 +35,25 @@ import java.util.stream.Collectors;
 
 public class JavaTest {
     Class<?> clazz = MyExample.class;
-    String[] overloads = new String[] {
-        "myAdd(int,int):int syn:true",
-        "myAdd(int,int,int):int syn:true",
-        "myAdd(int,int,int,int,int):int syn:false"
-    };
 
-    public String boxTest() {
-        HashSet<String> methods = reflectMethods();
-
-        for (String overload : overloads) {
-            if (!methods.contains(overload)) {
-                return "Fail: overload not found" + overload;
-            }
-        }
-
-        return "OK";
-    }
-
-    private HashSet<String> reflectMethods() {;
+    public HashSet<String> reflectMethods() {;
         Method[] methods = clazz.getDeclaredMethods();
 
-        HashSet<String> methodNames = new HashSet<>();
+        HashSet<String> signatures = new HashSet<>();
 
         for (Method method : methods) {
-            String methodName = method.getName() +
-                    "(" +
-                    Arrays.stream(method.getParameters())
-                        .map(p -> p.getType().getSimpleName())
-            .collect(Collectors.joining(",")) +
+            String signature =
+                method.getName() + "(" +
+                Arrays.stream(method.getParameters())
+                    .map(p -> p.getType().getSimpleName())
+                    .collect(Collectors.joining(",")) +
                 "):" + method.getReturnType().getName() +
                 " syn:" + method.isSynthetic();
 
-            methodNames.add(methodName);
+            signatures.add(signature);
         }
 
-        return methodNames;
+        return signatures;
     }
 }
 
@@ -78,7 +61,27 @@ public class JavaTest {
 package lib
 
 fun box() : String {
-    return JavaTest().boxTest()
+    val methods = JavaTest().reflectMethods()
+
+    val overloads = listOf(
+        "myAdd(int,int):int syn:true",
+        "myAdd(int,int,int):int syn:true",
+        "myAdd(int,int,int,int,int):int syn:false"
+    )
+
+    val overloadCounts = mapOf("myAdd" to 3)
+
+    for (overload in overloads) {
+        if (!methods.contains(overload)) return "Fail: overload not found $overload"
+    }
+
+    for ((name, expected) in overloadCounts) {
+        val pattern = "$name("
+        val actual = methods.count { it.startsWith(pattern) }
+        if (actual != expected) return "Fail: overload $name count does not match, expected $expected, actual $actual"
+    }
+
+    return "OK"
 }
 
 // MODULE: m2(lib)

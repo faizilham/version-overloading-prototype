@@ -189,7 +189,6 @@ class VersionOverloadingGenerator(context: IrPluginContext) : IrElementVisitor<U
         }
 
         res.parent = oldFunction.parent
-//        res.addDeprecatedAnnotation(if (newParamCounts < 3) DeprecationLevel.HIDDEN else DeprecationLevel.ERROR) // TODO: remove this
         res.addDeprecatedAnnotation(DeprecationLevel.HIDDEN)
         res.copyAnnotationsFrom(oldFunction)
         res.copyTypeParametersFrom(oldFunction)
@@ -212,21 +211,7 @@ class VersionOverloadingGenerator(context: IrPluginContext) : IrElementVisitor<U
         val result = mutableListOf<IrValueParameter>()
 
         for (i in 0..<newParamCounts) {
-            val oldValueParameter = oldFunction.valueParameters[i]
-//            if (oldValueParameter.defaultValue != null) {
-//                result.add(
-//                    oldValueParameter.copyTo(
-//                        this,
-//                        defaultValue = null,
-//                        isCrossinline = oldValueParameter.isCrossinline,
-//                        isNoinline = oldValueParameter.isNoinline
-//                    )
-//                )
-//            } else if (oldValueParameter.defaultValue == null) {
-//                result.add(oldValueParameter.copyTo(this))
-//            }
-
-            result.add(oldValueParameter.copyTo(this))
+            result.add(oldFunction.valueParameters[i].copyTo(this))
         }
 
         if (hasTrailingLambda) {

@@ -16,7 +16,51 @@ FILE: main.kt
     package lib
 
     public final fun box(): R|kotlin/String| {
-        ^box R|lib/JavaTest.JavaTest|().R|lib/JavaTest.boxTest|()
+        lval methods: R|ft<java/util/HashSet<kotlin/String!>, java/util/HashSet<kotlin/String!>?>| = R|lib/JavaTest.JavaTest|().R|lib/JavaTest.reflectMethods|()
+        lval overloads: R|kotlin/collections/List<kotlin/String>| = R|kotlin/collections/listOf|<R|kotlin/String|>(vararg(String(myAdd(int,int):int syn:true), String(myAdd(int,int,int):int syn:true), String(myAdd(int,int,int,int,int):int syn:false)))
+        lval overloadCounts: R|kotlin/collections/Map<kotlin/String, kotlin/Int>| = R|kotlin/collections/mapOf|<R|kotlin/String|, R|kotlin/Int|>(String(myAdd).R|kotlin/to|<R|kotlin/String|, R|kotlin/Int|>(Int(3)))
+         {
+            lval <iterator>: R|kotlin/collections/Iterator<kotlin/String>| = R|<local>/overloads|.R|SubstitutionOverride<kotlin/collections/List.iterator: R|kotlin/collections/Iterator<kotlin/String>|>|()
+            while(R|<local>/<iterator>|.R|SubstitutionOverride<kotlin/collections/Iterator.hasNext: R|kotlin/Boolean|>|()) {
+                lval overload: R|kotlin/String| = R|<local>/<iterator>|.R|SubstitutionOverride<kotlin/collections/Iterator.next: R|kotlin/String|>|()
+                 {
+                    when () {
+                        R|<local>/methods|.R|SubstitutionOverride<java/util/HashSet.contains: R|kotlin/Boolean|>|(R|<local>/overload|).R|kotlin/Boolean.not|() ->  {
+                            ^box <strcat>(String(Fail: overload not found ), R|<local>/overload|)
+                        }
+                    }
+
+                }
+
+            }
+
+        }
+
+         {
+            lval <iterator>: R|kotlin/collections/Iterator<kotlin/collections/Map.Entry<kotlin/String, kotlin/Int>>| = R|<local>/overloadCounts|.R|kotlin/collections/iterator|<R|kotlin/String|, R|kotlin/Int|>()
+            while(R|<local>/<iterator>|.R|SubstitutionOverride<kotlin/collections/Iterator.hasNext: R|kotlin/Boolean|>|()) {
+                lval <destruct>: R|kotlin/collections/Map.Entry<kotlin/String, kotlin/Int>| = R|<local>/<iterator>|.R|SubstitutionOverride<kotlin/collections/Iterator.next: R|kotlin/collections/Map.Entry<kotlin/String, kotlin/Int>|>|()
+                lval name: R|kotlin/String| = R|<local>/<destruct>|.R|kotlin/collections/component1|<R|kotlin/String|, R|kotlin/Int|>()
+                lval expected: R|kotlin/Int| = R|<local>/<destruct>|.R|kotlin/collections/component2|<R|kotlin/String|, R|kotlin/Int|>()
+                 {
+                    lval pattern: R|kotlin/String| = <strcat>(R|<local>/name|, String(())
+                    lval actual: R|kotlin/Int| = R|<local>/methods|.R|kotlin/collections/count|<R|kotlin/String!|>(<L> = count@fun <anonymous>(it: R|kotlin/String!|): R|kotlin/Boolean| <inline=Inline, kind=UNKNOWN>  {
+                        ^ R|<local>/it|.R|kotlin/text/startsWith|(R|<local>/pattern|)
+                    }
+                    )
+                    when () {
+                        !=(R|<local>/actual|, R|<local>/expected|) ->  {
+                            ^box <strcat>(String(Fail: overload ), R|<local>/name|, String( count does not match, expected ), R|<local>/expected|, String(, actual ), R|<local>/actual|)
+                        }
+                    }
+
+                }
+
+            }
+
+        }
+
+        ^box String(OK)
     }
 Module: m2
 FILE: m2.kt

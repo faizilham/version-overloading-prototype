@@ -85,10 +85,105 @@ FILE fqName:lib fileName:/lib.kt
 FILE fqName:lib fileName:/main.kt
   FUN name:box visibility:public modality:FINAL <> () returnType:kotlin.String
     BLOCK_BODY
+      VAR name:methods type:@[FlexibleNullability] java.util.HashSet<@[FlexibleNullability] kotlin.String?>? [val]
+        CALL 'public open fun reflectMethods (): @[FlexibleNullability] java.util.HashSet<@[FlexibleNullability] kotlin.String?>? declared in lib.JavaTest' type=@[FlexibleNullability] java.util.HashSet<@[FlexibleNullability] kotlin.String?>? origin=null
+          $this: CONSTRUCTOR_CALL 'public constructor <init> () declared in lib.JavaTest' type=lib.JavaTest origin=null
+      VAR name:overloads type:kotlin.collections.List<kotlin.String> [val]
+        CALL 'public final fun listOf <T> (vararg elements: T of kotlin.collections.listOf): kotlin.collections.List<T of kotlin.collections.listOf> declared in kotlin.collections' type=kotlin.collections.List<kotlin.String> origin=null
+          <T>: kotlin.String
+          elements: VARARG type=kotlin.Array<out kotlin.String> varargElementType=kotlin.String
+            CONST String type=kotlin.String value="myAdd(int,int):int syn:true"
+            CONST String type=kotlin.String value="myAdd(int,int,int):int syn:true"
+            CONST String type=kotlin.String value="myAdd(int,int,int,int,int):int syn:false"
+      VAR name:overloadCounts type:kotlin.collections.Map<kotlin.String, kotlin.Int> [val]
+        CALL 'public final fun mapOf <K, V> (pair: kotlin.Pair<K of kotlin.collections.mapOf, V of kotlin.collections.mapOf>): kotlin.collections.Map<K of kotlin.collections.mapOf, V of kotlin.collections.mapOf> declared in kotlin.collections' type=kotlin.collections.Map<kotlin.String, kotlin.Int> origin=null
+          <K>: kotlin.String
+          <V>: kotlin.Int
+          pair: CALL 'public final fun to <A, B> (that: B of kotlin.to): kotlin.Pair<A of kotlin.to, B of kotlin.to> declared in kotlin' type=kotlin.Pair<kotlin.String, kotlin.Int> origin=null
+            <A>: kotlin.String
+            <B>: kotlin.Int
+            $receiver: CONST String type=kotlin.String value="myAdd"
+            that: CONST Int type=kotlin.Int value=3
+      BLOCK type=kotlin.Unit origin=FOR_LOOP
+        VAR FOR_LOOP_ITERATOR name:tmp_0 type:kotlin.collections.Iterator<kotlin.String> [val]
+          CALL 'public abstract fun iterator (): kotlin.collections.Iterator<E of kotlin.collections.List> declared in kotlin.collections.List' type=kotlin.collections.Iterator<kotlin.String> origin=FOR_LOOP_ITERATOR
+            $this: GET_VAR 'val overloads: kotlin.collections.List<kotlin.String> declared in lib.box' type=kotlin.collections.List<kotlin.String> origin=null
+        WHILE label=null origin=FOR_LOOP_INNER_WHILE
+          condition: CALL 'public abstract fun hasNext (): kotlin.Boolean declared in kotlin.collections.Iterator' type=kotlin.Boolean origin=FOR_LOOP_HAS_NEXT
+            $this: GET_VAR 'val tmp_0: kotlin.collections.Iterator<kotlin.String> declared in lib.box' type=kotlin.collections.Iterator<kotlin.String> origin=null
+          body: BLOCK type=kotlin.Unit origin=FOR_LOOP_INNER_WHILE
+            VAR FOR_LOOP_VARIABLE name:overload type:kotlin.String [val]
+              CALL 'public abstract fun next (): T of kotlin.collections.Iterator declared in kotlin.collections.Iterator' type=kotlin.String origin=FOR_LOOP_NEXT
+                $this: GET_VAR 'val tmp_0: kotlin.collections.Iterator<kotlin.String> declared in lib.box' type=kotlin.collections.Iterator<kotlin.String> origin=null
+            BLOCK type=kotlin.Unit origin=null
+              WHEN type=kotlin.Unit origin=IF
+                BRANCH
+                  if: CALL 'public final fun not (): kotlin.Boolean declared in kotlin.Boolean' type=kotlin.Boolean origin=null
+                    $this: CALL 'public open fun contains (p0: @[EnhancedNullability] E of java.util.HashSet): kotlin.Boolean declared in java.util.HashSet' type=kotlin.Boolean origin=null
+                      $this: GET_VAR 'val methods: @[FlexibleNullability] java.util.HashSet<@[FlexibleNullability] kotlin.String?>? declared in lib.box' type=@[FlexibleNullability] java.util.HashSet<@[FlexibleNullability] kotlin.String?>? origin=null
+                      p0: GET_VAR 'val overload: kotlin.String declared in lib.box' type=kotlin.String origin=null
+                  then: RETURN type=kotlin.Nothing from='public final fun box (): kotlin.String declared in lib'
+                    STRING_CONCATENATION type=kotlin.String
+                      CONST String type=kotlin.String value="Fail: overload not found "
+                      GET_VAR 'val overload: kotlin.String declared in lib.box' type=kotlin.String origin=null
+      BLOCK type=kotlin.Unit origin=FOR_LOOP
+        VAR FOR_LOOP_ITERATOR name:tmp_1 type:kotlin.collections.Iterator<kotlin.collections.Map.Entry<kotlin.String, kotlin.Int>> [val]
+          CALL 'public final fun iterator <K, V> (): kotlin.collections.Iterator<kotlin.collections.Map.Entry<K of kotlin.collections.iterator, V of kotlin.collections.iterator>> declared in kotlin.collections' type=kotlin.collections.Iterator<kotlin.collections.Map.Entry<kotlin.String, kotlin.Int>> origin=FOR_LOOP_ITERATOR
+            <K>: kotlin.String
+            <V>: kotlin.Int
+            $receiver: GET_VAR 'val overloadCounts: kotlin.collections.Map<kotlin.String, kotlin.Int> declared in lib.box' type=kotlin.collections.Map<kotlin.String, kotlin.Int> origin=null
+        WHILE label=null origin=FOR_LOOP_INNER_WHILE
+          condition: CALL 'public abstract fun hasNext (): kotlin.Boolean declared in kotlin.collections.Iterator' type=kotlin.Boolean origin=FOR_LOOP_HAS_NEXT
+            $this: GET_VAR 'val tmp_1: kotlin.collections.Iterator<kotlin.collections.Map.Entry<kotlin.String, kotlin.Int>> declared in lib.box' type=kotlin.collections.Iterator<kotlin.collections.Map.Entry<kotlin.String, kotlin.Int>> origin=null
+          body: BLOCK type=kotlin.Unit origin=FOR_LOOP_INNER_WHILE
+            VAR IR_TEMPORARY_VARIABLE name:tmp_2 type:kotlin.collections.Map.Entry<kotlin.String, kotlin.Int> [val]
+              CALL 'public abstract fun next (): T of kotlin.collections.Iterator declared in kotlin.collections.Iterator' type=kotlin.collections.Map.Entry<kotlin.String, kotlin.Int> origin=FOR_LOOP_NEXT
+                $this: GET_VAR 'val tmp_1: kotlin.collections.Iterator<kotlin.collections.Map.Entry<kotlin.String, kotlin.Int>> declared in lib.box' type=kotlin.collections.Iterator<kotlin.collections.Map.Entry<kotlin.String, kotlin.Int>> origin=null
+            VAR name:name type:kotlin.String [val]
+              CALL 'public final fun component1 <K, V> (): K of kotlin.collections.component1 declared in kotlin.collections' type=kotlin.String origin=COMPONENT_N(index=1)
+                <K>: kotlin.String
+                <V>: kotlin.Int
+                $receiver: GET_VAR 'val tmp_2: kotlin.collections.Map.Entry<kotlin.String, kotlin.Int> declared in lib.box' type=kotlin.collections.Map.Entry<kotlin.String, kotlin.Int> origin=null
+            VAR name:expected type:kotlin.Int [val]
+              CALL 'public final fun component2 <K, V> (): V of kotlin.collections.component2 declared in kotlin.collections' type=kotlin.Int origin=COMPONENT_N(index=2)
+                <K>: kotlin.String
+                <V>: kotlin.Int
+                $receiver: GET_VAR 'val tmp_2: kotlin.collections.Map.Entry<kotlin.String, kotlin.Int> declared in lib.box' type=kotlin.collections.Map.Entry<kotlin.String, kotlin.Int> origin=null
+            BLOCK type=kotlin.Unit origin=null
+              VAR name:pattern type:kotlin.String [val]
+                STRING_CONCATENATION type=kotlin.String
+                  GET_VAR 'val name: kotlin.String declared in lib.box' type=kotlin.String origin=null
+                  CONST String type=kotlin.String value="("
+              VAR name:actual type:kotlin.Int [val]
+                CALL 'public final fun count <T> (predicate: kotlin.Function1<T of kotlin.collections.count, kotlin.Boolean>): kotlin.Int declared in kotlin.collections' type=kotlin.Int origin=null
+                  <T>: @[FlexibleNullability] kotlin.String?
+                  $receiver: TYPE_OP type=java.util.HashSet<@[FlexibleNullability] kotlin.String?> origin=IMPLICIT_NOTNULL typeOperand=java.util.HashSet<@[FlexibleNullability] kotlin.String?>
+                    GET_VAR 'val methods: @[FlexibleNullability] java.util.HashSet<@[FlexibleNullability] kotlin.String?>? declared in lib.box' type=@[FlexibleNullability] java.util.HashSet<@[FlexibleNullability] kotlin.String?>? origin=null
+                  predicate: FUN_EXPR type=kotlin.Function1<@[FlexibleNullability] kotlin.String?, kotlin.Boolean> origin=LAMBDA
+                    FUN LOCAL_FUNCTION_FOR_LAMBDA name:<anonymous> visibility:local modality:FINAL <> (it:@[FlexibleNullability] kotlin.String?) returnType:kotlin.Boolean
+                      VALUE_PARAMETER name:it index:0 type:@[FlexibleNullability] kotlin.String?
+                      BLOCK_BODY
+                        RETURN type=kotlin.Nothing from='local final fun <anonymous> (it: @[FlexibleNullability] kotlin.String?): kotlin.Boolean declared in lib.box'
+                          CALL 'public final fun startsWith (prefix: kotlin.String, ignoreCase: kotlin.Boolean): kotlin.Boolean declared in kotlin.text' type=kotlin.Boolean origin=null
+                            $receiver: TYPE_OP type=kotlin.String origin=IMPLICIT_NOTNULL typeOperand=kotlin.String
+                              GET_VAR 'it: @[FlexibleNullability] kotlin.String? declared in lib.box.<anonymous>' type=@[FlexibleNullability] kotlin.String? origin=null
+                            prefix: GET_VAR 'val pattern: kotlin.String declared in lib.box' type=kotlin.String origin=null
+              WHEN type=kotlin.Unit origin=IF
+                BRANCH
+                  if: CALL 'public final fun not (): kotlin.Boolean declared in kotlin.Boolean' type=kotlin.Boolean origin=EXCLEQ
+                    $this: CALL 'public final fun EQEQ (arg0: kotlin.Any?, arg1: kotlin.Any?): kotlin.Boolean declared in kotlin.internal.ir' type=kotlin.Boolean origin=EXCLEQ
+                      arg0: GET_VAR 'val actual: kotlin.Int declared in lib.box' type=kotlin.Int origin=null
+                      arg1: GET_VAR 'val expected: kotlin.Int declared in lib.box' type=kotlin.Int origin=null
+                  then: RETURN type=kotlin.Nothing from='public final fun box (): kotlin.String declared in lib'
+                    STRING_CONCATENATION type=kotlin.String
+                      CONST String type=kotlin.String value="Fail: overload "
+                      GET_VAR 'val name: kotlin.String declared in lib.box' type=kotlin.String origin=null
+                      CONST String type=kotlin.String value=" count does not match, expected "
+                      GET_VAR 'val expected: kotlin.Int declared in lib.box' type=kotlin.Int origin=null
+                      CONST String type=kotlin.String value=", actual "
+                      GET_VAR 'val actual: kotlin.Int declared in lib.box' type=kotlin.Int origin=null
       RETURN type=kotlin.Nothing from='public final fun box (): kotlin.String declared in lib'
-        TYPE_OP type=kotlin.String origin=IMPLICIT_NOTNULL typeOperand=kotlin.String
-          CALL 'public open fun boxTest (): @[FlexibleNullability] kotlin.String? declared in lib.JavaTest' type=@[FlexibleNullability] kotlin.String? origin=null
-            $this: CONSTRUCTOR_CALL 'public constructor <init> () declared in lib.JavaTest' type=lib.JavaTest origin=null
+        CONST String type=kotlin.String value="OK"
 Module: m2
 FILE fqName:m2 fileName:/m2.kt
   FUN name:test visibility:public modality:FINAL <> () returnType:kotlin.Unit

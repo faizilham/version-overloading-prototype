@@ -44,3 +44,7 @@ FILE: trail_m2.kt
         )
         Q|TrailingExample|.R|/TrailingExample.withDefLam|(Int(1), Int(1), Int(2), Int(3))
     }
+FILE: main.kt
+    public final fun box(): R|kotlin/String| {
+        ^box String(OK)
+    }

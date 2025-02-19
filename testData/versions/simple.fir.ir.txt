@@ -1,7 +1,8 @@
-FILE fqName:<root> fileName:/m1.kt
+Module: lib
+FILE fqName:lib fileName:/lib.kt
   CLASS OBJECT name:MyExample modality:FINAL visibility:public superTypes:[kotlin.Any]
-    $this: VALUE_PARAMETER INSTANCE_RECEIVER name:<this> type:<root>.MyExample
-    CONSTRUCTOR visibility:private <> () returnType:<root>.MyExample [primary]
+    $this: VALUE_PARAMETER INSTANCE_RECEIVER name:<this> type:lib.MyExample
+    CONSTRUCTOR visibility:private <> () returnType:lib.MyExample [primary]
       BLOCK_BODY
         DELEGATING_CONSTRUCTOR_CALL 'public constructor <init> () declared in kotlin.Any'
         INSTANCE_INITIALIZER_CALL classDescriptor='CLASS OBJECT name:MyExample modality:FINAL visibility:public superTypes:[kotlin.Any]'
@@ -18,41 +19,47 @@ FILE fqName:<root> fileName:/m1.kt
       overridden:
         public open fun toString (): kotlin.String declared in kotlin.Any
       $this: VALUE_PARAMETER name:<this> type:kotlin.Any
-    FUN VERSION_OVERLOAD_WRAPPER name:myAdd visibility:public modality:FINAL <> ($this:<root>.MyExample, x:kotlin.Int, y:kotlin.Int) returnType:kotlin.Int
+    FUN VERSION_OVERLOAD_WRAPPER name:myAdd visibility:public modality:FINAL <> ($this:lib.MyExample, x:kotlin.Int, y:kotlin.Int) returnType:kotlin.Int
       annotations:
         Deprecated(message = "Deprecated", replaceWith = <null>, level = GET_ENUM 'ENUM_ENTRY name:HIDDEN' type=kotlin.DeprecationLevel)
         JvmStatic
         VersionOverloads
-      $this: VALUE_PARAMETER name:<this> type:<root>.MyExample
+      $this: VALUE_PARAMETER name:<this> type:lib.MyExample
       VALUE_PARAMETER name:x index:0 type:kotlin.Int
       VALUE_PARAMETER name:y index:1 type:kotlin.Int
+        EXPRESSION_BODY
+          CONST Int type=kotlin.Int value=0
       EXPRESSION_BODY
-        CALL 'public final fun myAdd (x: kotlin.Int, y: kotlin.Int, z: kotlin.Int, a1: kotlin.Int, a2: kotlin.Int): kotlin.Int declared in <root>.MyExample' type=kotlin.Int origin=null
-          $this: GET_VAR '<this>: <root>.MyExample declared in <root>.MyExample.myAdd' type=<root>.MyExample origin=null
-          x: GET_VAR 'x: kotlin.Int declared in <root>.MyExample.myAdd' type=kotlin.Int origin=null
-          y: GET_VAR 'y: kotlin.Int declared in <root>.MyExample.myAdd' type=kotlin.Int origin=null
-    FUN VERSION_OVERLOAD_WRAPPER name:myAdd visibility:public modality:FINAL <> ($this:<root>.MyExample, x:kotlin.Int, y:kotlin.Int, z:kotlin.Int) returnType:kotlin.Int
+        CALL 'public final fun myAdd (x: kotlin.Int, y: kotlin.Int, z: kotlin.Int, a1: kotlin.Int, a2: kotlin.Int): kotlin.Int declared in lib.MyExample' type=kotlin.Int origin=null
+          $this: GET_VAR '<this>: lib.MyExample declared in lib.MyExample.myAdd' type=lib.MyExample origin=null
+          x: GET_VAR 'x: kotlin.Int declared in lib.MyExample.myAdd' type=kotlin.Int origin=null
+          y: GET_VAR 'y: kotlin.Int declared in lib.MyExample.myAdd' type=kotlin.Int origin=null
+    FUN VERSION_OVERLOAD_WRAPPER name:myAdd visibility:public modality:FINAL <> ($this:lib.MyExample, x:kotlin.Int, y:kotlin.Int, z:kotlin.Int) returnType:kotlin.Int
       annotations:
         Deprecated(message = "Deprecated", replaceWith = <null>, level = GET_ENUM 'ENUM_ENTRY name:HIDDEN' type=kotlin.DeprecationLevel)
         JvmStatic
         VersionOverloads
-      $this: VALUE_PARAMETER name:<this> type:<root>.MyExample
+      $this: VALUE_PARAMETER name:<this> type:lib.MyExample
       VALUE_PARAMETER name:x index:0 type:kotlin.Int
       VALUE_PARAMETER name:y index:1 type:kotlin.Int
+        EXPRESSION_BODY
+          CONST Int type=kotlin.Int value=0
       VALUE_PARAMETER name:z index:2 type:kotlin.Int
         annotations:
           Version(versionNumber = "1.2")
+        EXPRESSION_BODY
+          CONST Int type=kotlin.Int value=0
       EXPRESSION_BODY
-        CALL 'public final fun myAdd (x: kotlin.Int, y: kotlin.Int, z: kotlin.Int, a1: kotlin.Int, a2: kotlin.Int): kotlin.Int declared in <root>.MyExample' type=kotlin.Int origin=null
-          $this: GET_VAR '<this>: <root>.MyExample declared in <root>.MyExample.myAdd' type=<root>.MyExample origin=null
-          x: GET_VAR 'x: kotlin.Int declared in <root>.MyExample.myAdd' type=kotlin.Int origin=null
-          y: GET_VAR 'y: kotlin.Int declared in <root>.MyExample.myAdd' type=kotlin.Int origin=null
-          z: GET_VAR 'z: kotlin.Int declared in <root>.MyExample.myAdd' type=kotlin.Int origin=null
-    FUN name:myAdd visibility:public modality:FINAL <> ($this:<root>.MyExample, x:kotlin.Int, y:kotlin.Int, z:kotlin.Int, a1:kotlin.Int, a2:kotlin.Int) returnType:kotlin.Int
+        CALL 'public final fun myAdd (x: kotlin.Int, y: kotlin.Int, z: kotlin.Int, a1: kotlin.Int, a2: kotlin.Int): kotlin.Int declared in lib.MyExample' type=kotlin.Int origin=null
+          $this: GET_VAR '<this>: lib.MyExample declared in lib.MyExample.myAdd' type=lib.MyExample origin=null
+          x: GET_VAR 'x: kotlin.Int declared in lib.MyExample.myAdd' type=kotlin.Int origin=null
+          y: GET_VAR 'y: kotlin.Int declared in lib.MyExample.myAdd' type=kotlin.Int origin=null
+          z: GET_VAR 'z: kotlin.Int declared in lib.MyExample.myAdd' type=kotlin.Int origin=null
+    FUN name:myAdd visibility:public modality:FINAL <> ($this:lib.MyExample, x:kotlin.Int, y:kotlin.Int, z:kotlin.Int, a1:kotlin.Int, a2:kotlin.Int) returnType:kotlin.Int
       annotations:
         JvmStatic
         VersionOverloads
-      $this: VALUE_PARAMETER name:<this> type:<root>.MyExample
+      $this: VALUE_PARAMETER name:<this> type:lib.MyExample
       VALUE_PARAMETER name:x index:0 type:kotlin.Int
       VALUE_PARAMETER name:y index:1 type:kotlin.Int
         EXPRESSION_BODY
@@ -73,31 +80,39 @@ FILE fqName:<root> fileName:/m1.kt
         EXPRESSION_BODY
           CONST Int type=kotlin.Int value=0
       BLOCK_BODY
-        RETURN type=kotlin.Nothing from='public final fun myAdd (x: kotlin.Int, y: kotlin.Int, z: kotlin.Int, a1: kotlin.Int, a2: kotlin.Int): kotlin.Int declared in <root>.MyExample'
+        RETURN type=kotlin.Nothing from='public final fun myAdd (x: kotlin.Int, y: kotlin.Int, z: kotlin.Int, a1: kotlin.Int, a2: kotlin.Int): kotlin.Int declared in lib.MyExample'
           CONST Int type=kotlin.Int value=0
-FILE fqName:<root> fileName:/m2.kt
+FILE fqName:lib fileName:/main.kt
+  FUN name:box visibility:public modality:FINAL <> () returnType:kotlin.String
+    BLOCK_BODY
+      RETURN type=kotlin.Nothing from='public final fun box (): kotlin.String declared in lib'
+        TYPE_OP type=kotlin.String origin=IMPLICIT_NOTNULL typeOperand=kotlin.String
+          CALL 'public open fun boxTest (): @[FlexibleNullability] kotlin.String? declared in lib.JavaTest' type=@[FlexibleNullability] kotlin.String? origin=null
+            $this: CONSTRUCTOR_CALL 'public constructor <init> () declared in lib.JavaTest' type=lib.JavaTest origin=null
+Module: m2
+FILE fqName:m2 fileName:/m2.kt
   FUN name:test visibility:public modality:FINAL <> () returnType:kotlin.Unit
     BLOCK_BODY
       TYPE_OP type=kotlin.Unit origin=IMPLICIT_COERCION_TO_UNIT typeOperand=kotlin.Unit
-        CALL 'public final fun myAdd (x: kotlin.Int, y: kotlin.Int, z: kotlin.Int, a1: kotlin.Int, a2: kotlin.Int): kotlin.Int declared in <root>.MyExample' type=kotlin.Int origin=null
-          $this: GET_OBJECT 'CLASS OBJECT name:MyExample modality:FINAL visibility:public superTypes:[kotlin.Any]' type=<root>.MyExample
+        CALL 'public final fun myAdd (x: kotlin.Int, y: kotlin.Int, z: kotlin.Int, a1: kotlin.Int, a2: kotlin.Int): kotlin.Int declared in lib.MyExample' type=kotlin.Int origin=null
+          $this: GET_OBJECT 'CLASS OBJECT name:MyExample modality:FINAL visibility:public superTypes:[kotlin.Any]' type=lib.MyExample
           x: CONST Int type=kotlin.Int value=1
       TYPE_OP type=kotlin.Unit origin=IMPLICIT_COERCION_TO_UNIT typeOperand=kotlin.Unit
-        CALL 'public final fun myAdd (x: kotlin.Int, y: kotlin.Int, z: kotlin.Int, a1: kotlin.Int, a2: kotlin.Int): kotlin.Int declared in <root>.MyExample' type=kotlin.Int origin=null
-          $this: GET_OBJECT 'CLASS OBJECT name:MyExample modality:FINAL visibility:public superTypes:[kotlin.Any]' type=<root>.MyExample
+        CALL 'public final fun myAdd (x: kotlin.Int, y: kotlin.Int, z: kotlin.Int, a1: kotlin.Int, a2: kotlin.Int): kotlin.Int declared in lib.MyExample' type=kotlin.Int origin=null
+          $this: GET_OBJECT 'CLASS OBJECT name:MyExample modality:FINAL visibility:public superTypes:[kotlin.Any]' type=lib.MyExample
           x: CONST Int type=kotlin.Int value=1
           y: CONST Int type=kotlin.Int value=1
   FUN name:test2 visibility:public modality:FINAL <> () returnType:kotlin.Unit
     BLOCK_BODY
       TYPE_OP type=kotlin.Unit origin=IMPLICIT_COERCION_TO_UNIT typeOperand=kotlin.Unit
-        CALL 'public final fun myAdd (x: kotlin.Int, y: kotlin.Int, z: kotlin.Int, a1: kotlin.Int, a2: kotlin.Int): kotlin.Int declared in <root>.MyExample' type=kotlin.Int origin=null
-          $this: GET_OBJECT 'CLASS OBJECT name:MyExample modality:FINAL visibility:public superTypes:[kotlin.Any]' type=<root>.MyExample
+        CALL 'public final fun myAdd (x: kotlin.Int, y: kotlin.Int, z: kotlin.Int, a1: kotlin.Int, a2: kotlin.Int): kotlin.Int declared in lib.MyExample' type=kotlin.Int origin=null
+          $this: GET_OBJECT 'CLASS OBJECT name:MyExample modality:FINAL visibility:public superTypes:[kotlin.Any]' type=lib.MyExample
           x: CONST Int type=kotlin.Int value=1
           y: CONST Int type=kotlin.Int value=1
           z: CONST Int type=kotlin.Int value=1
       TYPE_OP type=kotlin.Unit origin=IMPLICIT_COERCION_TO_UNIT typeOperand=kotlin.Unit
-        CALL 'public final fun myAdd (x: kotlin.Int, y: kotlin.Int, z: kotlin.Int, a1: kotlin.Int, a2: kotlin.Int): kotlin.Int declared in <root>.MyExample' type=kotlin.Int origin=null
-          $this: GET_OBJECT 'CLASS OBJECT name:MyExample modality:FINAL visibility:public superTypes:[kotlin.Any]' type=<root>.MyExample
+        CALL 'public final fun myAdd (x: kotlin.Int, y: kotlin.Int, z: kotlin.Int, a1: kotlin.Int, a2: kotlin.Int): kotlin.Int declared in lib.MyExample' type=kotlin.Int origin=null
+          $this: GET_OBJECT 'CLASS OBJECT name:MyExample modality:FINAL visibility:public superTypes:[kotlin.Any]' type=lib.MyExample
           x: CONST Int type=kotlin.Int value=1
           y: CONST Int type=kotlin.Int value=1
           z: CONST Int type=kotlin.Int value=1

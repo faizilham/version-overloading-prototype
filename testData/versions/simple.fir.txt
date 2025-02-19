@@ -1,6 +1,9 @@
-FILE: m1.kt
+Module: lib
+FILE: lib.kt
+    package lib
+
     public final object MyExample : R|kotlin/Any| {
-        private constructor(): R|MyExample| {
+        private constructor(): R|lib/MyExample| {
             super<R|kotlin/Any|>()
         }
 
@@ -9,12 +12,21 @@ FILE: m1.kt
         }
 
     }
+FILE: main.kt
+    package lib
+
+    public final fun box(): R|kotlin/String| {
+        ^box R|lib/JavaTest.JavaTest|().R|lib/JavaTest.boxTest|()
+    }
+Module: m2
 FILE: m2.kt
+    package m2
+
     public final fun test(): R|kotlin/Unit| {
-        Q|MyExample|.R|/MyExample.myAdd|(Int(1))
-        Q|MyExample|.R|/MyExample.myAdd|(Int(1), Int(1))
+        Q|lib/MyExample|.R|lib/MyExample.myAdd|(Int(1))
+        Q|lib/MyExample|.R|lib/MyExample.myAdd|(Int(1), Int(1))
     }
     public final fun test2(): R|kotlin/Unit| {
-        Q|MyExample|.R|/MyExample.myAdd|(Int(1), Int(1), Int(1))
-        Q|MyExample|.R|/MyExample.myAdd|(Int(1), Int(1), Int(1), Int(1))
+        Q|lib/MyExample|.R|lib/MyExample.myAdd|(Int(1), Int(1), Int(1))
+        Q|lib/MyExample|.R|lib/MyExample.myAdd|(Int(1), Int(1), Int(1), Int(1))
     }

@@ -44,3 +44,9 @@ fun test2() {
     withDefLam(1, 1, 2) { 0 }
     withDefLam(1, 1, 2, 3)
 }
+
+// FILE: main.kt
+
+fun box() : String {
+    return "OK"
+}

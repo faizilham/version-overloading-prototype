@@ -8,10 +8,12 @@ import org.jetbrains.kotlin.test.TargetBackend
 import org.jetbrains.kotlin.test.backend.BlackBoxCodegenSuppressor
 import org.jetbrains.kotlin.test.backend.handlers.IrTextDumpHandler
 import org.jetbrains.kotlin.test.backend.handlers.IrTreeVerifierHandler
+import org.jetbrains.kotlin.test.backend.handlers.JvmBoxRunner
 import org.jetbrains.kotlin.test.backend.ir.JvmIrBackendFacade
 import org.jetbrains.kotlin.test.builders.TestConfigurationBuilder
 import org.jetbrains.kotlin.test.builders.fir2IrStep
 import org.jetbrains.kotlin.test.builders.irHandlersStep
+import org.jetbrains.kotlin.test.builders.jvmArtifactsHandlersStep
 import org.jetbrains.kotlin.test.directives.CodegenTestDirectives.DUMP_IR
 import org.jetbrains.kotlin.test.directives.FirDiagnosticsDirectives
 import org.jetbrains.kotlin.test.directives.JvmEnvironmentConfigurationDirectives
@@ -46,9 +48,9 @@ open class AbstractVersionOverloadTest : BaseTestRunner(), RunnerWithTargetBacke
             )
         }
         facadeStep(::JvmIrBackendFacade)
-        // jvmArtifactsHandlersStep {
-        //     useHandlers(::JvmBoxRunner)
-        // }
+         jvmArtifactsHandlersStep {
+             useHandlers(::JvmBoxRunner)
+         }
 
          useAfterAnalysisCheckers(::BlackBoxCodegenSuppressor)
     }
@@ -59,8 +61,7 @@ open class AbstractVersionOverloadTest : BaseTestRunner(), RunnerWithTargetBacke
         defaultDirectives {
             +FirDiagnosticsDirectives.ENABLE_PLUGIN_PHASES
             +FirDiagnosticsDirectives.FIR_DUMP
-            +JvmEnvironmentConfigurationDirectives.STDLIB_JDK8
-            -JvmEnvironmentConfigurationDirectives.WITH_REFLECT
+            +JvmEnvironmentConfigurationDirectives.FULL_JDK
         }
 
         useConfigurators(

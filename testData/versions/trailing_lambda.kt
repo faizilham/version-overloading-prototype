@@ -11,7 +11,7 @@ object TrailingExample {
         @Version("1.3") a1: Int = 0,
         @Version("1.4") a2: Int = 0,
         f: (Int) -> Int
-    ): Int = f(x)
+    ): Int = f(x + y + z + a1 + a2)
 
     @JvmStatic
     @VersionOverloads
@@ -21,7 +21,7 @@ object TrailingExample {
         @Version("1.2") z: Int = 0,
         @Version("1.3") a: Int = 0,
         f: (Int) -> Int = { it }
-    ): Int = f(x)
+    ): Int = f(x + y + z + a)
 }
 
 // FILE: trail_m2.kt
@@ -62,8 +62,8 @@ public class JavaTest {
         for (Method method : methods) {
             String signature =
                 method.getName() + "(" +
-                Arrays.stream(method.getParameters())
-                    .map(p -> p.getType().getSimpleName())
+                Arrays.stream(method.getParameterTypes())
+                    .map(p -> p.getSimpleName())
                     .collect(Collectors.joining(",")) +
                 "):" + method.getReturnType().getName() +
                 " syn:" + method.isSynthetic();

@@ -5,14 +5,14 @@ FILE: trail_m1.kt
         }
 
         @R|kotlin/jvm/JvmStatic|() @R|com/faizilham/prototype/versioning/VersionOverloads|() public final fun withlam(x: R|kotlin/Int|, y: R|kotlin/Int| = Int(0), @R|com/faizilham/prototype/versioning/Version|(versionNumber = String(1.2)) z: R|kotlin/Int| = Int(0), @R|com/faizilham/prototype/versioning/Version|(versionNumber = String(1.3)) a1: R|kotlin/Int| = Int(0), @R|com/faizilham/prototype/versioning/Version|(versionNumber = String(1.4)) a2: R|kotlin/Int| = Int(0), f: R|(kotlin/Int) -> kotlin/Int|): R|kotlin/Int| {
-            ^withlam R|<local>/f|.R|SubstitutionOverride<kotlin/Function1.invoke: R|kotlin/Int|>|(R|<local>/x|)
+            ^withlam R|<local>/f|.R|SubstitutionOverride<kotlin/Function1.invoke: R|kotlin/Int|>|(R|<local>/x|.R|kotlin/Int.plus|(R|<local>/y|).R|kotlin/Int.plus|(R|<local>/z|).R|kotlin/Int.plus|(R|<local>/a1|).R|kotlin/Int.plus|(R|<local>/a2|))
         }
 
         @R|kotlin/jvm/JvmStatic|() @R|com/faizilham/prototype/versioning/VersionOverloads|() public final fun withDefLam(x: R|kotlin/Int|, y: R|kotlin/Int| = Int(0), @R|com/faizilham/prototype/versioning/Version|(versionNumber = String(1.2)) z: R|kotlin/Int| = Int(0), @R|com/faizilham/prototype/versioning/Version|(versionNumber = String(1.3)) a: R|kotlin/Int| = Int(0), f: R|(kotlin/Int) -> kotlin/Int| = fun <anonymous>(it: R|kotlin/Int|): R|kotlin/Int| <inline=Unknown>  {
             ^ R|<local>/it|
         }
         ): R|kotlin/Int| {
-            ^withDefLam R|<local>/f|.R|SubstitutionOverride<kotlin/Function1.invoke: R|kotlin/Int|>|(R|<local>/x|)
+            ^withDefLam R|<local>/f|.R|SubstitutionOverride<kotlin/Function1.invoke: R|kotlin/Int|>|(R|<local>/x|.R|kotlin/Int.plus|(R|<local>/y|).R|kotlin/Int.plus|(R|<local>/z|).R|kotlin/Int.plus|(R|<local>/a|))
         }
 
     }

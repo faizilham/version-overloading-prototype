@@ -16,12 +16,9 @@ object MyExample {
         @Version("1.2") z: Int = 0,
         @Version("1.3") a1: Int = 0,
         @Version("1.3") a2: Int = 0,
-    ): Int = 0
+    ): Int = x + y + z + a1 + a2
 }
 
-//class Simple @VersionOverloads constructor(val x: Int, val y: Int = 0, @Version("1.2") val z : Int = 0) {
-//
-//}
 
 //data class DataCls(val x: Int, val y: Int = 0, val z: Int = 0)
 
@@ -31,10 +28,28 @@ package lib;
 import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.ArrayList;
 import java.util.stream.Collectors;
 
 public class JavaTest {
     Class<?> clazz = MyExample.class;
+
+    public ArrayList<Integer> invokeMethods() throws Exception {
+        Method method = null;
+
+        ArrayList<Integer> results = new ArrayList<Integer>();
+
+        method = clazz.getDeclaredMethod("myAdd", int.class, int.class);
+        results.add((int) method.invoke(null, 1, 1));
+
+        method = clazz.getDeclaredMethod("myAdd", int.class, int.class, int.class);
+        results.add((int) method.invoke(null, 1, 1, 1));
+
+        method = clazz.getDeclaredMethod("myAdd", int.class, int.class, int.class, int.class, int.class);
+        results.add((int) method.invoke(null, 1, 1, 1, 1, 1));
+
+        return results;
+    }
 
     public HashSet<String> reflectMethods() {;
         Method[] methods = clazz.getDeclaredMethods();
@@ -44,8 +59,8 @@ public class JavaTest {
         for (Method method : methods) {
             String signature =
                 method.getName() + "(" +
-                Arrays.stream(method.getParameters())
-                    .map(p -> p.getType().getSimpleName())
+                Arrays.stream(method.getParameterTypes())
+                    .map(p -> p.getSimpleName())
                     .collect(Collectors.joining(",")) +
                 "):" + method.getReturnType().getName() +
                 " syn:" + method.isSynthetic();
@@ -60,8 +75,11 @@ public class JavaTest {
 // FILE: lib/main.kt
 package lib
 
+import kotlin.test.*
+
 fun box() : String {
-    val methods = JavaTest().reflectMethods()
+    val javaTest = JavaTest()
+    val methods = javaTest.reflectMethods()
 
     val overloads = listOf(
         "myAdd(int,int):int syn:true",
@@ -81,6 +99,8 @@ fun box() : String {
         if (actual != expected) return "Fail: overload $name count does not match, expected $expected, actual $actual"
     }
 
+    assertContentEquals(listOf(2, 3, 5), javaTest.invokeMethods())
+
     return "OK"
 }
 
@@ -99,10 +119,3 @@ fun test2() {
     myAdd(1, 1, 1)
     myAdd(1, 1, 1, 1)
 }
-
-
-//@JvmOverloads
-//fun overloadExample(a: Int, b: Int = 0) = a + b
-//
-//fun manualOverload(a: Int, b: Int) = a + b
-//fun manualOverload(a: Int) = manualOverload(a, 0)

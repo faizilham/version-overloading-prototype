@@ -8,7 +8,7 @@ FILE: lib.kt
         }
 
         @R|kotlin/jvm/JvmStatic|() @R|com/faizilham/prototype/versioning/VersionOverloads|() public final fun myAdd(x: R|kotlin/Int|, y: R|kotlin/Int| = Int(0), @R|com/faizilham/prototype/versioning/Version|(versionNumber = String(1.2)) z: R|kotlin/Int| = Int(0), @R|com/faizilham/prototype/versioning/Version|(versionNumber = String(1.3)) a1: R|kotlin/Int| = Int(0), @R|com/faizilham/prototype/versioning/Version|(versionNumber = String(1.3)) a2: R|kotlin/Int| = Int(0)): R|kotlin/Int| {
-            ^myAdd Int(0)
+            ^myAdd R|<local>/x|.R|kotlin/Int.plus|(R|<local>/y|).R|kotlin/Int.plus|(R|<local>/z|).R|kotlin/Int.plus|(R|<local>/a1|).R|kotlin/Int.plus|(R|<local>/a2|)
         }
 
     }
@@ -16,7 +16,8 @@ FILE: main.kt
     package lib
 
     public final fun box(): R|kotlin/String| {
-        lval methods: R|ft<java/util/HashSet<kotlin/String!>, java/util/HashSet<kotlin/String!>?>| = R|lib/JavaTest.JavaTest|().R|lib/JavaTest.reflectMethods|()
+        lval javaTest: R|lib/JavaTest| = R|lib/JavaTest.JavaTest|()
+        lval methods: R|ft<java/util/HashSet<kotlin/String!>, java/util/HashSet<kotlin/String!>?>| = R|<local>/javaTest|.R|lib/JavaTest.reflectMethods|()
         lval overloads: R|kotlin/collections/List<kotlin/String>| = R|kotlin/collections/listOf|<R|kotlin/String|>(vararg(String(myAdd(int,int):int syn:true), String(myAdd(int,int,int):int syn:true), String(myAdd(int,int,int,int,int):int syn:false)))
         lval overloadCounts: R|kotlin/collections/Map<kotlin/String, kotlin/Int>| = R|kotlin/collections/mapOf|<R|kotlin/String|, R|kotlin/Int|>(String(myAdd).R|kotlin/to|<R|kotlin/String|, R|kotlin/Int|>(Int(3)))
          {
@@ -60,6 +61,7 @@ FILE: main.kt
 
         }
 
+        R|kotlin/test/assertContentEquals|<R|kotlin/Int!|>(R|kotlin/collections/listOf|<R|kotlin/Int|>(vararg(Int(2), Int(3), Int(5))), R|<local>/javaTest|.R|lib/JavaTest.invokeMethods|())
         ^box String(OK)
     }
 Module: m2

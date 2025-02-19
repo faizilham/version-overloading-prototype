@@ -81,13 +81,23 @@ FILE fqName:lib fileName:/lib.kt
           CONST Int type=kotlin.Int value=0
       BLOCK_BODY
         RETURN type=kotlin.Nothing from='public final fun myAdd (x: kotlin.Int, y: kotlin.Int, z: kotlin.Int, a1: kotlin.Int, a2: kotlin.Int): kotlin.Int declared in lib.MyExample'
-          CONST Int type=kotlin.Int value=0
+          CALL 'public final fun plus (other: kotlin.Int): kotlin.Int declared in kotlin.Int' type=kotlin.Int origin=PLUS
+            $this: CALL 'public final fun plus (other: kotlin.Int): kotlin.Int declared in kotlin.Int' type=kotlin.Int origin=PLUS
+              $this: CALL 'public final fun plus (other: kotlin.Int): kotlin.Int declared in kotlin.Int' type=kotlin.Int origin=PLUS
+                $this: CALL 'public final fun plus (other: kotlin.Int): kotlin.Int declared in kotlin.Int' type=kotlin.Int origin=PLUS
+                  $this: GET_VAR 'x: kotlin.Int declared in lib.MyExample.myAdd' type=kotlin.Int origin=null
+                  other: GET_VAR 'y: kotlin.Int declared in lib.MyExample.myAdd' type=kotlin.Int origin=null
+                other: GET_VAR 'z: kotlin.Int declared in lib.MyExample.myAdd' type=kotlin.Int origin=null
+              other: GET_VAR 'a1: kotlin.Int declared in lib.MyExample.myAdd' type=kotlin.Int origin=null
+            other: GET_VAR 'a2: kotlin.Int declared in lib.MyExample.myAdd' type=kotlin.Int origin=null
 FILE fqName:lib fileName:/main.kt
   FUN name:box visibility:public modality:FINAL <> () returnType:kotlin.String
     BLOCK_BODY
+      VAR name:javaTest type:lib.JavaTest [val]
+        CONSTRUCTOR_CALL 'public constructor <init> () declared in lib.JavaTest' type=lib.JavaTest origin=null
       VAR name:methods type:@[FlexibleNullability] java.util.HashSet<@[FlexibleNullability] kotlin.String?>? [val]
         CALL 'public open fun reflectMethods (): @[FlexibleNullability] java.util.HashSet<@[FlexibleNullability] kotlin.String?>? declared in lib.JavaTest' type=@[FlexibleNullability] java.util.HashSet<@[FlexibleNullability] kotlin.String?>? origin=null
-          $this: CONSTRUCTOR_CALL 'public constructor <init> () declared in lib.JavaTest' type=lib.JavaTest origin=null
+          $this: GET_VAR 'val javaTest: lib.JavaTest declared in lib.box' type=lib.JavaTest origin=null
       VAR name:overloads type:kotlin.collections.List<kotlin.String> [val]
         CALL 'public final fun listOf <T> (vararg elements: T of kotlin.collections.listOf): kotlin.collections.List<T of kotlin.collections.listOf> declared in kotlin.collections' type=kotlin.collections.List<kotlin.String> origin=null
           <T>: kotlin.String
@@ -182,6 +192,16 @@ FILE fqName:lib fileName:/main.kt
                       GET_VAR 'val expected: kotlin.Int declared in lib.box' type=kotlin.Int origin=null
                       CONST String type=kotlin.String value=", actual "
                       GET_VAR 'val actual: kotlin.Int declared in lib.box' type=kotlin.Int origin=null
+      CALL 'public final fun assertContentEquals <T> (expected: kotlin.collections.Iterable<T of kotlin.test.assertContentEquals>?, actual: kotlin.collections.Iterable<T of kotlin.test.assertContentEquals>?, message: kotlin.String?): kotlin.Unit declared in kotlin.test' type=kotlin.Unit origin=null
+        <T>: @[FlexibleNullability] kotlin.Int?
+        expected: CALL 'public final fun listOf <T> (vararg elements: T of kotlin.collections.listOf): kotlin.collections.List<T of kotlin.collections.listOf> declared in kotlin.collections' type=kotlin.collections.List<kotlin.Int> origin=null
+          <T>: kotlin.Int
+          elements: VARARG type=kotlin.Array<out kotlin.Int> varargElementType=kotlin.Int
+            CONST Int type=kotlin.Int value=2
+            CONST Int type=kotlin.Int value=3
+            CONST Int type=kotlin.Int value=5
+        actual: CALL 'public open fun invokeMethods (): @[FlexibleNullability] java.util.ArrayList<@[FlexibleNullability] kotlin.Int?>? declared in lib.JavaTest' type=@[FlexibleNullability] java.util.ArrayList<@[FlexibleNullability] kotlin.Int?>? origin=null
+          $this: GET_VAR 'val javaTest: lib.JavaTest declared in lib.box' type=lib.JavaTest origin=null
       RETURN type=kotlin.Nothing from='public final fun box (): kotlin.String declared in lib'
         CONST String type=kotlin.String value="OK"
 Module: m2

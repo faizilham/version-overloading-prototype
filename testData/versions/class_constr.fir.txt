@@ -1,0 +1,71 @@
+FILE: m1.kt
+    public final class Simple : R|kotlin/Any| {
+        @R|com/faizilham/prototype/versioning/VersionOverloads|() public constructor(x: R|kotlin/Int|, @R|com/faizilham/prototype/versioning/Version|(versionNumber = String(1.1)) y: R|kotlin/Int| = Int(0), @R|com/faizilham/prototype/versioning/Version|(versionNumber = String(1.2)) z1: R|kotlin/Long| = Long(0), @R|com/faizilham/prototype/versioning/Version|(versionNumber = String(1.2)) z2: R|kotlin/Int| = Int(0)): R|Simple| {
+            super<R|kotlin/Any|>()
+        }
+
+        public final val x: R|kotlin/Int| = R|<local>/x|
+            public get(): R|kotlin/Int|
+
+        public final val y: R|kotlin/Int| = R|<local>/y|
+            public get(): R|kotlin/Int|
+
+        public final val z1: R|kotlin/Long| = R|<local>/z1|
+            public get(): R|kotlin/Long|
+
+        public final val z2: R|kotlin/Int| = R|<local>/z2|
+            public get(): R|kotlin/Int|
+
+        public final fun sum(): R|kotlin/Long| {
+            ^sum this@R|/Simple|.R|/Simple.x|.R|kotlin/Int.plus|(this@R|/Simple|.R|/Simple.y|).R|kotlin/Int.plus|(this@R|/Simple|.R|/Simple.z1|).R|kotlin/Long.plus|(this@R|/Simple|.R|/Simple.z2|)
+        }
+
+    }
+FILE: main.kt
+    public final fun box(): R|kotlin/String| {
+        lval constrs: R|ft<java/util/HashSet<kotlin/String!>, java/util/HashSet<kotlin/String!>?>| = R|/JavaTest.JavaTest|().R|/JavaTest.reflectConstructors|()
+        lval overloads: R|kotlin/collections/List<kotlin/String>| = R|kotlin/collections/listOf|<R|kotlin/String|>(vararg(String(Simple(int) syn:true), String(Simple(int,int) syn:true), String(Simple(int,int,long,int) syn:false)))
+        lval overloadCounts: R|kotlin/collections/Map<kotlin/String, kotlin/Int>| = R|kotlin/collections/mapOf|<R|kotlin/String|, R|kotlin/Int|>(String(Simple).R|kotlin/to|<R|kotlin/String|, R|kotlin/Int|>(Int(3)))
+         {
+            lval <iterator>: R|kotlin/collections/Iterator<kotlin/String>| = R|<local>/overloads|.R|SubstitutionOverride<kotlin/collections/List.iterator: R|kotlin/collections/Iterator<kotlin/String>|>|()
+            while(R|<local>/<iterator>|.R|SubstitutionOverride<kotlin/collections/Iterator.hasNext: R|kotlin/Boolean|>|()) {
+                lval overload: R|kotlin/String| = R|<local>/<iterator>|.R|SubstitutionOverride<kotlin/collections/Iterator.next: R|kotlin/String|>|()
+                 {
+                    when () {
+                        R|<local>/constrs|.R|SubstitutionOverride<java/util/HashSet.contains: R|kotlin/Boolean|>|(R|<local>/overload|).R|kotlin/Boolean.not|() ->  {
+                            ^box <strcat>(String(Fail: overload not found ), R|<local>/overload|)
+                        }
+                    }
+
+                }
+
+            }
+
+        }
+
+         {
+            lval <iterator>: R|kotlin/collections/Iterator<kotlin/collections/Map.Entry<kotlin/String, kotlin/Int>>| = R|<local>/overloadCounts|.R|kotlin/collections/iterator|<R|kotlin/String|, R|kotlin/Int|>()
+            while(R|<local>/<iterator>|.R|SubstitutionOverride<kotlin/collections/Iterator.hasNext: R|kotlin/Boolean|>|()) {
+                lval <destruct>: R|kotlin/collections/Map.Entry<kotlin/String, kotlin/Int>| = R|<local>/<iterator>|.R|SubstitutionOverride<kotlin/collections/Iterator.next: R|kotlin/collections/Map.Entry<kotlin/String, kotlin/Int>|>|()
+                lval name: R|kotlin/String| = R|<local>/<destruct>|.R|kotlin/collections/component1|<R|kotlin/String|, R|kotlin/Int|>()
+                lval expected: R|kotlin/Int| = R|<local>/<destruct>|.R|kotlin/collections/component2|<R|kotlin/String|, R|kotlin/Int|>()
+                 {
+                    lval pattern: R|kotlin/String| = <strcat>(R|<local>/name|, String(())
+                    lval actual: R|kotlin/Int| = R|<local>/constrs|.R|kotlin/collections/count|<R|kotlin/String!|>(<L> = count@fun <anonymous>(it: R|kotlin/String!|): R|kotlin/Boolean| <inline=Inline, kind=UNKNOWN>  {
+                        ^ R|<local>/it|.R|kotlin/text/startsWith|(R|<local>/pattern|) && R|<local>/it|.R|kotlin/text/contains|(String(DefaultConstructorMarker)).R|kotlin/Boolean.not|()
+                    }
+                    )
+                    when () {
+                        !=(R|<local>/actual|, R|<local>/expected|) ->  {
+                            ^box <strcat>(String(Fail: overload ), R|<local>/name|, String( count does not match, expected ), R|<local>/expected|, String(, actual ), R|<local>/actual|)
+                        }
+                    }
+
+                }
+
+            }
+
+        }
+
+        ^box String(OK)
+    }

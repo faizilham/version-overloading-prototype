@@ -22,6 +22,12 @@ public class VersionOverloadTestGenerated extends AbstractVersionOverloadTest {
   }
 
   @Test
+  @TestMetadata("class_constr.kt")
+  public void testClass_constr() {
+    runTest("testData/versions/class_constr.kt");
+  }
+
+  @Test
   @TestMetadata("simple.kt")
   public void testSimple() {
     runTest("testData/versions/simple.kt");

@@ -6,6 +6,6 @@ pluginManagement {
     }
     
 }
-rootProject.name = "kotlin-compiler-course-examples"
+rootProject.name = "version-overloading-plugin"
 
 include("plugin-annotations")

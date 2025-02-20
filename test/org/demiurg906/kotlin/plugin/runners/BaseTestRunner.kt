@@ -1,6 +1,7 @@
 package org.demiurg906.kotlin.plugin.runners
 
 import org.demiurg906.kotlin.plugin.services.PluginAnnotationsProvider
+import org.demiurg906.kotlin.plugin.services.PluginRegistrarConfigurator
 import org.jetbrains.kotlin.test.builders.TestConfigurationBuilder
 import org.jetbrains.kotlin.test.directives.FirDiagnosticsDirectives
 import org.jetbrains.kotlin.test.directives.JvmEnvironmentConfigurationDirectives
@@ -34,7 +35,10 @@ fun TestConfigurationBuilder.commonFirWithPluginFrontendConfiguration() {
         +JvmEnvironmentConfigurationDirectives.FULL_JDK
     }
 
+
+
     useConfigurators(
-        ::PluginAnnotationsProvider
+        ::PluginAnnotationsProvider,
+        ::PluginRegistrarConfigurator
     )
 }

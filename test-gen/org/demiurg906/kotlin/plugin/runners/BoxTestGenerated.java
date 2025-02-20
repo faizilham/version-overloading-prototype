@@ -15,7 +15,7 @@ import java.util.regex.Pattern;
 @SuppressWarnings("all")
 @TestMetadata("testData/versions")
 @TestDataPath("$PROJECT_ROOT")
-public class VersionOverloadTestGenerated extends AbstractVersionOverloadTest {
+public class BoxTestGenerated extends AbstractBoxTest {
   @Test
   public void testAllFilesPresentInVersions() {
     KtTestUtil.assertAllTestsPresentByMetadataWithExcluded(this.getClass(), new File("testData/versions"), Pattern.compile("^(.+)\\.kt$"), null, TargetBackend.JVM_IR, true);

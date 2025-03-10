@@ -60,7 +60,7 @@ FILE fqName:<root> fileName:/m1.kt
       VALUE_PARAMETER name:x index:0 type:kotlin.Int
       VALUE_PARAMETER name:y index:1 type:kotlin.Int
         annotations:
-          Version(versionNumber = "1.1")
+          IntroducedAt(versionNumber = "1.1")
         EXPRESSION_BODY
           CONST Int type=kotlin.Int value=0
       BLOCK_BODY
@@ -73,17 +73,17 @@ FILE fqName:<root> fileName:/m1.kt
       VALUE_PARAMETER name:x index:0 type:kotlin.Int
       VALUE_PARAMETER name:y index:1 type:kotlin.Int
         annotations:
-          Version(versionNumber = "1.1")
+          IntroducedAt(versionNumber = "1.1")
         EXPRESSION_BODY
           CONST Int type=kotlin.Int value=0
       VALUE_PARAMETER name:z1 index:2 type:kotlin.Long
         annotations:
-          Version(versionNumber = "1.2")
+          IntroducedAt(versionNumber = "1.2")
         EXPRESSION_BODY
           CONST Long type=kotlin.Long value=0
       VALUE_PARAMETER name:z2 index:3 type:kotlin.Int
         annotations:
-          Version(versionNumber = "1.2")
+          IntroducedAt(versionNumber = "1.2")
         EXPRESSION_BODY
           CONST Int type=kotlin.Int value=0
       BLOCK_BODY

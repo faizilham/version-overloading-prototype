@@ -13,9 +13,9 @@ object MyExample {
     fun myAdd(
         x: Int,
         y: Int = 0,
-        @Version("1.2") z: Int = 0,
-        @Version("1.3") a1: Int = 0,
-        @Version("1.3") a2: Int = 0,
+        @IntroducedAt("1.2") z: Int = 0,
+        @IntroducedAt("1.3") a1: Int = 0,
+        @IntroducedAt("1.3") a2: Int = 0,
     ): Int = x + y + z + a1 + a2
 }
 

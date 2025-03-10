@@ -27,7 +27,7 @@ class VersionOverloadingGenerator(context: IrPluginContext) : IrElementVisitor<U
     private val deprecationBuilder = DeprecationBuilder(context)
 
     companion object {
-        val VersionAnnotation = FqName("com.faizilham.prototype.versioning.Version")
+        val IntroducedAtAnnotation = FqName("com.faizilham.prototype.versioning.IntroducedAt")
         val VersionOverloadsAnnotation = FqName("com.faizilham.prototype.versioning.VersionOverloads")
         val VERSION_OVERLOAD_WRAPPER by IrDeclarationOriginImpl
     }
@@ -99,7 +99,7 @@ class VersionOverloadingGenerator(context: IrPluginContext) : IrElementVisitor<U
     private data class VersionInfo(val previousParamCounts: List<Int>, val hasTrailingLambda: Boolean)
 
     private fun IrValueParameter.getVersionNumber() : VersionNumber {
-        val annotation = getAnnotation(VersionAnnotation) ?: return ""
+        val annotation = getAnnotation(IntroducedAtAnnotation) ?: return ""
         val versionNumber = (annotation.valueArguments[0] as? IrConst)?.value as? VersionNumber ?: ""
         return versionNumber
     }

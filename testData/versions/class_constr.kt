@@ -6,9 +6,9 @@ import com.faizilham.prototype.versioning.*
 
 class Simple @VersionOverloads constructor(
     val x: Int,
-    @Version("1.1") val y: Int = 0,
-    @Version("1.2") val z1 : Long = 0,
-    @Version("1.2") val z2 : Int = 0
+    @IntroducedAt("1.1") val y: Int = 0,
+    @IntroducedAt("1.2") val z1 : Long = 0,
+    @IntroducedAt("1.2") val z2 : Int = 0
     ) {
 
     fun sum() = x + y + z1 + z2

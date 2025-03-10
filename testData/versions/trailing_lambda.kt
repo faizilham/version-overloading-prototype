@@ -7,9 +7,9 @@ object TrailingExample {
     fun withlam(
         x: Int,
         y: Int = 0,
-        @Version("1.2") z: Int = 0,
-        @Version("1.3") a1: Int = 0,
-        @Version("1.4") a2: Int = 0,
+        @IntroducedAt("1.2") z: Int = 0,
+        @IntroducedAt("1.3") a1: Int = 0,
+        @IntroducedAt("1.4") a2: Int = 0,
         f: (Int) -> Int
     ): Int = f(x + y + z + a1 + a2)
 
@@ -18,8 +18,8 @@ object TrailingExample {
     fun withDefLam(
         x: Int,
         y: Int = 0,
-        @Version("1.2") z: Int = 0,
-        @Version("1.3") a: Int = 0,
+        @IntroducedAt("1.2") z: Int = 0,
+        @IntroducedAt("1.3") a: Int = 0,
         f: (Int) -> Int = { it }
     ): Int = f(x + y + z + a)
 }

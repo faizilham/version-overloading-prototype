@@ -17,6 +17,17 @@ object MyExample {
         @IntroducedAt("1.3") a1: Int = 0,
         @IntroducedAt("1.3") a2: Int = 0,
     ): Int = x + y + z + a1 + a2
+
+
+    @JvmStatic
+    @VersionOverloads
+    fun middle(
+        x: Float,
+        @IntroducedAt("1.2") x1: Float = 0.0f,
+        y: Int = 0,
+        @IntroducedAt("1.3") y1: Int = 0,
+        @IntroducedAt("1.2") z: Float = 0.0f,
+    ): Float = x + x1 + y + y1 + z
 }
 
 
@@ -77,13 +88,26 @@ fun box() : String {
     val overloads = listOf(
         Pair("public static final int lib.MyExample.myAdd(int,int)", true),
         Pair("public static final int lib.MyExample.myAdd(int,int,int)", true),
-        Pair("public static final int lib.MyExample.myAdd(int,int,int,int,int)", false)
+        Pair("public static final int lib.MyExample.myAdd(int,int,int,int,int)", false),
+
+        Pair("public static final float lib.MyExample.middle(float,int)", true),
+        Pair("public static final float lib.MyExample.middle(float,float,int,float)", true),
+        Pair("public static final float lib.MyExample.middle(float,float,int,int,float)", false)
     )
 
-    val overloadCounts = mapOf("myAdd" to 3)
+    val overloadCounts = mapOf(
+        "myAdd" to 3,
+        "middle" to 3
+    )
 
     for (overload in overloads) {
-        if (!methods.contains(overload)) return "Fail: overload not found $overload"
+        if (!methods.contains(overload)) {
+            println("Overload check fail")
+            for ((methodName, syn) in methods) {
+                println("$methodName, syn: $syn")
+            }
+            return "Fail: overload not found $overload"
+        }
     }
 
     for ((name, expected) in overloadCounts) {

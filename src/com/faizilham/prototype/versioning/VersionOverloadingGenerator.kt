@@ -183,7 +183,7 @@ class VersionOverloadingGenerator(context: IrPluginContext) : IrElementVisitor<U
         res.copyTypeParametersFrom(oldFunction)
         res.dispatchReceiverParameter = oldFunction.dispatchReceiverParameter?.copyTo(res)
         res.extensionReceiverParameter = oldFunction.extensionReceiverParameter?.copyTo(res)
-        res.valueParameters += res.generateNewValueParameters(oldFunction, includedParams)
+        res.valueParameters = res.generateNewValueParameters(oldFunction, includedParams)
 
         return res
     }

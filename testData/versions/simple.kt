@@ -7,6 +7,9 @@ package lib
 
 import com.faizilham.prototype.versioning.*
 
+const val VERSION_1_2 = "1.2"
+const val VERSION_1_3 = "1.3"
+
 object MyExample {
     @JvmStatic
     fun myAdd(
@@ -17,14 +20,13 @@ object MyExample {
         @IntroducedAt("1.3") a2: Int = 0,
     ): Int = x + y + z + a1 + a2
 
-
     @JvmStatic
     fun middle(
         x: Float,
-        @IntroducedAt("1.2") x1: Float = 0.0f,
+        @IntroducedAt(VERSION_1_2) x1: Float = 0.0f,
         y: Int = 0,
-        @IntroducedAt("1.3") y1: Int = 0,
-        @IntroducedAt("1.2") z: Float = 0.0f,
+        @IntroducedAt(VERSION_1_3) y1: Int = 0,
+        @IntroducedAt(VERSION_1_2) z: Float = 0.0f,
     ): Float = x + x1 + y + y1 + z
 }
 

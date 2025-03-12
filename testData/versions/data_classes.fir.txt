@@ -1,0 +1,104 @@
+FILE: m1.kt
+    public final data class Data : R|kotlin/Any| {
+        public constructor(x: R|kotlin/Int|, @R|com/faizilham/prototype/versioning/IntroducedAt|(version = String(1.2)) x1: R|kotlin/Long| = Long(0), @R|com/faizilham/prototype/versioning/IntroducedAt|(version = String(1.1)) y: R|kotlin/Int| = Int(0), @R|com/faizilham/prototype/versioning/IntroducedAt|(version = String(1.2)) y2: R|kotlin/Int| = Int(0), @R|com/faizilham/prototype/versioning/IntroducedAt|(version = String(1.3)) z: R|kotlin/Int| = Int(0)): R|Data| {
+            super<R|kotlin/Any|>()
+        }
+
+        public final val x: R|kotlin/Int| = R|<local>/x|
+            public get(): R|kotlin/Int|
+
+        public final val x1: R|kotlin/Long| = R|<local>/x1|
+            public get(): R|kotlin/Long|
+
+        public final val y: R|kotlin/Int| = R|<local>/y|
+            public get(): R|kotlin/Int|
+
+        public final val y2: R|kotlin/Int| = R|<local>/y2|
+            public get(): R|kotlin/Int|
+
+        public final val z: R|kotlin/Int| = R|<local>/z|
+            public get(): R|kotlin/Int|
+
+        public final operator fun component1(): R|kotlin/Int|
+
+        public final operator fun component2(): R|kotlin/Long|
+
+        public final operator fun component3(): R|kotlin/Int|
+
+        public final operator fun component4(): R|kotlin/Int|
+
+        public final operator fun component5(): R|kotlin/Int|
+
+        public final fun copy(x: R|kotlin/Int| = this@R|/Data|.R|/Data.x|, @R|com/faizilham/prototype/versioning/IntroducedAt|(version = String(1.2)) x1: R|kotlin/Long| = this@R|/Data|.R|/Data.x1|, @R|com/faizilham/prototype/versioning/IntroducedAt|(version = String(1.1)) y: R|kotlin/Int| = this@R|/Data|.R|/Data.y|, @R|com/faizilham/prototype/versioning/IntroducedAt|(version = String(1.2)) y2: R|kotlin/Int| = this@R|/Data|.R|/Data.y2|, @R|com/faizilham/prototype/versioning/IntroducedAt|(version = String(1.3)) z: R|kotlin/Int| = this@R|/Data|.R|/Data.z|): R|Data|
+
+    }
+FILE: main.kt
+    public final fun box(): R|kotlin/String| {
+        lval test: R|JavaTest| = R|/JavaTest.JavaTest|()
+        lval methods: R|ft<java/util/HashSet<ft<kotlin/Pair<kotlin/String!, kotlin/Boolean!>, kotlin/Pair<kotlin/String!, kotlin/Boolean!>?>>, java/util/HashSet<ft<kotlin/Pair<kotlin/String!, kotlin/Boolean!>, kotlin/Pair<kotlin/String!, kotlin/Boolean!>?>>?>| = R|<local>/test|.R|/JavaTest.reflectConstructors|()
+        R|<local>/methods|.R|SubstitutionOverride<java/util/HashSet.addAll: R|kotlin/Boolean|>|(R|<local>/test|.R|/JavaTest.reflectCopies|())
+        lval overloads: R|kotlin/collections/List<kotlin/Pair<kotlin/String, kotlin/Boolean>>| = R|kotlin/collections/listOf|<R|kotlin/Pair<kotlin/String, kotlin/Boolean>|>(vararg(R|kotlin/Pair.Pair|<R|kotlin/String|, R|kotlin/Boolean|>(String(public Data(int)), Boolean(true)), R|kotlin/Pair.Pair|<R|kotlin/String|, R|kotlin/Boolean|>(String(public Data(int,int)), Boolean(true)), R|kotlin/Pair.Pair|<R|kotlin/String|, R|kotlin/Boolean|>(String(public Data(int,long,int,int)), Boolean(true)), R|kotlin/Pair.Pair|<R|kotlin/String|, R|kotlin/Boolean|>(String(public Data(int,long,int,int,int)), Boolean(false)), R|kotlin/Pair.Pair|<R|kotlin/String|, R|kotlin/Boolean|>(String(public final Data Data.copy(int)), Boolean(true)), R|kotlin/Pair.Pair|<R|kotlin/String|, R|kotlin/Boolean|>(String(public final Data Data.copy(int,int)), Boolean(true)), R|kotlin/Pair.Pair|<R|kotlin/String|, R|kotlin/Boolean|>(String(public final Data Data.copy(int,long,int,int)), Boolean(true)), R|kotlin/Pair.Pair|<R|kotlin/String|, R|kotlin/Boolean|>(String(public final Data Data.copy(int,long,int,int,int)), Boolean(false))))
+        lval overloadCounts: R|kotlin/collections/Map<kotlin/String, kotlin/Int>| = R|kotlin/collections/mapOf|<R|kotlin/String|, R|kotlin/Int|>(vararg(String(Data).R|kotlin/to|<R|kotlin/String|, R|kotlin/Int|>(Int(4)), String(copy).R|kotlin/to|<R|kotlin/String|, R|kotlin/Int|>(Int(4))))
+         {
+            lval <iterator>: R|kotlin/collections/Iterator<kotlin/Pair<kotlin/String, kotlin/Boolean>>| = R|<local>/overloads|.R|SubstitutionOverride<kotlin/collections/List.iterator: R|kotlin/collections/Iterator<kotlin/Pair<kotlin/String, kotlin/Boolean>>|>|()
+            while(R|<local>/<iterator>|.R|SubstitutionOverride<kotlin/collections/Iterator.hasNext: R|kotlin/Boolean|>|()) {
+                lval overload: R|kotlin/Pair<kotlin/String, kotlin/Boolean>| = R|<local>/<iterator>|.R|SubstitutionOverride<kotlin/collections/Iterator.next: R|kotlin/Pair<kotlin/String, kotlin/Boolean>|>|()
+                 {
+                    when () {
+                        R|<local>/methods|.R|SubstitutionOverride<java/util/HashSet.contains: R|kotlin/Boolean|>|(R|<local>/overload|).R|kotlin/Boolean.not|() ->  {
+                            R|kotlin/io/println|(String(Overload check fail))
+                             {
+                                lval <iterator>: R|kotlin/collections/MutableIterator<ft<@EnhancedNullability kotlin/Pair<kotlin/String!, kotlin/Boolean!>, @EnhancedNullability kotlin/Pair<kotlin/String!, kotlin/Boolean!>?>>| = R|<local>/methods|.R|SubstitutionOverride<java/util/HashSet.iterator: R|@EnhancedNullability kotlin/collections/MutableIterator<ft<@EnhancedNullability kotlin/Pair<kotlin/String!, kotlin/Boolean!>, @EnhancedNullability kotlin/Pair<kotlin/String!, kotlin/Boolean!>?>>|>|()
+                                while(R|<local>/<iterator>|.R|SubstitutionOverride<kotlin/collections/MutableIterator.hasNext: R|kotlin/Boolean|>|()) {
+                                    lval <destruct>: R|ft<kotlin/Pair<kotlin/String!, kotlin/Boolean!>, kotlin/Pair<kotlin/String!, kotlin/Boolean!>?>| = R|<local>/<iterator>|.R|SubstitutionOverride<kotlin/collections/MutableIterator.next: R|ft<@EnhancedNullability kotlin/Pair<kotlin/String!, kotlin/Boolean!>, @EnhancedNullability kotlin/Pair<kotlin/String!, kotlin/Boolean!>?>|>|()
+                                    lval methodName: R|kotlin/String!| = R|<local>/<destruct>|.R|SubstitutionOverride<kotlin/Pair.component1: R|kotlin/String!|>|()
+                                    lval syn: R|kotlin/Boolean!| = R|<local>/<destruct>|.R|SubstitutionOverride<kotlin/Pair.component2: R|kotlin/Boolean!|>|()
+                                     {
+                                        R|kotlin/io/println|(<strcat>(R|<local>/methodName|, String(, syn: ), R|<local>/syn|))
+                                    }
+
+                                }
+
+                            }
+
+                            ^box <strcat>(String(Fail: overload not found ), R|<local>/overload|)
+                        }
+                    }
+
+                }
+
+            }
+
+        }
+
+         {
+            lval <iterator>: R|kotlin/collections/Iterator<kotlin/collections/Map.Entry<kotlin/String, kotlin/Int>>| = R|<local>/overloadCounts|.R|kotlin/collections/iterator|<R|kotlin/String|, R|kotlin/Int|>()
+            while(R|<local>/<iterator>|.R|SubstitutionOverride<kotlin/collections/Iterator.hasNext: R|kotlin/Boolean|>|()) {
+                lval <destruct>: R|kotlin/collections/Map.Entry<kotlin/String, kotlin/Int>| = R|<local>/<iterator>|.R|SubstitutionOverride<kotlin/collections/Iterator.next: R|kotlin/collections/Map.Entry<kotlin/String, kotlin/Int>|>|()
+                lval name: R|kotlin/String| = R|<local>/<destruct>|.R|kotlin/collections/component1|<R|kotlin/String|, R|kotlin/Int|>()
+                lval expected: R|kotlin/Int| = R|<local>/<destruct>|.R|kotlin/collections/component2|<R|kotlin/String|, R|kotlin/Int|>()
+                 {
+                    lval pattern: R|kotlin/String| = <strcat>(R|<local>/name|, String(())
+                    lval actual: R|kotlin/Int| = R|<local>/methods|.R|kotlin/collections/count|<R|ft<kotlin/Pair<kotlin/String!, kotlin/Boolean!>, kotlin/Pair<kotlin/String!, kotlin/Boolean!>?>|>(<L> = count@fun <anonymous>(<destruct>: R|ft<kotlin/Pair<kotlin/String!, kotlin/Boolean!>, kotlin/Pair<kotlin/String!, kotlin/Boolean!>?>|): R|kotlin/Boolean| <inline=Inline, kind=UNKNOWN>  {
+                        lval sign: R|kotlin/String!| = R|<local>/<destruct>|.R|SubstitutionOverride<kotlin/Pair.component1: R|kotlin/String!|>|()
+                        lval <unused var>: R|kotlin/Boolean!| = R|<local>/<destruct>|.R|SubstitutionOverride<kotlin/Pair.component2: R|kotlin/Boolean!|>|()
+                        ^  {
+                            R|<local>/sign|.R|kotlin/text/contains|(R|<local>/pattern|) && R|<local>/sign|.R|kotlin/text/contains|(String(DefaultConstructorMarker)).R|kotlin/Boolean.not|()
+                        }
+
+                    }
+                    )
+                    when () {
+                        !=(R|<local>/actual|, R|<local>/expected|) ->  {
+                            ^box <strcat>(String(Fail: overload ), R|<local>/name|, String( count does not match, expected ), R|<local>/expected|, String(, actual ), R|<local>/actual|)
+                        }
+                    }
+
+                }
+
+            }
+
+        }
+
+        ^box String(OK)
+    }

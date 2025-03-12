@@ -15,6 +15,7 @@ import org.jetbrains.kotlin.ir.types.defaultType
 import org.jetbrains.kotlin.ir.util.*
 import org.jetbrains.kotlin.ir.visitors.IrElementVisitor
 import org.jetbrains.kotlin.name.FqName
+import org.jetbrains.kotlin.name.Name
 import org.jetbrains.kotlin.name.StandardClassIds
 import java.lang.Runtime.Version
 import java.util.*
@@ -27,7 +28,7 @@ import java.util.*
 //    and non-annotated parameters are in the head
 // 4. Version annotations are either in increasing order, or must be provided by name
 
-class VersionOverloadingGenerator(context: IrPluginContext) : IrElementVisitor<Unit, MutableList<IrFunction>?> {
+class VersionOverloadingGenerator(context: IrPluginContext) : IrElementVisitor<Unit, VersionOverloadingGenerator.VisitorContext?> {
     private val irFactory = context.irFactory
     private val irBuiltIns = context.irBuiltIns
 
@@ -36,20 +37,21 @@ class VersionOverloadingGenerator(context: IrPluginContext) : IrElementVisitor<U
     companion object {
         val IntroducedAtAnnotation = FqName("com.faizilham.prototype.versioning.IntroducedAt")
         val VERSION_OVERLOAD_WRAPPER by IrDeclarationOriginImpl
+        val COPY_METHOD_NAME = Name.identifier("copy")
     }
 
-    override fun visitElement(element: IrElement, data: MutableList<IrFunction>?) {
+    override fun visitElement(element: IrElement, data: VisitorContext?) {
         when (element) {
             is IrClass -> {
-                val addedWrappers = mutableListOf<IrFunction>()
-                element.acceptChildren(this, addedWrappers)
-                element.addAll(addedWrappers)
+                val visitorContext = VisitorContext(isDataClass = element.isData)
+                element.acceptChildren(this, visitorContext)
+                element.addAll(visitorContext.generatedFunctions)
 
             }
             is IrFile -> {
-                val addedWrappers = mutableListOf<IrFunction>()
-                element.acceptChildren(this, addedWrappers)
-                element.addChildren(addedWrappers)
+                val visitorContext = VisitorContext(isDataClass = false)
+                element.acceptChildren(this, visitorContext)
+                element.addChildren(visitorContext.generatedFunctions)
             }
             is IrDeclaration,
             is IrModuleFragment -> element.acceptChildren(this, null)
@@ -57,17 +59,32 @@ class VersionOverloadingGenerator(context: IrPluginContext) : IrElementVisitor<U
         }
     }
 
-    override fun visitFunction(func: IrFunction, data: MutableList<IrFunction>?) {
+    override fun visitFunction(func: IrFunction, data: VisitorContext?) {
         if (data == null) return
-        val versionParamIndexes = getSortedVersionParameterIndexes(func)
-        if (versionParamIndexes.size < 2) return
+
+        val versionParamIndexes =
+            if (data.isDataClass && func.name == COPY_METHOD_NAME) {
+                data.primaryConstructorVersions
+            } else {
+                getSortedVersionParameterIndexes(func)
+            }
+
+        generateVersions(func, data, versionParamIndexes)
+
+        if (data.isDataClass && func is IrConstructor && func.isPrimary) {
+            data.primaryConstructorVersions = versionParamIndexes
+        }
+    }
+
+    private fun generateVersions(func: IrFunction, data: VisitorContext, versionParamIndexes: SortedMap<Version?, MutableList<Int>>?) {
+        if (versionParamIndexes == null || versionParamIndexes.size < 2) return
 
         var lastIncludedParameters = MutableList<Boolean>(func.valueParameters.size) { true }
 
         versionParamIndexes.asIterable().forEachIndexed { i, (_, paramIndexes) ->
             if (i > 0) {
                 val wrapper = generateWrapper(func, lastIncludedParameters) ?: return@forEachIndexed
-                data.add(wrapper)
+                data.generatedFunctions.add(wrapper)
             }
 
             paramIndexes.forEach {
@@ -75,6 +92,12 @@ class VersionOverloadingGenerator(context: IrPluginContext) : IrElementVisitor<U
             }
         }
     }
+
+    class VisitorContext(
+        val isDataClass: Boolean,
+        val generatedFunctions: MutableList<IrFunction> = mutableListOf(),
+        var primaryConstructorVersions: SortedMap<Version?, MutableList<Int>>? = null
+    )
 
     private fun getSortedVersionParameterIndexes(func: IrFunction): SortedMap<Version?, MutableList<Int>> {
         val versionIndexes = sortedMapOf<Version?, MutableList<Int>> (nullsLast(compareByDescending { it }))
@@ -198,7 +221,9 @@ class VersionOverloadingGenerator(context: IrPluginContext) : IrElementVisitor<U
 
         oldFunction.valueParameters.forEachIndexed { i, param ->
             if (includedParams[i]) {
-                result.add(param.copyTo(this))
+                // FIXME?: if the overload defaultValue is copied instead of set to null, IR invalidation fails because somehow
+                //         $this is not within the scope of the generated copy() function's value parameter expression
+                result.add(param.copyTo(this, defaultValue = null))
             }
         }
 

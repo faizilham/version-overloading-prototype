@@ -59,8 +59,6 @@ FILE fqName:<root> fileName:/m1.kt
       VALUE_PARAMETER name:y index:1 type:kotlin.Int
         annotations:
           IntroducedAt(version = "1.1")
-        EXPRESSION_BODY
-          CONST Int type=kotlin.Int value=0
       BLOCK_BODY
         DELEGATING_CONSTRUCTOR_CALL 'public constructor <init> (x: kotlin.Int, y: kotlin.Int, z1: kotlin.Long, z2: kotlin.Int) declared in <root>.Simple'
           x: GET_VAR 'x: kotlin.Int declared in <root>.Simple.<init>' type=kotlin.Int origin=null

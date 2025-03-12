@@ -1,0 +1,568 @@
+FILE fqName:<root> fileName:/m1.kt
+  CLASS CLASS name:Data modality:FINAL visibility:public [data] superTypes:[kotlin.Any]
+    $this: VALUE_PARAMETER INSTANCE_RECEIVER name:<this> type:<root>.Data
+    PROPERTY name:x visibility:public modality:FINAL [val]
+      FIELD PROPERTY_BACKING_FIELD name:x type:kotlin.Int visibility:private [final]
+        EXPRESSION_BODY
+          GET_VAR 'x: kotlin.Int declared in <root>.Data.<init>' type=kotlin.Int origin=INITIALIZE_PROPERTY_FROM_PARAMETER
+      FUN DEFAULT_PROPERTY_ACCESSOR name:<get-x> visibility:public modality:FINAL <> ($this:<root>.Data) returnType:kotlin.Int
+        correspondingProperty: PROPERTY name:x visibility:public modality:FINAL [val]
+        $this: VALUE_PARAMETER name:<this> type:<root>.Data
+        BLOCK_BODY
+          RETURN type=kotlin.Nothing from='public final fun <get-x> (): kotlin.Int declared in <root>.Data'
+            GET_FIELD 'FIELD PROPERTY_BACKING_FIELD name:x type:kotlin.Int visibility:private [final]' type=kotlin.Int origin=null
+              receiver: GET_VAR '<this>: <root>.Data declared in <root>.Data.<get-x>' type=<root>.Data origin=null
+    PROPERTY name:x1 visibility:public modality:FINAL [val]
+      FIELD PROPERTY_BACKING_FIELD name:x1 type:kotlin.Long visibility:private [final]
+        EXPRESSION_BODY
+          GET_VAR 'x1: kotlin.Long declared in <root>.Data.<init>' type=kotlin.Long origin=INITIALIZE_PROPERTY_FROM_PARAMETER
+      FUN DEFAULT_PROPERTY_ACCESSOR name:<get-x1> visibility:public modality:FINAL <> ($this:<root>.Data) returnType:kotlin.Long
+        correspondingProperty: PROPERTY name:x1 visibility:public modality:FINAL [val]
+        $this: VALUE_PARAMETER name:<this> type:<root>.Data
+        BLOCK_BODY
+          RETURN type=kotlin.Nothing from='public final fun <get-x1> (): kotlin.Long declared in <root>.Data'
+            GET_FIELD 'FIELD PROPERTY_BACKING_FIELD name:x1 type:kotlin.Long visibility:private [final]' type=kotlin.Long origin=null
+              receiver: GET_VAR '<this>: <root>.Data declared in <root>.Data.<get-x1>' type=<root>.Data origin=null
+    PROPERTY name:y visibility:public modality:FINAL [val]
+      FIELD PROPERTY_BACKING_FIELD name:y type:kotlin.Int visibility:private [final]
+        EXPRESSION_BODY
+          GET_VAR 'y: kotlin.Int declared in <root>.Data.<init>' type=kotlin.Int origin=INITIALIZE_PROPERTY_FROM_PARAMETER
+      FUN DEFAULT_PROPERTY_ACCESSOR name:<get-y> visibility:public modality:FINAL <> ($this:<root>.Data) returnType:kotlin.Int
+        correspondingProperty: PROPERTY name:y visibility:public modality:FINAL [val]
+        $this: VALUE_PARAMETER name:<this> type:<root>.Data
+        BLOCK_BODY
+          RETURN type=kotlin.Nothing from='public final fun <get-y> (): kotlin.Int declared in <root>.Data'
+            GET_FIELD 'FIELD PROPERTY_BACKING_FIELD name:y type:kotlin.Int visibility:private [final]' type=kotlin.Int origin=null
+              receiver: GET_VAR '<this>: <root>.Data declared in <root>.Data.<get-y>' type=<root>.Data origin=null
+    PROPERTY name:y2 visibility:public modality:FINAL [val]
+      FIELD PROPERTY_BACKING_FIELD name:y2 type:kotlin.Int visibility:private [final]
+        EXPRESSION_BODY
+          GET_VAR 'y2: kotlin.Int declared in <root>.Data.<init>' type=kotlin.Int origin=INITIALIZE_PROPERTY_FROM_PARAMETER
+      FUN DEFAULT_PROPERTY_ACCESSOR name:<get-y2> visibility:public modality:FINAL <> ($this:<root>.Data) returnType:kotlin.Int
+        correspondingProperty: PROPERTY name:y2 visibility:public modality:FINAL [val]
+        $this: VALUE_PARAMETER name:<this> type:<root>.Data
+        BLOCK_BODY
+          RETURN type=kotlin.Nothing from='public final fun <get-y2> (): kotlin.Int declared in <root>.Data'
+            GET_FIELD 'FIELD PROPERTY_BACKING_FIELD name:y2 type:kotlin.Int visibility:private [final]' type=kotlin.Int origin=null
+              receiver: GET_VAR '<this>: <root>.Data declared in <root>.Data.<get-y2>' type=<root>.Data origin=null
+    PROPERTY name:z visibility:public modality:FINAL [val]
+      FIELD PROPERTY_BACKING_FIELD name:z type:kotlin.Int visibility:private [final]
+        EXPRESSION_BODY
+          GET_VAR 'z: kotlin.Int declared in <root>.Data.<init>' type=kotlin.Int origin=INITIALIZE_PROPERTY_FROM_PARAMETER
+      FUN DEFAULT_PROPERTY_ACCESSOR name:<get-z> visibility:public modality:FINAL <> ($this:<root>.Data) returnType:kotlin.Int
+        correspondingProperty: PROPERTY name:z visibility:public modality:FINAL [val]
+        $this: VALUE_PARAMETER name:<this> type:<root>.Data
+        BLOCK_BODY
+          RETURN type=kotlin.Nothing from='public final fun <get-z> (): kotlin.Int declared in <root>.Data'
+            GET_FIELD 'FIELD PROPERTY_BACKING_FIELD name:z type:kotlin.Int visibility:private [final]' type=kotlin.Int origin=null
+              receiver: GET_VAR '<this>: <root>.Data declared in <root>.Data.<get-z>' type=<root>.Data origin=null
+    CONSTRUCTOR VERSION_OVERLOAD_WRAPPER visibility:public <> (x:kotlin.Int) returnType:<root>.Data
+      annotations:
+        Deprecated(message = "Deprecated", replaceWith = <null>, level = GET_ENUM 'ENUM_ENTRY name:HIDDEN' type=kotlin.DeprecationLevel)
+      VALUE_PARAMETER name:x index:0 type:kotlin.Int
+      BLOCK_BODY
+        DELEGATING_CONSTRUCTOR_CALL 'public constructor <init> (x: kotlin.Int, x1: kotlin.Long, y: kotlin.Int, y2: kotlin.Int, z: kotlin.Int) declared in <root>.Data'
+          x: GET_VAR 'x: kotlin.Int declared in <root>.Data.<init>' type=kotlin.Int origin=null
+    CONSTRUCTOR VERSION_OVERLOAD_WRAPPER visibility:public <> (x:kotlin.Int, x1:kotlin.Long, y:kotlin.Int, y2:kotlin.Int) returnType:<root>.Data
+      annotations:
+        Deprecated(message = "Deprecated", replaceWith = <null>, level = GET_ENUM 'ENUM_ENTRY name:HIDDEN' type=kotlin.DeprecationLevel)
+      VALUE_PARAMETER name:x index:0 type:kotlin.Int
+      VALUE_PARAMETER name:x1 index:1 type:kotlin.Long
+        annotations:
+          IntroducedAt(version = "1.2")
+      VALUE_PARAMETER name:y index:2 type:kotlin.Int
+        annotations:
+          IntroducedAt(version = "1.1")
+      VALUE_PARAMETER name:y2 index:3 type:kotlin.Int
+        annotations:
+          IntroducedAt(version = "1.2")
+      BLOCK_BODY
+        DELEGATING_CONSTRUCTOR_CALL 'public constructor <init> (x: kotlin.Int, x1: kotlin.Long, y: kotlin.Int, y2: kotlin.Int, z: kotlin.Int) declared in <root>.Data'
+          x: GET_VAR 'x: kotlin.Int declared in <root>.Data.<init>' type=kotlin.Int origin=null
+          x1: GET_VAR 'x1: kotlin.Long declared in <root>.Data.<init>' type=kotlin.Long origin=null
+          y: GET_VAR 'y: kotlin.Int declared in <root>.Data.<init>' type=kotlin.Int origin=null
+          y2: GET_VAR 'y2: kotlin.Int declared in <root>.Data.<init>' type=kotlin.Int origin=null
+    CONSTRUCTOR VERSION_OVERLOAD_WRAPPER visibility:public <> (x:kotlin.Int, y:kotlin.Int) returnType:<root>.Data
+      annotations:
+        Deprecated(message = "Deprecated", replaceWith = <null>, level = GET_ENUM 'ENUM_ENTRY name:HIDDEN' type=kotlin.DeprecationLevel)
+      VALUE_PARAMETER name:x index:0 type:kotlin.Int
+      VALUE_PARAMETER name:y index:1 type:kotlin.Int
+        annotations:
+          IntroducedAt(version = "1.1")
+      BLOCK_BODY
+        DELEGATING_CONSTRUCTOR_CALL 'public constructor <init> (x: kotlin.Int, x1: kotlin.Long, y: kotlin.Int, y2: kotlin.Int, z: kotlin.Int) declared in <root>.Data'
+          x: GET_VAR 'x: kotlin.Int declared in <root>.Data.<init>' type=kotlin.Int origin=null
+          y: GET_VAR 'y: kotlin.Int declared in <root>.Data.<init>' type=kotlin.Int origin=null
+    CONSTRUCTOR visibility:public <> (x:kotlin.Int, x1:kotlin.Long, y:kotlin.Int, y2:kotlin.Int, z:kotlin.Int) returnType:<root>.Data [primary]
+      VALUE_PARAMETER name:x index:0 type:kotlin.Int
+      VALUE_PARAMETER name:x1 index:1 type:kotlin.Long
+        annotations:
+          IntroducedAt(version = "1.2")
+        EXPRESSION_BODY
+          CONST Long type=kotlin.Long value=0
+      VALUE_PARAMETER name:y index:2 type:kotlin.Int
+        annotations:
+          IntroducedAt(version = "1.1")
+        EXPRESSION_BODY
+          CONST Int type=kotlin.Int value=0
+      VALUE_PARAMETER name:y2 index:3 type:kotlin.Int
+        annotations:
+          IntroducedAt(version = "1.2")
+        EXPRESSION_BODY
+          CONST Int type=kotlin.Int value=0
+      VALUE_PARAMETER name:z index:4 type:kotlin.Int
+        annotations:
+          IntroducedAt(version = "1.3")
+        EXPRESSION_BODY
+          CONST Int type=kotlin.Int value=0
+      BLOCK_BODY
+        DELEGATING_CONSTRUCTOR_CALL 'public constructor <init> () declared in kotlin.Any'
+        INSTANCE_INITIALIZER_CALL classDescriptor='CLASS CLASS name:Data modality:FINAL visibility:public [data] superTypes:[kotlin.Any]'
+    FUN GENERATED_DATA_CLASS_MEMBER name:component1 visibility:public modality:FINAL <> ($this:<root>.Data) returnType:kotlin.Int [operator]
+      $this: VALUE_PARAMETER name:<this> type:<root>.Data
+      BLOCK_BODY
+        RETURN type=kotlin.Nothing from='public final fun component1 (): kotlin.Int declared in <root>.Data'
+          GET_FIELD 'FIELD PROPERTY_BACKING_FIELD name:x type:kotlin.Int visibility:private [final]' type=kotlin.Int origin=null
+            receiver: GET_VAR '<this>: <root>.Data declared in <root>.Data.component1' type=<root>.Data origin=null
+    FUN GENERATED_DATA_CLASS_MEMBER name:component2 visibility:public modality:FINAL <> ($this:<root>.Data) returnType:kotlin.Long [operator]
+      $this: VALUE_PARAMETER name:<this> type:<root>.Data
+      BLOCK_BODY
+        RETURN type=kotlin.Nothing from='public final fun component2 (): kotlin.Long declared in <root>.Data'
+          GET_FIELD 'FIELD PROPERTY_BACKING_FIELD name:x1 type:kotlin.Long visibility:private [final]' type=kotlin.Long origin=null
+            receiver: GET_VAR '<this>: <root>.Data declared in <root>.Data.component2' type=<root>.Data origin=null
+    FUN GENERATED_DATA_CLASS_MEMBER name:component3 visibility:public modality:FINAL <> ($this:<root>.Data) returnType:kotlin.Int [operator]
+      $this: VALUE_PARAMETER name:<this> type:<root>.Data
+      BLOCK_BODY
+        RETURN type=kotlin.Nothing from='public final fun component3 (): kotlin.Int declared in <root>.Data'
+          GET_FIELD 'FIELD PROPERTY_BACKING_FIELD name:y type:kotlin.Int visibility:private [final]' type=kotlin.Int origin=null
+            receiver: GET_VAR '<this>: <root>.Data declared in <root>.Data.component3' type=<root>.Data origin=null
+    FUN GENERATED_DATA_CLASS_MEMBER name:component4 visibility:public modality:FINAL <> ($this:<root>.Data) returnType:kotlin.Int [operator]
+      $this: VALUE_PARAMETER name:<this> type:<root>.Data
+      BLOCK_BODY
+        RETURN type=kotlin.Nothing from='public final fun component4 (): kotlin.Int declared in <root>.Data'
+          GET_FIELD 'FIELD PROPERTY_BACKING_FIELD name:y2 type:kotlin.Int visibility:private [final]' type=kotlin.Int origin=null
+            receiver: GET_VAR '<this>: <root>.Data declared in <root>.Data.component4' type=<root>.Data origin=null
+    FUN GENERATED_DATA_CLASS_MEMBER name:component5 visibility:public modality:FINAL <> ($this:<root>.Data) returnType:kotlin.Int [operator]
+      $this: VALUE_PARAMETER name:<this> type:<root>.Data
+      BLOCK_BODY
+        RETURN type=kotlin.Nothing from='public final fun component5 (): kotlin.Int declared in <root>.Data'
+          GET_FIELD 'FIELD PROPERTY_BACKING_FIELD name:z type:kotlin.Int visibility:private [final]' type=kotlin.Int origin=null
+            receiver: GET_VAR '<this>: <root>.Data declared in <root>.Data.component5' type=<root>.Data origin=null
+    FUN GENERATED_DATA_CLASS_MEMBER name:copy visibility:public modality:FINAL <> ($this:<root>.Data, x:kotlin.Int, x1:kotlin.Long, y:kotlin.Int, y2:kotlin.Int, z:kotlin.Int) returnType:<root>.Data
+      $this: VALUE_PARAMETER name:<this> type:<root>.Data
+      VALUE_PARAMETER name:x index:0 type:kotlin.Int
+        EXPRESSION_BODY
+          GET_FIELD 'FIELD PROPERTY_BACKING_FIELD name:x type:kotlin.Int visibility:private [final]' type=kotlin.Int origin=null
+            receiver: GET_VAR '<this>: <root>.Data declared in <root>.Data.copy' type=<root>.Data origin=null
+      VALUE_PARAMETER name:x1 index:1 type:kotlin.Long
+        annotations:
+          IntroducedAt(version = "1.2")
+        EXPRESSION_BODY
+          GET_FIELD 'FIELD PROPERTY_BACKING_FIELD name:x1 type:kotlin.Long visibility:private [final]' type=kotlin.Long origin=null
+            receiver: GET_VAR '<this>: <root>.Data declared in <root>.Data.copy' type=<root>.Data origin=null
+      VALUE_PARAMETER name:y index:2 type:kotlin.Int
+        annotations:
+          IntroducedAt(version = "1.1")
+        EXPRESSION_BODY
+          GET_FIELD 'FIELD PROPERTY_BACKING_FIELD name:y type:kotlin.Int visibility:private [final]' type=kotlin.Int origin=null
+            receiver: GET_VAR '<this>: <root>.Data declared in <root>.Data.copy' type=<root>.Data origin=null
+      VALUE_PARAMETER name:y2 index:3 type:kotlin.Int
+        annotations:
+          IntroducedAt(version = "1.2")
+        EXPRESSION_BODY
+          GET_FIELD 'FIELD PROPERTY_BACKING_FIELD name:y2 type:kotlin.Int visibility:private [final]' type=kotlin.Int origin=null
+            receiver: GET_VAR '<this>: <root>.Data declared in <root>.Data.copy' type=<root>.Data origin=null
+      VALUE_PARAMETER name:z index:4 type:kotlin.Int
+        annotations:
+          IntroducedAt(version = "1.3")
+        EXPRESSION_BODY
+          GET_FIELD 'FIELD PROPERTY_BACKING_FIELD name:z type:kotlin.Int visibility:private [final]' type=kotlin.Int origin=null
+            receiver: GET_VAR '<this>: <root>.Data declared in <root>.Data.copy' type=<root>.Data origin=null
+      BLOCK_BODY
+        RETURN type=kotlin.Nothing from='public final fun copy (x: kotlin.Int, x1: kotlin.Long, y: kotlin.Int, y2: kotlin.Int, z: kotlin.Int): <root>.Data declared in <root>.Data'
+          CONSTRUCTOR_CALL 'public constructor <init> (x: kotlin.Int, x1: kotlin.Long, y: kotlin.Int, y2: kotlin.Int, z: kotlin.Int) declared in <root>.Data' type=<root>.Data origin=null
+            x: GET_VAR 'x: kotlin.Int declared in <root>.Data.copy' type=kotlin.Int origin=null
+            x1: GET_VAR 'x1: kotlin.Long declared in <root>.Data.copy' type=kotlin.Long origin=null
+            y: GET_VAR 'y: kotlin.Int declared in <root>.Data.copy' type=kotlin.Int origin=null
+            y2: GET_VAR 'y2: kotlin.Int declared in <root>.Data.copy' type=kotlin.Int origin=null
+            z: GET_VAR 'z: kotlin.Int declared in <root>.Data.copy' type=kotlin.Int origin=null
+    FUN GENERATED_DATA_CLASS_MEMBER name:equals visibility:public modality:OPEN <> ($this:<root>.Data, other:kotlin.Any?) returnType:kotlin.Boolean [operator]
+      overridden:
+        public open fun equals (other: kotlin.Any?): kotlin.Boolean declared in kotlin.Any
+      $this: VALUE_PARAMETER name:<this> type:<root>.Data
+      VALUE_PARAMETER name:other index:0 type:kotlin.Any?
+      BLOCK_BODY
+        WHEN type=kotlin.Unit origin=null
+          BRANCH
+            if: CALL 'public final fun EQEQEQ (arg0: kotlin.Any?, arg1: kotlin.Any?): kotlin.Boolean declared in kotlin.internal.ir' type=kotlin.Boolean origin=EQEQEQ
+              arg0: GET_VAR '<this>: <root>.Data declared in <root>.Data.equals' type=<root>.Data origin=null
+              arg1: GET_VAR 'other: kotlin.Any? declared in <root>.Data.equals' type=kotlin.Any? origin=null
+            then: RETURN type=kotlin.Nothing from='public open fun equals (other: kotlin.Any?): kotlin.Boolean declared in <root>.Data'
+              CONST Boolean type=kotlin.Boolean value=true
+        WHEN type=kotlin.Unit origin=null
+          BRANCH
+            if: TYPE_OP type=kotlin.Boolean origin=NOT_INSTANCEOF typeOperand=<root>.Data
+              GET_VAR 'other: kotlin.Any? declared in <root>.Data.equals' type=kotlin.Any? origin=null
+            then: RETURN type=kotlin.Nothing from='public open fun equals (other: kotlin.Any?): kotlin.Boolean declared in <root>.Data'
+              CONST Boolean type=kotlin.Boolean value=false
+        VAR IR_TEMPORARY_VARIABLE name:tmp_0 type:<root>.Data [val]
+          TYPE_OP type=<root>.Data origin=CAST typeOperand=<root>.Data
+            GET_VAR 'other: kotlin.Any? declared in <root>.Data.equals' type=kotlin.Any? origin=null
+        WHEN type=kotlin.Unit origin=null
+          BRANCH
+            if: CALL 'public final fun not (): kotlin.Boolean declared in kotlin.Boolean' type=kotlin.Boolean origin=EXCLEQ
+              $this: CALL 'public final fun EQEQ (arg0: kotlin.Any?, arg1: kotlin.Any?): kotlin.Boolean declared in kotlin.internal.ir' type=kotlin.Boolean origin=EXCLEQ
+                arg0: GET_FIELD 'FIELD PROPERTY_BACKING_FIELD name:x type:kotlin.Int visibility:private [final]' type=kotlin.Int origin=null
+                  receiver: GET_VAR '<this>: <root>.Data declared in <root>.Data.equals' type=<root>.Data origin=null
+                arg1: GET_FIELD 'FIELD PROPERTY_BACKING_FIELD name:x type:kotlin.Int visibility:private [final]' type=kotlin.Int origin=null
+                  receiver: GET_VAR 'val tmp_0: <root>.Data declared in <root>.Data.equals' type=<root>.Data origin=null
+            then: RETURN type=kotlin.Nothing from='public open fun equals (other: kotlin.Any?): kotlin.Boolean declared in <root>.Data'
+              CONST Boolean type=kotlin.Boolean value=false
+        WHEN type=kotlin.Unit origin=null
+          BRANCH
+            if: CALL 'public final fun not (): kotlin.Boolean declared in kotlin.Boolean' type=kotlin.Boolean origin=EXCLEQ
+              $this: CALL 'public final fun EQEQ (arg0: kotlin.Any?, arg1: kotlin.Any?): kotlin.Boolean declared in kotlin.internal.ir' type=kotlin.Boolean origin=EXCLEQ
+                arg0: GET_FIELD 'FIELD PROPERTY_BACKING_FIELD name:x1 type:kotlin.Long visibility:private [final]' type=kotlin.Long origin=null
+                  receiver: GET_VAR '<this>: <root>.Data declared in <root>.Data.equals' type=<root>.Data origin=null
+                arg1: GET_FIELD 'FIELD PROPERTY_BACKING_FIELD name:x1 type:kotlin.Long visibility:private [final]' type=kotlin.Long origin=null
+                  receiver: GET_VAR 'val tmp_0: <root>.Data declared in <root>.Data.equals' type=<root>.Data origin=null
+            then: RETURN type=kotlin.Nothing from='public open fun equals (other: kotlin.Any?): kotlin.Boolean declared in <root>.Data'
+              CONST Boolean type=kotlin.Boolean value=false
+        WHEN type=kotlin.Unit origin=null
+          BRANCH
+            if: CALL 'public final fun not (): kotlin.Boolean declared in kotlin.Boolean' type=kotlin.Boolean origin=EXCLEQ
+              $this: CALL 'public final fun EQEQ (arg0: kotlin.Any?, arg1: kotlin.Any?): kotlin.Boolean declared in kotlin.internal.ir' type=kotlin.Boolean origin=EXCLEQ
+                arg0: GET_FIELD 'FIELD PROPERTY_BACKING_FIELD name:y type:kotlin.Int visibility:private [final]' type=kotlin.Int origin=null
+                  receiver: GET_VAR '<this>: <root>.Data declared in <root>.Data.equals' type=<root>.Data origin=null
+                arg1: GET_FIELD 'FIELD PROPERTY_BACKING_FIELD name:y type:kotlin.Int visibility:private [final]' type=kotlin.Int origin=null
+                  receiver: GET_VAR 'val tmp_0: <root>.Data declared in <root>.Data.equals' type=<root>.Data origin=null
+            then: RETURN type=kotlin.Nothing from='public open fun equals (other: kotlin.Any?): kotlin.Boolean declared in <root>.Data'
+              CONST Boolean type=kotlin.Boolean value=false
+        WHEN type=kotlin.Unit origin=null
+          BRANCH
+            if: CALL 'public final fun not (): kotlin.Boolean declared in kotlin.Boolean' type=kotlin.Boolean origin=EXCLEQ
+              $this: CALL 'public final fun EQEQ (arg0: kotlin.Any?, arg1: kotlin.Any?): kotlin.Boolean declared in kotlin.internal.ir' type=kotlin.Boolean origin=EXCLEQ
+                arg0: GET_FIELD 'FIELD PROPERTY_BACKING_FIELD name:y2 type:kotlin.Int visibility:private [final]' type=kotlin.Int origin=null
+                  receiver: GET_VAR '<this>: <root>.Data declared in <root>.Data.equals' type=<root>.Data origin=null
+                arg1: GET_FIELD 'FIELD PROPERTY_BACKING_FIELD name:y2 type:kotlin.Int visibility:private [final]' type=kotlin.Int origin=null
+                  receiver: GET_VAR 'val tmp_0: <root>.Data declared in <root>.Data.equals' type=<root>.Data origin=null
+            then: RETURN type=kotlin.Nothing from='public open fun equals (other: kotlin.Any?): kotlin.Boolean declared in <root>.Data'
+              CONST Boolean type=kotlin.Boolean value=false
+        WHEN type=kotlin.Unit origin=null
+          BRANCH
+            if: CALL 'public final fun not (): kotlin.Boolean declared in kotlin.Boolean' type=kotlin.Boolean origin=EXCLEQ
+              $this: CALL 'public final fun EQEQ (arg0: kotlin.Any?, arg1: kotlin.Any?): kotlin.Boolean declared in kotlin.internal.ir' type=kotlin.Boolean origin=EXCLEQ
+                arg0: GET_FIELD 'FIELD PROPERTY_BACKING_FIELD name:z type:kotlin.Int visibility:private [final]' type=kotlin.Int origin=null
+                  receiver: GET_VAR '<this>: <root>.Data declared in <root>.Data.equals' type=<root>.Data origin=null
+                arg1: GET_FIELD 'FIELD PROPERTY_BACKING_FIELD name:z type:kotlin.Int visibility:private [final]' type=kotlin.Int origin=null
+                  receiver: GET_VAR 'val tmp_0: <root>.Data declared in <root>.Data.equals' type=<root>.Data origin=null
+            then: RETURN type=kotlin.Nothing from='public open fun equals (other: kotlin.Any?): kotlin.Boolean declared in <root>.Data'
+              CONST Boolean type=kotlin.Boolean value=false
+        RETURN type=kotlin.Nothing from='public open fun equals (other: kotlin.Any?): kotlin.Boolean declared in <root>.Data'
+          CONST Boolean type=kotlin.Boolean value=true
+    FUN GENERATED_DATA_CLASS_MEMBER name:hashCode visibility:public modality:OPEN <> ($this:<root>.Data) returnType:kotlin.Int
+      overridden:
+        public open fun hashCode (): kotlin.Int declared in kotlin.Any
+      $this: VALUE_PARAMETER name:<this> type:<root>.Data
+      BLOCK_BODY
+        VAR name:result type:kotlin.Int [var]
+          CALL 'public open fun hashCode (): kotlin.Int declared in kotlin.Int' type=kotlin.Int origin=null
+            $this: GET_FIELD 'FIELD PROPERTY_BACKING_FIELD name:x type:kotlin.Int visibility:private [final]' type=kotlin.Int origin=null
+              receiver: GET_VAR '<this>: <root>.Data declared in <root>.Data.hashCode' type=<root>.Data origin=null
+        SET_VAR 'var result: kotlin.Int declared in <root>.Data.hashCode' type=kotlin.Unit origin=EQ
+          CALL 'public final fun plus (other: kotlin.Int): kotlin.Int declared in kotlin.Int' type=kotlin.Int origin=null
+            $this: CALL 'public final fun times (other: kotlin.Int): kotlin.Int declared in kotlin.Int' type=kotlin.Int origin=null
+              $this: GET_VAR 'var result: kotlin.Int declared in <root>.Data.hashCode' type=kotlin.Int origin=null
+              other: CONST Int type=kotlin.Int value=31
+            other: CALL 'public open fun hashCode (): kotlin.Int declared in kotlin.Long' type=kotlin.Int origin=null
+              $this: GET_FIELD 'FIELD PROPERTY_BACKING_FIELD name:x1 type:kotlin.Long visibility:private [final]' type=kotlin.Long origin=null
+                receiver: GET_VAR '<this>: <root>.Data declared in <root>.Data.hashCode' type=<root>.Data origin=null
+        SET_VAR 'var result: kotlin.Int declared in <root>.Data.hashCode' type=kotlin.Unit origin=EQ
+          CALL 'public final fun plus (other: kotlin.Int): kotlin.Int declared in kotlin.Int' type=kotlin.Int origin=null
+            $this: CALL 'public final fun times (other: kotlin.Int): kotlin.Int declared in kotlin.Int' type=kotlin.Int origin=null
+              $this: GET_VAR 'var result: kotlin.Int declared in <root>.Data.hashCode' type=kotlin.Int origin=null
+              other: CONST Int type=kotlin.Int value=31
+            other: CALL 'public open fun hashCode (): kotlin.Int declared in kotlin.Int' type=kotlin.Int origin=null
+              $this: GET_FIELD 'FIELD PROPERTY_BACKING_FIELD name:y type:kotlin.Int visibility:private [final]' type=kotlin.Int origin=null
+                receiver: GET_VAR '<this>: <root>.Data declared in <root>.Data.hashCode' type=<root>.Data origin=null
+        SET_VAR 'var result: kotlin.Int declared in <root>.Data.hashCode' type=kotlin.Unit origin=EQ
+          CALL 'public final fun plus (other: kotlin.Int): kotlin.Int declared in kotlin.Int' type=kotlin.Int origin=null
+            $this: CALL 'public final fun times (other: kotlin.Int): kotlin.Int declared in kotlin.Int' type=kotlin.Int origin=null
+              $this: GET_VAR 'var result: kotlin.Int declared in <root>.Data.hashCode' type=kotlin.Int origin=null
+              other: CONST Int type=kotlin.Int value=31
+            other: CALL 'public open fun hashCode (): kotlin.Int declared in kotlin.Int' type=kotlin.Int origin=null
+              $this: GET_FIELD 'FIELD PROPERTY_BACKING_FIELD name:y2 type:kotlin.Int visibility:private [final]' type=kotlin.Int origin=null
+                receiver: GET_VAR '<this>: <root>.Data declared in <root>.Data.hashCode' type=<root>.Data origin=null
+        SET_VAR 'var result: kotlin.Int declared in <root>.Data.hashCode' type=kotlin.Unit origin=EQ
+          CALL 'public final fun plus (other: kotlin.Int): kotlin.Int declared in kotlin.Int' type=kotlin.Int origin=null
+            $this: CALL 'public final fun times (other: kotlin.Int): kotlin.Int declared in kotlin.Int' type=kotlin.Int origin=null
+              $this: GET_VAR 'var result: kotlin.Int declared in <root>.Data.hashCode' type=kotlin.Int origin=null
+              other: CONST Int type=kotlin.Int value=31
+            other: CALL 'public open fun hashCode (): kotlin.Int declared in kotlin.Int' type=kotlin.Int origin=null
+              $this: GET_FIELD 'FIELD PROPERTY_BACKING_FIELD name:z type:kotlin.Int visibility:private [final]' type=kotlin.Int origin=null
+                receiver: GET_VAR '<this>: <root>.Data declared in <root>.Data.hashCode' type=<root>.Data origin=null
+        RETURN type=kotlin.Nothing from='public open fun hashCode (): kotlin.Int declared in <root>.Data'
+          GET_VAR 'var result: kotlin.Int declared in <root>.Data.hashCode' type=kotlin.Int origin=null
+    FUN GENERATED_DATA_CLASS_MEMBER name:toString visibility:public modality:OPEN <> ($this:<root>.Data) returnType:kotlin.String
+      overridden:
+        public open fun toString (): kotlin.String declared in kotlin.Any
+      $this: VALUE_PARAMETER name:<this> type:<root>.Data
+      BLOCK_BODY
+        RETURN type=kotlin.Nothing from='public open fun toString (): kotlin.String declared in <root>.Data'
+          STRING_CONCATENATION type=kotlin.String
+            CONST String type=kotlin.String value="Data("
+            CONST String type=kotlin.String value="x="
+            GET_FIELD 'FIELD PROPERTY_BACKING_FIELD name:x type:kotlin.Int visibility:private [final]' type=kotlin.Int origin=null
+              receiver: GET_VAR '<this>: <root>.Data declared in <root>.Data.toString' type=<root>.Data origin=null
+            CONST String type=kotlin.String value=", "
+            CONST String type=kotlin.String value="x1="
+            GET_FIELD 'FIELD PROPERTY_BACKING_FIELD name:x1 type:kotlin.Long visibility:private [final]' type=kotlin.Long origin=null
+              receiver: GET_VAR '<this>: <root>.Data declared in <root>.Data.toString' type=<root>.Data origin=null
+            CONST String type=kotlin.String value=", "
+            CONST String type=kotlin.String value="y="
+            GET_FIELD 'FIELD PROPERTY_BACKING_FIELD name:y type:kotlin.Int visibility:private [final]' type=kotlin.Int origin=null
+              receiver: GET_VAR '<this>: <root>.Data declared in <root>.Data.toString' type=<root>.Data origin=null
+            CONST String type=kotlin.String value=", "
+            CONST String type=kotlin.String value="y2="
+            GET_FIELD 'FIELD PROPERTY_BACKING_FIELD name:y2 type:kotlin.Int visibility:private [final]' type=kotlin.Int origin=null
+              receiver: GET_VAR '<this>: <root>.Data declared in <root>.Data.toString' type=<root>.Data origin=null
+            CONST String type=kotlin.String value=", "
+            CONST String type=kotlin.String value="z="
+            GET_FIELD 'FIELD PROPERTY_BACKING_FIELD name:z type:kotlin.Int visibility:private [final]' type=kotlin.Int origin=null
+              receiver: GET_VAR '<this>: <root>.Data declared in <root>.Data.toString' type=<root>.Data origin=null
+            CONST String type=kotlin.String value=")"
+    FUN VERSION_OVERLOAD_WRAPPER name:copy visibility:public modality:FINAL <> ($this:<root>.Data, x:kotlin.Int) returnType:<root>.Data
+      annotations:
+        Deprecated(message = "Deprecated", replaceWith = <null>, level = GET_ENUM 'ENUM_ENTRY name:HIDDEN' type=kotlin.DeprecationLevel)
+      $this: VALUE_PARAMETER name:<this> type:<root>.Data
+      VALUE_PARAMETER name:x index:0 type:kotlin.Int
+      EXPRESSION_BODY
+        CALL 'public final fun copy (x: kotlin.Int, x1: kotlin.Long, y: kotlin.Int, y2: kotlin.Int, z: kotlin.Int): <root>.Data declared in <root>.Data' type=<root>.Data origin=null
+          $this: GET_VAR '<this>: <root>.Data declared in <root>.Data.copy' type=<root>.Data origin=null
+          x: GET_VAR 'x: kotlin.Int declared in <root>.Data.copy' type=kotlin.Int origin=null
+    FUN VERSION_OVERLOAD_WRAPPER name:copy visibility:public modality:FINAL <> ($this:<root>.Data, x:kotlin.Int, x1:kotlin.Long, y:kotlin.Int, y2:kotlin.Int) returnType:<root>.Data
+      annotations:
+        Deprecated(message = "Deprecated", replaceWith = <null>, level = GET_ENUM 'ENUM_ENTRY name:HIDDEN' type=kotlin.DeprecationLevel)
+      $this: VALUE_PARAMETER name:<this> type:<root>.Data
+      VALUE_PARAMETER name:x index:0 type:kotlin.Int
+      VALUE_PARAMETER name:x1 index:1 type:kotlin.Long
+        annotations:
+          IntroducedAt(version = "1.2")
+      VALUE_PARAMETER name:y index:2 type:kotlin.Int
+        annotations:
+          IntroducedAt(version = "1.1")
+      VALUE_PARAMETER name:y2 index:3 type:kotlin.Int
+        annotations:
+          IntroducedAt(version = "1.2")
+      EXPRESSION_BODY
+        CALL 'public final fun copy (x: kotlin.Int, x1: kotlin.Long, y: kotlin.Int, y2: kotlin.Int, z: kotlin.Int): <root>.Data declared in <root>.Data' type=<root>.Data origin=null
+          $this: GET_VAR '<this>: <root>.Data declared in <root>.Data.copy' type=<root>.Data origin=null
+          x: GET_VAR 'x: kotlin.Int declared in <root>.Data.copy' type=kotlin.Int origin=null
+          x1: GET_VAR 'x1: kotlin.Long declared in <root>.Data.copy' type=kotlin.Long origin=null
+          y: GET_VAR 'y: kotlin.Int declared in <root>.Data.copy' type=kotlin.Int origin=null
+          y2: GET_VAR 'y2: kotlin.Int declared in <root>.Data.copy' type=kotlin.Int origin=null
+    FUN VERSION_OVERLOAD_WRAPPER name:copy visibility:public modality:FINAL <> ($this:<root>.Data, x:kotlin.Int, y:kotlin.Int) returnType:<root>.Data
+      annotations:
+        Deprecated(message = "Deprecated", replaceWith = <null>, level = GET_ENUM 'ENUM_ENTRY name:HIDDEN' type=kotlin.DeprecationLevel)
+      $this: VALUE_PARAMETER name:<this> type:<root>.Data
+      VALUE_PARAMETER name:x index:0 type:kotlin.Int
+      VALUE_PARAMETER name:y index:1 type:kotlin.Int
+        annotations:
+          IntroducedAt(version = "1.1")
+      EXPRESSION_BODY
+        CALL 'public final fun copy (x: kotlin.Int, x1: kotlin.Long, y: kotlin.Int, y2: kotlin.Int, z: kotlin.Int): <root>.Data declared in <root>.Data' type=<root>.Data origin=null
+          $this: GET_VAR '<this>: <root>.Data declared in <root>.Data.copy' type=<root>.Data origin=null
+          x: GET_VAR 'x: kotlin.Int declared in <root>.Data.copy' type=kotlin.Int origin=null
+          y: GET_VAR 'y: kotlin.Int declared in <root>.Data.copy' type=kotlin.Int origin=null
+FILE fqName:<root> fileName:/main.kt
+  FUN name:box visibility:public modality:FINAL <> () returnType:kotlin.String
+    BLOCK_BODY
+      VAR name:test type:<root>.JavaTest [val]
+        CONSTRUCTOR_CALL 'public constructor <init> () declared in <root>.JavaTest' type=<root>.JavaTest origin=null
+      VAR name:methods type:@[FlexibleNullability] java.util.HashSet<@[FlexibleNullability] kotlin.Pair<@[FlexibleNullability] kotlin.String?, @[FlexibleNullability] kotlin.Boolean?>?>? [val]
+        CALL 'public open fun reflectConstructors (): @[FlexibleNullability] java.util.HashSet<@[FlexibleNullability] kotlin.Pair<@[FlexibleNullability] kotlin.String?, @[FlexibleNullability] kotlin.Boolean?>?>? declared in <root>.JavaTest' type=@[FlexibleNullability] java.util.HashSet<@[FlexibleNullability] kotlin.Pair<@[FlexibleNullability] kotlin.String?, @[FlexibleNullability] kotlin.Boolean?>?>? origin=null
+          $this: GET_VAR 'val test: <root>.JavaTest declared in <root>.box' type=<root>.JavaTest origin=null
+      TYPE_OP type=kotlin.Unit origin=IMPLICIT_COERCION_TO_UNIT typeOperand=kotlin.Unit
+        CALL 'public open fun addAll (p0: @[EnhancedNullability] kotlin.collections.Collection<out @[EnhancedNullability] E of java.util.HashSet>): kotlin.Boolean declared in java.util.HashSet' type=kotlin.Boolean origin=null
+          $this: GET_VAR 'val methods: @[FlexibleNullability] java.util.HashSet<@[FlexibleNullability] kotlin.Pair<@[FlexibleNullability] kotlin.String?, @[FlexibleNullability] kotlin.Boolean?>?>? declared in <root>.box' type=@[FlexibleNullability] java.util.HashSet<@[FlexibleNullability] kotlin.Pair<@[FlexibleNullability] kotlin.String?, @[FlexibleNullability] kotlin.Boolean?>?>? origin=null
+          p0: CALL 'public open fun reflectCopies (): @[FlexibleNullability] java.util.HashSet<@[FlexibleNullability] kotlin.Pair<@[FlexibleNullability] kotlin.String?, @[FlexibleNullability] kotlin.Boolean?>?>? declared in <root>.JavaTest' type=@[FlexibleNullability] java.util.HashSet<@[FlexibleNullability] kotlin.Pair<@[FlexibleNullability] kotlin.String?, @[FlexibleNullability] kotlin.Boolean?>?>? origin=null
+            $this: GET_VAR 'val test: <root>.JavaTest declared in <root>.box' type=<root>.JavaTest origin=null
+      VAR name:overloads type:kotlin.collections.List<kotlin.Pair<kotlin.String, kotlin.Boolean>> [val]
+        CALL 'public final fun listOf <T> (vararg elements: T of kotlin.collections.listOf): kotlin.collections.List<T of kotlin.collections.listOf> declared in kotlin.collections' type=kotlin.collections.List<kotlin.Pair<kotlin.String, kotlin.Boolean>> origin=null
+          <T>: kotlin.Pair<kotlin.String, kotlin.Boolean>
+          elements: VARARG type=kotlin.Array<out kotlin.Pair<kotlin.String, kotlin.Boolean>> varargElementType=kotlin.Pair<kotlin.String, kotlin.Boolean>
+            CONSTRUCTOR_CALL 'public constructor <init> (first: A of kotlin.Pair, second: B of kotlin.Pair) declared in kotlin.Pair' type=kotlin.Pair<kotlin.String, kotlin.Boolean> origin=null
+              <class: A>: kotlin.String
+              <class: B>: kotlin.Boolean
+              first: CONST String type=kotlin.String value="public Data(int)"
+              second: CONST Boolean type=kotlin.Boolean value=true
+            CONSTRUCTOR_CALL 'public constructor <init> (first: A of kotlin.Pair, second: B of kotlin.Pair) declared in kotlin.Pair' type=kotlin.Pair<kotlin.String, kotlin.Boolean> origin=null
+              <class: A>: kotlin.String
+              <class: B>: kotlin.Boolean
+              first: CONST String type=kotlin.String value="public Data(int,int)"
+              second: CONST Boolean type=kotlin.Boolean value=true
+            CONSTRUCTOR_CALL 'public constructor <init> (first: A of kotlin.Pair, second: B of kotlin.Pair) declared in kotlin.Pair' type=kotlin.Pair<kotlin.String, kotlin.Boolean> origin=null
+              <class: A>: kotlin.String
+              <class: B>: kotlin.Boolean
+              first: CONST String type=kotlin.String value="public Data(int,long,int,int)"
+              second: CONST Boolean type=kotlin.Boolean value=true
+            CONSTRUCTOR_CALL 'public constructor <init> (first: A of kotlin.Pair, second: B of kotlin.Pair) declared in kotlin.Pair' type=kotlin.Pair<kotlin.String, kotlin.Boolean> origin=null
+              <class: A>: kotlin.String
+              <class: B>: kotlin.Boolean
+              first: CONST String type=kotlin.String value="public Data(int,long,int,int,int)"
+              second: CONST Boolean type=kotlin.Boolean value=false
+            CONSTRUCTOR_CALL 'public constructor <init> (first: A of kotlin.Pair, second: B of kotlin.Pair) declared in kotlin.Pair' type=kotlin.Pair<kotlin.String, kotlin.Boolean> origin=null
+              <class: A>: kotlin.String
+              <class: B>: kotlin.Boolean
+              first: CONST String type=kotlin.String value="public final Data Data.copy(int)"
+              second: CONST Boolean type=kotlin.Boolean value=true
+            CONSTRUCTOR_CALL 'public constructor <init> (first: A of kotlin.Pair, second: B of kotlin.Pair) declared in kotlin.Pair' type=kotlin.Pair<kotlin.String, kotlin.Boolean> origin=null
+              <class: A>: kotlin.String
+              <class: B>: kotlin.Boolean
+              first: CONST String type=kotlin.String value="public final Data Data.copy(int,int)"
+              second: CONST Boolean type=kotlin.Boolean value=true
+            CONSTRUCTOR_CALL 'public constructor <init> (first: A of kotlin.Pair, second: B of kotlin.Pair) declared in kotlin.Pair' type=kotlin.Pair<kotlin.String, kotlin.Boolean> origin=null
+              <class: A>: kotlin.String
+              <class: B>: kotlin.Boolean
+              first: CONST String type=kotlin.String value="public final Data Data.copy(int,long,int,int)"
+              second: CONST Boolean type=kotlin.Boolean value=true
+            CONSTRUCTOR_CALL 'public constructor <init> (first: A of kotlin.Pair, second: B of kotlin.Pair) declared in kotlin.Pair' type=kotlin.Pair<kotlin.String, kotlin.Boolean> origin=null
+              <class: A>: kotlin.String
+              <class: B>: kotlin.Boolean
+              first: CONST String type=kotlin.String value="public final Data Data.copy(int,long,int,int,int)"
+              second: CONST Boolean type=kotlin.Boolean value=false
+      VAR name:overloadCounts type:kotlin.collections.Map<kotlin.String, kotlin.Int> [val]
+        CALL 'public final fun mapOf <K, V> (vararg pairs: kotlin.Pair<K of kotlin.collections.mapOf, V of kotlin.collections.mapOf>): kotlin.collections.Map<K of kotlin.collections.mapOf, V of kotlin.collections.mapOf> declared in kotlin.collections' type=kotlin.collections.Map<kotlin.String, kotlin.Int> origin=null
+          <K>: kotlin.String
+          <V>: kotlin.Int
+          pairs: VARARG type=kotlin.Array<out kotlin.Pair<kotlin.String, kotlin.Int>> varargElementType=kotlin.Pair<kotlin.String, kotlin.Int>
+            CALL 'public final fun to <A, B> (that: B of kotlin.to): kotlin.Pair<A of kotlin.to, B of kotlin.to> declared in kotlin' type=kotlin.Pair<kotlin.String, kotlin.Int> origin=null
+              <A>: kotlin.String
+              <B>: kotlin.Int
+              $receiver: CONST String type=kotlin.String value="Data"
+              that: CONST Int type=kotlin.Int value=4
+            CALL 'public final fun to <A, B> (that: B of kotlin.to): kotlin.Pair<A of kotlin.to, B of kotlin.to> declared in kotlin' type=kotlin.Pair<kotlin.String, kotlin.Int> origin=null
+              <A>: kotlin.String
+              <B>: kotlin.Int
+              $receiver: CONST String type=kotlin.String value="copy"
+              that: CONST Int type=kotlin.Int value=4
+      BLOCK type=kotlin.Unit origin=FOR_LOOP
+        VAR FOR_LOOP_ITERATOR name:tmp_0 type:kotlin.collections.Iterator<kotlin.Pair<kotlin.String, kotlin.Boolean>> [val]
+          CALL 'public abstract fun iterator (): kotlin.collections.Iterator<E of kotlin.collections.List> declared in kotlin.collections.List' type=kotlin.collections.Iterator<kotlin.Pair<kotlin.String, kotlin.Boolean>> origin=FOR_LOOP_ITERATOR
+            $this: GET_VAR 'val overloads: kotlin.collections.List<kotlin.Pair<kotlin.String, kotlin.Boolean>> declared in <root>.box' type=kotlin.collections.List<kotlin.Pair<kotlin.String, kotlin.Boolean>> origin=null
+        WHILE label=null origin=FOR_LOOP_INNER_WHILE
+          condition: CALL 'public abstract fun hasNext (): kotlin.Boolean declared in kotlin.collections.Iterator' type=kotlin.Boolean origin=FOR_LOOP_HAS_NEXT
+            $this: GET_VAR 'val tmp_0: kotlin.collections.Iterator<kotlin.Pair<kotlin.String, kotlin.Boolean>> declared in <root>.box' type=kotlin.collections.Iterator<kotlin.Pair<kotlin.String, kotlin.Boolean>> origin=null
+          body: BLOCK type=kotlin.Unit origin=FOR_LOOP_INNER_WHILE
+            VAR FOR_LOOP_VARIABLE name:overload type:kotlin.Pair<kotlin.String, kotlin.Boolean> [val]
+              CALL 'public abstract fun next (): T of kotlin.collections.Iterator declared in kotlin.collections.Iterator' type=kotlin.Pair<kotlin.String, kotlin.Boolean> origin=FOR_LOOP_NEXT
+                $this: GET_VAR 'val tmp_0: kotlin.collections.Iterator<kotlin.Pair<kotlin.String, kotlin.Boolean>> declared in <root>.box' type=kotlin.collections.Iterator<kotlin.Pair<kotlin.String, kotlin.Boolean>> origin=null
+            BLOCK type=kotlin.Unit origin=null
+              WHEN type=kotlin.Unit origin=IF
+                BRANCH
+                  if: CALL 'public final fun not (): kotlin.Boolean declared in kotlin.Boolean' type=kotlin.Boolean origin=null
+                    $this: CALL 'public open fun contains (p0: @[EnhancedNullability] E of java.util.HashSet): kotlin.Boolean declared in java.util.HashSet' type=kotlin.Boolean origin=null
+                      $this: GET_VAR 'val methods: @[FlexibleNullability] java.util.HashSet<@[FlexibleNullability] kotlin.Pair<@[FlexibleNullability] kotlin.String?, @[FlexibleNullability] kotlin.Boolean?>?>? declared in <root>.box' type=@[FlexibleNullability] java.util.HashSet<@[FlexibleNullability] kotlin.Pair<@[FlexibleNullability] kotlin.String?, @[FlexibleNullability] kotlin.Boolean?>?>? origin=null
+                      p0: GET_VAR 'val overload: kotlin.Pair<kotlin.String, kotlin.Boolean> declared in <root>.box' type=kotlin.Pair<kotlin.String, kotlin.Boolean> origin=null
+                  then: BLOCK type=kotlin.Unit origin=null
+                    CALL 'public final fun println (message: kotlin.Any?): kotlin.Unit declared in kotlin.io' type=kotlin.Unit origin=null
+                      message: CONST String type=kotlin.String value="Overload check fail"
+                    BLOCK type=kotlin.Unit origin=FOR_LOOP
+                      VAR FOR_LOOP_ITERATOR name:tmp_1 type:kotlin.collections.MutableIterator<@[EnhancedNullability] @[FlexibleNullability] kotlin.Pair<@[FlexibleNullability] kotlin.String?, @[FlexibleNullability] kotlin.Boolean?>?> [val]
+                        TYPE_OP type=kotlin.collections.MutableIterator<@[EnhancedNullability] @[FlexibleNullability] kotlin.Pair<@[FlexibleNullability] kotlin.String?, @[FlexibleNullability] kotlin.Boolean?>?> origin=IMPLICIT_NOTNULL typeOperand=kotlin.collections.MutableIterator<@[EnhancedNullability] @[FlexibleNullability] kotlin.Pair<@[FlexibleNullability] kotlin.String?, @[FlexibleNullability] kotlin.Boolean?>?>
+                          CALL 'public open fun iterator (): @[EnhancedNullability] kotlin.collections.MutableIterator<@[EnhancedNullability] E of java.util.HashSet> declared in java.util.HashSet' type=@[EnhancedNullability] kotlin.collections.MutableIterator<@[EnhancedNullability] @[FlexibleNullability] kotlin.Pair<@[FlexibleNullability] kotlin.String?, @[FlexibleNullability] kotlin.Boolean?>?> origin=null
+                            $this: GET_VAR 'val methods: @[FlexibleNullability] java.util.HashSet<@[FlexibleNullability] kotlin.Pair<@[FlexibleNullability] kotlin.String?, @[FlexibleNullability] kotlin.Boolean?>?>? declared in <root>.box' type=@[FlexibleNullability] java.util.HashSet<@[FlexibleNullability] kotlin.Pair<@[FlexibleNullability] kotlin.String?, @[FlexibleNullability] kotlin.Boolean?>?>? origin=null
+                      WHILE label=null origin=FOR_LOOP_INNER_WHILE
+                        condition: CALL 'public abstract fun hasNext (): kotlin.Boolean declared in kotlin.collections.MutableIterator' type=kotlin.Boolean origin=FOR_LOOP_HAS_NEXT
+                          $this: GET_VAR 'val tmp_1: kotlin.collections.MutableIterator<@[EnhancedNullability] @[FlexibleNullability] kotlin.Pair<@[FlexibleNullability] kotlin.String?, @[FlexibleNullability] kotlin.Boolean?>?> declared in <root>.box' type=kotlin.collections.MutableIterator<@[EnhancedNullability] @[FlexibleNullability] kotlin.Pair<@[FlexibleNullability] kotlin.String?, @[FlexibleNullability] kotlin.Boolean?>?> origin=null
+                        body: BLOCK type=kotlin.Unit origin=FOR_LOOP_INNER_WHILE
+                          VAR IR_TEMPORARY_VARIABLE name:tmp_2 type:@[FlexibleNullability] kotlin.Pair<@[FlexibleNullability] kotlin.String?, @[FlexibleNullability] kotlin.Boolean?>? [val]
+                            CALL 'public abstract fun next (): T of kotlin.collections.MutableIterator declared in kotlin.collections.MutableIterator' type=@[EnhancedNullability] @[FlexibleNullability] kotlin.Pair<@[FlexibleNullability] kotlin.String?, @[FlexibleNullability] kotlin.Boolean?>? origin=FOR_LOOP_NEXT
+                              $this: GET_VAR 'val tmp_1: kotlin.collections.MutableIterator<@[EnhancedNullability] @[FlexibleNullability] kotlin.Pair<@[FlexibleNullability] kotlin.String?, @[FlexibleNullability] kotlin.Boolean?>?> declared in <root>.box' type=kotlin.collections.MutableIterator<@[EnhancedNullability] @[FlexibleNullability] kotlin.Pair<@[FlexibleNullability] kotlin.String?, @[FlexibleNullability] kotlin.Boolean?>?> origin=null
+                          VAR name:methodName type:@[FlexibleNullability] kotlin.String? [val]
+                            CALL 'public final fun component1 (): A of kotlin.Pair declared in kotlin.Pair' type=@[FlexibleNullability] kotlin.String? origin=COMPONENT_N(index=1)
+                              $this: GET_VAR 'val tmp_2: @[FlexibleNullability] kotlin.Pair<@[FlexibleNullability] kotlin.String?, @[FlexibleNullability] kotlin.Boolean?>? declared in <root>.box' type=@[FlexibleNullability] kotlin.Pair<@[FlexibleNullability] kotlin.String?, @[FlexibleNullability] kotlin.Boolean?>? origin=null
+                          VAR name:syn type:@[FlexibleNullability] kotlin.Boolean? [val]
+                            CALL 'public final fun component2 (): B of kotlin.Pair declared in kotlin.Pair' type=@[FlexibleNullability] kotlin.Boolean? origin=COMPONENT_N(index=2)
+                              $this: GET_VAR 'val tmp_2: @[FlexibleNullability] kotlin.Pair<@[FlexibleNullability] kotlin.String?, @[FlexibleNullability] kotlin.Boolean?>? declared in <root>.box' type=@[FlexibleNullability] kotlin.Pair<@[FlexibleNullability] kotlin.String?, @[FlexibleNullability] kotlin.Boolean?>? origin=null
+                          BLOCK type=kotlin.Unit origin=null
+                            CALL 'public final fun println (message: kotlin.Any?): kotlin.Unit declared in kotlin.io' type=kotlin.Unit origin=null
+                              message: STRING_CONCATENATION type=kotlin.String
+                                GET_VAR 'val methodName: @[FlexibleNullability] kotlin.String? declared in <root>.box' type=@[FlexibleNullability] kotlin.String? origin=null
+                                CONST String type=kotlin.String value=", syn: "
+                                GET_VAR 'val syn: @[FlexibleNullability] kotlin.Boolean? declared in <root>.box' type=@[FlexibleNullability] kotlin.Boolean? origin=null
+                    RETURN type=kotlin.Nothing from='public final fun box (): kotlin.String declared in <root>'
+                      STRING_CONCATENATION type=kotlin.String
+                        CONST String type=kotlin.String value="Fail: overload not found "
+                        GET_VAR 'val overload: kotlin.Pair<kotlin.String, kotlin.Boolean> declared in <root>.box' type=kotlin.Pair<kotlin.String, kotlin.Boolean> origin=null
+      BLOCK type=kotlin.Unit origin=FOR_LOOP
+        VAR FOR_LOOP_ITERATOR name:tmp_3 type:kotlin.collections.Iterator<kotlin.collections.Map.Entry<kotlin.String, kotlin.Int>> [val]
+          CALL 'public final fun iterator <K, V> (): kotlin.collections.Iterator<kotlin.collections.Map.Entry<K of kotlin.collections.iterator, V of kotlin.collections.iterator>> declared in kotlin.collections' type=kotlin.collections.Iterator<kotlin.collections.Map.Entry<kotlin.String, kotlin.Int>> origin=FOR_LOOP_ITERATOR
+            <K>: kotlin.String
+            <V>: kotlin.Int
+            $receiver: GET_VAR 'val overloadCounts: kotlin.collections.Map<kotlin.String, kotlin.Int> declared in <root>.box' type=kotlin.collections.Map<kotlin.String, kotlin.Int> origin=null
+        WHILE label=null origin=FOR_LOOP_INNER_WHILE
+          condition: CALL 'public abstract fun hasNext (): kotlin.Boolean declared in kotlin.collections.Iterator' type=kotlin.Boolean origin=FOR_LOOP_HAS_NEXT
+            $this: GET_VAR 'val tmp_3: kotlin.collections.Iterator<kotlin.collections.Map.Entry<kotlin.String, kotlin.Int>> declared in <root>.box' type=kotlin.collections.Iterator<kotlin.collections.Map.Entry<kotlin.String, kotlin.Int>> origin=null
+          body: BLOCK type=kotlin.Unit origin=FOR_LOOP_INNER_WHILE
+            VAR IR_TEMPORARY_VARIABLE name:tmp_4 type:kotlin.collections.Map.Entry<kotlin.String, kotlin.Int> [val]
+              CALL 'public abstract fun next (): T of kotlin.collections.Iterator declared in kotlin.collections.Iterator' type=kotlin.collections.Map.Entry<kotlin.String, kotlin.Int> origin=FOR_LOOP_NEXT
+                $this: GET_VAR 'val tmp_3: kotlin.collections.Iterator<kotlin.collections.Map.Entry<kotlin.String, kotlin.Int>> declared in <root>.box' type=kotlin.collections.Iterator<kotlin.collections.Map.Entry<kotlin.String, kotlin.Int>> origin=null
+            VAR name:name type:kotlin.String [val]
+              CALL 'public final fun component1 <K, V> (): K of kotlin.collections.component1 declared in kotlin.collections' type=kotlin.String origin=COMPONENT_N(index=1)
+                <K>: kotlin.String
+                <V>: kotlin.Int
+                $receiver: GET_VAR 'val tmp_4: kotlin.collections.Map.Entry<kotlin.String, kotlin.Int> declared in <root>.box' type=kotlin.collections.Map.Entry<kotlin.String, kotlin.Int> origin=null
+            VAR name:expected type:kotlin.Int [val]
+              CALL 'public final fun component2 <K, V> (): V of kotlin.collections.component2 declared in kotlin.collections' type=kotlin.Int origin=COMPONENT_N(index=2)
+                <K>: kotlin.String
+                <V>: kotlin.Int
+                $receiver: GET_VAR 'val tmp_4: kotlin.collections.Map.Entry<kotlin.String, kotlin.Int> declared in <root>.box' type=kotlin.collections.Map.Entry<kotlin.String, kotlin.Int> origin=null
+            BLOCK type=kotlin.Unit origin=null
+              VAR name:pattern type:kotlin.String [val]
+                STRING_CONCATENATION type=kotlin.String
+                  GET_VAR 'val name: kotlin.String declared in <root>.box' type=kotlin.String origin=null
+                  CONST String type=kotlin.String value="("
+              VAR name:actual type:kotlin.Int [val]
+                CALL 'public final fun count <T> (predicate: kotlin.Function1<T of kotlin.collections.count, kotlin.Boolean>): kotlin.Int declared in kotlin.collections' type=kotlin.Int origin=null
+                  <T>: @[FlexibleNullability] kotlin.Pair<@[FlexibleNullability] kotlin.String?, @[FlexibleNullability] kotlin.Boolean?>?
+                  $receiver: TYPE_OP type=java.util.HashSet<@[FlexibleNullability] kotlin.Pair<@[FlexibleNullability] kotlin.String?, @[FlexibleNullability] kotlin.Boolean?>?> origin=IMPLICIT_NOTNULL typeOperand=java.util.HashSet<@[FlexibleNullability] kotlin.Pair<@[FlexibleNullability] kotlin.String?, @[FlexibleNullability] kotlin.Boolean?>?>
+                    GET_VAR 'val methods: @[FlexibleNullability] java.util.HashSet<@[FlexibleNullability] kotlin.Pair<@[FlexibleNullability] kotlin.String?, @[FlexibleNullability] kotlin.Boolean?>?>? declared in <root>.box' type=@[FlexibleNullability] java.util.HashSet<@[FlexibleNullability] kotlin.Pair<@[FlexibleNullability] kotlin.String?, @[FlexibleNullability] kotlin.Boolean?>?>? origin=null
+                  predicate: FUN_EXPR type=kotlin.Function1<@[FlexibleNullability] kotlin.Pair<@[FlexibleNullability] kotlin.String?, @[FlexibleNullability] kotlin.Boolean?>?, kotlin.Boolean> origin=LAMBDA
+                    FUN LOCAL_FUNCTION_FOR_LAMBDA name:<anonymous> visibility:local modality:FINAL <> (<destruct>:@[FlexibleNullability] kotlin.Pair<@[FlexibleNullability] kotlin.String?, @[FlexibleNullability] kotlin.Boolean?>?) returnType:kotlin.Boolean
+                      VALUE_PARAMETER DESTRUCTURED_OBJECT_PARAMETER name:<destruct> index:0 type:@[FlexibleNullability] kotlin.Pair<@[FlexibleNullability] kotlin.String?, @[FlexibleNullability] kotlin.Boolean?>?
+                      BLOCK_BODY
+                        VAR name:sign type:@[FlexibleNullability] kotlin.String? [val]
+                          CALL 'public final fun component1 (): A of kotlin.Pair declared in kotlin.Pair' type=@[FlexibleNullability] kotlin.String? origin=COMPONENT_N(index=1)
+                            $this: GET_VAR '<destruct>: @[FlexibleNullability] kotlin.Pair<@[FlexibleNullability] kotlin.String?, @[FlexibleNullability] kotlin.Boolean?>? declared in <root>.box.<anonymous>' type=@[FlexibleNullability] kotlin.Pair<@[FlexibleNullability] kotlin.String?, @[FlexibleNullability] kotlin.Boolean?>? origin=null
+                        RETURN type=kotlin.Nothing from='local final fun <anonymous> (<destruct>: @[FlexibleNullability] kotlin.Pair<@[FlexibleNullability] kotlin.String?, @[FlexibleNullability] kotlin.Boolean?>?): kotlin.Boolean declared in <root>.box'
+                          WHEN type=kotlin.Boolean origin=ANDAND
+                            BRANCH
+                              if: CALL 'public final fun contains (other: kotlin.CharSequence, ignoreCase: kotlin.Boolean): kotlin.Boolean declared in kotlin.text' type=kotlin.Boolean origin=null
+                                $receiver: TYPE_OP type=kotlin.String origin=IMPLICIT_NOTNULL typeOperand=kotlin.String
+                                  GET_VAR 'val sign: @[FlexibleNullability] kotlin.String? declared in <root>.box.<anonymous>' type=@[FlexibleNullability] kotlin.String? origin=null
+                                other: GET_VAR 'val pattern: kotlin.String declared in <root>.box' type=kotlin.String origin=null
+                              then: CALL 'public final fun not (): kotlin.Boolean declared in kotlin.Boolean' type=kotlin.Boolean origin=null
+                                $this: CALL 'public final fun contains (other: kotlin.CharSequence, ignoreCase: kotlin.Boolean): kotlin.Boolean declared in kotlin.text' type=kotlin.Boolean origin=null
+                                  $receiver: TYPE_OP type=kotlin.String origin=IMPLICIT_NOTNULL typeOperand=kotlin.String
+                                    GET_VAR 'val sign: @[FlexibleNullability] kotlin.String? declared in <root>.box.<anonymous>' type=@[FlexibleNullability] kotlin.String? origin=null
+                                  other: CONST String type=kotlin.String value="DefaultConstructorMarker"
+                            BRANCH
+                              if: CONST Boolean type=kotlin.Boolean value=true
+                              then: CONST Boolean type=kotlin.Boolean value=false
+              WHEN type=kotlin.Unit origin=IF
+                BRANCH
+                  if: CALL 'public final fun not (): kotlin.Boolean declared in kotlin.Boolean' type=kotlin.Boolean origin=EXCLEQ
+                    $this: CALL 'public final fun EQEQ (arg0: kotlin.Any?, arg1: kotlin.Any?): kotlin.Boolean declared in kotlin.internal.ir' type=kotlin.Boolean origin=EXCLEQ
+                      arg0: GET_VAR 'val actual: kotlin.Int declared in <root>.box' type=kotlin.Int origin=null
+                      arg1: GET_VAR 'val expected: kotlin.Int declared in <root>.box' type=kotlin.Int origin=null
+                  then: RETURN type=kotlin.Nothing from='public final fun box (): kotlin.String declared in <root>'
+                    STRING_CONCATENATION type=kotlin.String
+                      CONST String type=kotlin.String value="Fail: overload "
+                      GET_VAR 'val name: kotlin.String declared in <root>.box' type=kotlin.String origin=null
+                      CONST String type=kotlin.String value=" count does not match, expected "
+                      GET_VAR 'val expected: kotlin.Int declared in <root>.box' type=kotlin.Int origin=null
+                      CONST String type=kotlin.String value=", actual "
+                      GET_VAR 'val actual: kotlin.Int declared in <root>.box' type=kotlin.Int origin=null
+      RETURN type=kotlin.Nothing from='public final fun box (): kotlin.String declared in <root>'
+        CONST String type=kotlin.String value="OK"

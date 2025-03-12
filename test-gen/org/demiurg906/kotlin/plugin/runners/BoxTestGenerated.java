@@ -28,6 +28,12 @@ public class BoxTestGenerated extends AbstractBoxTest {
   }
 
   @Test
+  @TestMetadata("data_classes.kt")
+  public void testData_classes() {
+    runTest("testData/versions/data_classes.kt");
+  }
+
+  @Test
   @TestMetadata("simple.kt")
   public void testSimple() {
     runTest("testData/versions/simple.kt");

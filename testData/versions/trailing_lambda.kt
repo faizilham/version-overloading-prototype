@@ -3,7 +3,6 @@ import com.faizilham.prototype.versioning.*
 
 object TrailingExample {
     @JvmStatic
-    @VersionOverloads
     fun withlam(
         x: Int,
         y: Int = 0,
@@ -14,7 +13,6 @@ object TrailingExample {
     ): Int = f(x + y + z + a1 + a2)
 
     @JvmStatic
-    @VersionOverloads
     fun withDefLam(
         x: Int,
         y: Int = 0,
@@ -24,7 +22,6 @@ object TrailingExample {
     ): Int = f(x + y + z + a)
 
     @JvmStatic
-    @VersionOverloads
     fun middle(
         x: Float,
         @IntroducedAt("1.2") x1: Float = 0.0f,

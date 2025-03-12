@@ -35,7 +35,6 @@ class VersionOverloadingGenerator(context: IrPluginContext) : IrElementVisitor<U
 
     companion object {
         val IntroducedAtAnnotation = FqName("com.faizilham.prototype.versioning.IntroducedAt")
-        val VersionOverloadsAnnotation = FqName("com.faizilham.prototype.versioning.VersionOverloads")
         val VERSION_OVERLOAD_WRAPPER by IrDeclarationOriginImpl
     }
 
@@ -61,7 +60,7 @@ class VersionOverloadingGenerator(context: IrPluginContext) : IrElementVisitor<U
     override fun visitFunction(func: IrFunction, data: MutableList<IrFunction>?) {
         if (data == null) return
         val versionParamIndexes = getSortedVersionParameterIndexes(func)
-        if (versionParamIndexes == null || versionParamIndexes.size < 2) return
+        if (versionParamIndexes.size < 2) return
 
         var lastIncludedParameters = MutableList<Boolean>(func.valueParameters.size) { true }
 
@@ -77,9 +76,7 @@ class VersionOverloadingGenerator(context: IrPluginContext) : IrElementVisitor<U
         }
     }
 
-    private fun getSortedVersionParameterIndexes(func: IrFunction): SortedMap<VersionNumber, MutableList<Int>>? {
-        if (!func.hasAnnotation(VersionOverloadsAnnotation)) return null
-
+    private fun getSortedVersionParameterIndexes(func: IrFunction): SortedMap<VersionNumber, MutableList<Int>> {
         val versionIndexes = sortedMapOf<VersionNumber, MutableList<Int>>()
 
         func.valueParameters.forEachIndexed { i, param ->

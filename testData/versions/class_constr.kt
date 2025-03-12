@@ -4,7 +4,7 @@
 // FILE: m1.kt
 import com.faizilham.prototype.versioning.*
 
-class Simple @VersionOverloads constructor(
+class Simple constructor(
     val x: Int,
     @IntroducedAt("1.1") val y: Int = 0,
     @IntroducedAt("1.2") val z1 : Long = 0,

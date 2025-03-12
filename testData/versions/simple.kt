@@ -9,7 +9,6 @@ import com.faizilham.prototype.versioning.*
 
 object MyExample {
     @JvmStatic
-    @VersionOverloads
     fun myAdd(
         x: Int,
         y: Int = 0,
@@ -20,7 +19,6 @@ object MyExample {
 
 
     @JvmStatic
-    @VersionOverloads
     fun middle(
         x: Float,
         @IntroducedAt("1.2") x1: Float = 0.0f,

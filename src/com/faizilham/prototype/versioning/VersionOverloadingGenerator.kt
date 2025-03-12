@@ -16,16 +16,16 @@ import org.jetbrains.kotlin.ir.util.*
 import org.jetbrains.kotlin.ir.visitors.IrElementVisitor
 import org.jetbrains.kotlin.name.FqName
 import org.jetbrains.kotlin.name.StandardClassIds
+import java.lang.Runtime.Version
 import java.util.*
 
-typealias VersionNumber = String
-
-// Generate previous versions parameter count (since the latest version is equivalent to the original IrFunction)
-// Assumptions (should enforced by checker):
+// Generate hidden overloads for each previous versions of a function to maintain binary compatibility
+// Assumptions (enforced by checker):
 // 1. Version annotations are only added at optional parameters
-// 2. Optional parameters with versions are in the tail positions, non-annotated parameters are in the head
-// 3. Version annotations are either in increasing order, or provided by name
-// 4. Special case: trailing lambdas are allowed to be non-optional
+// 2. The version number conforms to the java.lang.Runtime.Version format
+// 3. Optional parameters with version annotations are in the tail positions or before a trailing lambda,
+//    and non-annotated parameters are in the head
+// 4. Version annotations are either in increasing order, or must be provided by name
 
 class VersionOverloadingGenerator(context: IrPluginContext) : IrElementVisitor<Unit, MutableList<IrFunction>?> {
     private val irFactory = context.irFactory
@@ -64,7 +64,7 @@ class VersionOverloadingGenerator(context: IrPluginContext) : IrElementVisitor<U
 
         var lastIncludedParameters = MutableList<Boolean>(func.valueParameters.size) { true }
 
-        versionParamIndexes.reversed().asSequence().forEachIndexed { i, (_, paramIndexes) ->
+        versionParamIndexes.asIterable().forEachIndexed { i, (_, paramIndexes) ->
             if (i > 0) {
                 val wrapper = generateWrapper(func, lastIncludedParameters) ?: return@forEachIndexed
                 data.add(wrapper)
@@ -76,8 +76,8 @@ class VersionOverloadingGenerator(context: IrPluginContext) : IrElementVisitor<U
         }
     }
 
-    private fun getSortedVersionParameterIndexes(func: IrFunction): SortedMap<VersionNumber, MutableList<Int>> {
-        val versionIndexes = sortedMapOf<VersionNumber, MutableList<Int>>()
+    private fun getSortedVersionParameterIndexes(func: IrFunction): SortedMap<Version?, MutableList<Int>> {
+        val versionIndexes = sortedMapOf<Version?, MutableList<Int>> (nullsLast(compareByDescending { it }))
 
         func.valueParameters.forEachIndexed { i, param ->
             val versionNumber = param.getVersionNumber()
@@ -92,10 +92,15 @@ class VersionOverloadingGenerator(context: IrPluginContext) : IrElementVisitor<U
         return versionIndexes
     }
 
-    private fun IrValueParameter.getVersionNumber() : VersionNumber {
-        val annotation = getAnnotation(IntroducedAtAnnotation) ?: return ""
-        val versionNumber = (annotation.valueArguments[0] as? IrConst)?.value as? VersionNumber ?: ""
-        return versionNumber
+    private fun IrValueParameter.getVersionNumber() : Version? {
+        val annotation = getAnnotation(IntroducedAtAnnotation) ?: return null
+        val versionString = (annotation.valueArguments[0] as? IrConst)?.value as? String ?: return null
+
+        return try {
+            Version.parse(versionString)
+        } catch (_: Exception) {
+            null
+        }
     }
 
     private fun generateWrapper(target: IrFunction, includedParams: List<Boolean>): IrFunction? {

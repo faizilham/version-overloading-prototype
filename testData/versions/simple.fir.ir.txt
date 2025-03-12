@@ -23,12 +23,11 @@ FILE fqName:lib fileName:/lib.kt
       annotations:
         Deprecated(message = "Deprecated", replaceWith = <null>, level = GET_ENUM 'ENUM_ENTRY name:HIDDEN' type=kotlin.DeprecationLevel)
         JvmStatic
-        VersionOverloads
       $this: VALUE_PARAMETER name:<this> type:lib.MyExample
       VALUE_PARAMETER name:x index:0 type:kotlin.Float
       VALUE_PARAMETER name:x1 index:1 type:kotlin.Float
         annotations:
-          IntroducedAt(versionNumber = "1.2")
+          IntroducedAt(version = "1.2")
         EXPRESSION_BODY
           CONST Float type=kotlin.Float value=0.0
       VALUE_PARAMETER name:y index:2 type:kotlin.Int
@@ -36,7 +35,7 @@ FILE fqName:lib fileName:/lib.kt
           CONST Int type=kotlin.Int value=0
       VALUE_PARAMETER name:z index:3 type:kotlin.Float
         annotations:
-          IntroducedAt(versionNumber = "1.2")
+          IntroducedAt(version = "1.2")
         EXPRESSION_BODY
           CONST Float type=kotlin.Float value=0.0
       EXPRESSION_BODY
@@ -50,7 +49,6 @@ FILE fqName:lib fileName:/lib.kt
       annotations:
         Deprecated(message = "Deprecated", replaceWith = <null>, level = GET_ENUM 'ENUM_ENTRY name:HIDDEN' type=kotlin.DeprecationLevel)
         JvmStatic
-        VersionOverloads
       $this: VALUE_PARAMETER name:<this> type:lib.MyExample
       VALUE_PARAMETER name:x index:0 type:kotlin.Float
       VALUE_PARAMETER name:y index:1 type:kotlin.Int
@@ -65,7 +63,6 @@ FILE fqName:lib fileName:/lib.kt
       annotations:
         Deprecated(message = "Deprecated", replaceWith = <null>, level = GET_ENUM 'ENUM_ENTRY name:HIDDEN' type=kotlin.DeprecationLevel)
         JvmStatic
-        VersionOverloads
       $this: VALUE_PARAMETER name:<this> type:lib.MyExample
       VALUE_PARAMETER name:x index:0 type:kotlin.Int
       VALUE_PARAMETER name:y index:1 type:kotlin.Int
@@ -80,7 +77,6 @@ FILE fqName:lib fileName:/lib.kt
       annotations:
         Deprecated(message = "Deprecated", replaceWith = <null>, level = GET_ENUM 'ENUM_ENTRY name:HIDDEN' type=kotlin.DeprecationLevel)
         JvmStatic
-        VersionOverloads
       $this: VALUE_PARAMETER name:<this> type:lib.MyExample
       VALUE_PARAMETER name:x index:0 type:kotlin.Int
       VALUE_PARAMETER name:y index:1 type:kotlin.Int
@@ -88,7 +84,7 @@ FILE fqName:lib fileName:/lib.kt
           CONST Int type=kotlin.Int value=0
       VALUE_PARAMETER name:z index:2 type:kotlin.Int
         annotations:
-          IntroducedAt(versionNumber = "1.2")
+          IntroducedAt(version = "1.2")
         EXPRESSION_BODY
           CONST Int type=kotlin.Int value=0
       EXPRESSION_BODY
@@ -100,12 +96,11 @@ FILE fqName:lib fileName:/lib.kt
     FUN name:middle visibility:public modality:FINAL <> ($this:lib.MyExample, x:kotlin.Float, x1:kotlin.Float, y:kotlin.Int, y1:kotlin.Int, z:kotlin.Float) returnType:kotlin.Float
       annotations:
         JvmStatic
-        VersionOverloads
       $this: VALUE_PARAMETER name:<this> type:lib.MyExample
       VALUE_PARAMETER name:x index:0 type:kotlin.Float
       VALUE_PARAMETER name:x1 index:1 type:kotlin.Float
         annotations:
-          IntroducedAt(versionNumber = "1.2")
+          IntroducedAt(version = "1.2")
         EXPRESSION_BODY
           CONST Float type=kotlin.Float value=0.0
       VALUE_PARAMETER name:y index:2 type:kotlin.Int
@@ -113,12 +108,12 @@ FILE fqName:lib fileName:/lib.kt
           CONST Int type=kotlin.Int value=0
       VALUE_PARAMETER name:y1 index:3 type:kotlin.Int
         annotations:
-          IntroducedAt(versionNumber = "1.3")
+          IntroducedAt(version = "1.3")
         EXPRESSION_BODY
           CONST Int type=kotlin.Int value=0
       VALUE_PARAMETER name:z index:4 type:kotlin.Float
         annotations:
-          IntroducedAt(versionNumber = "1.2")
+          IntroducedAt(version = "1.2")
         EXPRESSION_BODY
           CONST Float type=kotlin.Float value=0.0
       BLOCK_BODY
@@ -135,7 +130,6 @@ FILE fqName:lib fileName:/lib.kt
     FUN name:myAdd visibility:public modality:FINAL <> ($this:lib.MyExample, x:kotlin.Int, y:kotlin.Int, z:kotlin.Int, a1:kotlin.Int, a2:kotlin.Int) returnType:kotlin.Int
       annotations:
         JvmStatic
-        VersionOverloads
       $this: VALUE_PARAMETER name:<this> type:lib.MyExample
       VALUE_PARAMETER name:x index:0 type:kotlin.Int
       VALUE_PARAMETER name:y index:1 type:kotlin.Int
@@ -143,17 +137,17 @@ FILE fqName:lib fileName:/lib.kt
           CONST Int type=kotlin.Int value=0
       VALUE_PARAMETER name:z index:2 type:kotlin.Int
         annotations:
-          IntroducedAt(versionNumber = "1.2")
+          IntroducedAt(version = "1.2")
         EXPRESSION_BODY
           CONST Int type=kotlin.Int value=0
       VALUE_PARAMETER name:a1 index:3 type:kotlin.Int
         annotations:
-          IntroducedAt(versionNumber = "1.3")
+          IntroducedAt(version = "1.3")
         EXPRESSION_BODY
           CONST Int type=kotlin.Int value=0
       VALUE_PARAMETER name:a2 index:4 type:kotlin.Int
         annotations:
-          IntroducedAt(versionNumber = "1.3")
+          IntroducedAt(version = "1.3")
         EXPRESSION_BODY
           CONST Int type=kotlin.Int value=0
       BLOCK_BODY
@@ -167,6 +161,24 @@ FILE fqName:lib fileName:/lib.kt
                 other: GET_VAR 'z: kotlin.Int declared in lib.MyExample.myAdd' type=kotlin.Int origin=null
               other: GET_VAR 'a1: kotlin.Int declared in lib.MyExample.myAdd' type=kotlin.Int origin=null
             other: GET_VAR 'a2: kotlin.Int declared in lib.MyExample.myAdd' type=kotlin.Int origin=null
+  PROPERTY name:VERSION_1_2 visibility:public modality:FINAL [const,val]
+    FIELD PROPERTY_BACKING_FIELD name:VERSION_1_2 type:kotlin.String visibility:public [final,static]
+      EXPRESSION_BODY
+        CONST String type=kotlin.String value="1.2"
+    FUN DEFAULT_PROPERTY_ACCESSOR name:<get-VERSION_1_2> visibility:public modality:FINAL <> () returnType:kotlin.String
+      correspondingProperty: PROPERTY name:VERSION_1_2 visibility:public modality:FINAL [const,val]
+      BLOCK_BODY
+        RETURN type=kotlin.Nothing from='public final fun <get-VERSION_1_2> (): kotlin.String declared in lib'
+          GET_FIELD 'FIELD PROPERTY_BACKING_FIELD name:VERSION_1_2 type:kotlin.String visibility:public [final,static]' type=kotlin.String origin=null
+  PROPERTY name:VERSION_1_3 visibility:public modality:FINAL [const,val]
+    FIELD PROPERTY_BACKING_FIELD name:VERSION_1_3 type:kotlin.String visibility:public [final,static]
+      EXPRESSION_BODY
+        CONST String type=kotlin.String value="1.3"
+    FUN DEFAULT_PROPERTY_ACCESSOR name:<get-VERSION_1_3> visibility:public modality:FINAL <> () returnType:kotlin.String
+      correspondingProperty: PROPERTY name:VERSION_1_3 visibility:public modality:FINAL [const,val]
+      BLOCK_BODY
+        RETURN type=kotlin.Nothing from='public final fun <get-VERSION_1_3> (): kotlin.String declared in lib'
+          GET_FIELD 'FIELD PROPERTY_BACKING_FIELD name:VERSION_1_3 type:kotlin.String visibility:public [final,static]' type=kotlin.String origin=null
 FILE fqName:lib fileName:/main.kt
   FUN name:box visibility:public modality:FINAL <> () returnType:kotlin.String
     BLOCK_BODY

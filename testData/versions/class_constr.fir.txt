@@ -1,6 +1,6 @@
 FILE: m1.kt
     public final class Simple : R|kotlin/Any| {
-        @R|com/faizilham/prototype/versioning/VersionOverloads|() public constructor(x: R|kotlin/Int|, @R|com/faizilham/prototype/versioning/IntroducedAt|(versionNumber = String(1.1)) y: R|kotlin/Int| = Int(0), @R|com/faizilham/prototype/versioning/IntroducedAt|(versionNumber = String(1.2)) z1: R|kotlin/Long| = Long(0), @R|com/faizilham/prototype/versioning/IntroducedAt|(versionNumber = String(1.2)) z2: R|kotlin/Int| = Int(0)): R|Simple| {
+        public constructor(x: R|kotlin/Int|, @R|com/faizilham/prototype/versioning/IntroducedAt|(version = String(1.1)) y: R|kotlin/Int| = Int(0), @R|com/faizilham/prototype/versioning/IntroducedAt|(version = String(1.2)) z1: R|kotlin/Long| = Long(0), @R|com/faizilham/prototype/versioning/IntroducedAt|(version = String(1.2)) z2: R|kotlin/Int| = Int(0)): R|Simple| {
             super<R|kotlin/Any|>()
         }
 

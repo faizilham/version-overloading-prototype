@@ -48,7 +48,6 @@ FILE fqName:<root> fileName:/m1.kt
     CONSTRUCTOR VERSION_OVERLOAD_WRAPPER visibility:public <> (x:kotlin.Int) returnType:<root>.Simple
       annotations:
         Deprecated(message = "Deprecated", replaceWith = <null>, level = GET_ENUM 'ENUM_ENTRY name:HIDDEN' type=kotlin.DeprecationLevel)
-        VersionOverloads
       VALUE_PARAMETER name:x index:0 type:kotlin.Int
       BLOCK_BODY
         DELEGATING_CONSTRUCTOR_CALL 'public constructor <init> (x: kotlin.Int, y: kotlin.Int, z1: kotlin.Long, z2: kotlin.Int) declared in <root>.Simple'
@@ -56,11 +55,10 @@ FILE fqName:<root> fileName:/m1.kt
     CONSTRUCTOR VERSION_OVERLOAD_WRAPPER visibility:public <> (x:kotlin.Int, y:kotlin.Int) returnType:<root>.Simple
       annotations:
         Deprecated(message = "Deprecated", replaceWith = <null>, level = GET_ENUM 'ENUM_ENTRY name:HIDDEN' type=kotlin.DeprecationLevel)
-        VersionOverloads
       VALUE_PARAMETER name:x index:0 type:kotlin.Int
       VALUE_PARAMETER name:y index:1 type:kotlin.Int
         annotations:
-          IntroducedAt(versionNumber = "1.1")
+          IntroducedAt(version = "1.1")
         EXPRESSION_BODY
           CONST Int type=kotlin.Int value=0
       BLOCK_BODY
@@ -68,22 +66,20 @@ FILE fqName:<root> fileName:/m1.kt
           x: GET_VAR 'x: kotlin.Int declared in <root>.Simple.<init>' type=kotlin.Int origin=null
           y: GET_VAR 'y: kotlin.Int declared in <root>.Simple.<init>' type=kotlin.Int origin=null
     CONSTRUCTOR visibility:public <> (x:kotlin.Int, y:kotlin.Int, z1:kotlin.Long, z2:kotlin.Int) returnType:<root>.Simple [primary]
-      annotations:
-        VersionOverloads
       VALUE_PARAMETER name:x index:0 type:kotlin.Int
       VALUE_PARAMETER name:y index:1 type:kotlin.Int
         annotations:
-          IntroducedAt(versionNumber = "1.1")
+          IntroducedAt(version = "1.1")
         EXPRESSION_BODY
           CONST Int type=kotlin.Int value=0
       VALUE_PARAMETER name:z1 index:2 type:kotlin.Long
         annotations:
-          IntroducedAt(versionNumber = "1.2")
+          IntroducedAt(version = "1.2")
         EXPRESSION_BODY
           CONST Long type=kotlin.Long value=0
       VALUE_PARAMETER name:z2 index:3 type:kotlin.Int
         annotations:
-          IntroducedAt(versionNumber = "1.2")
+          IntroducedAt(version = "1.2")
         EXPRESSION_BODY
           CONST Int type=kotlin.Int value=0
       BLOCK_BODY

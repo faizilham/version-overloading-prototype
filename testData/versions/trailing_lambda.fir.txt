@@ -4,18 +4,18 @@ FILE: trail_m1.kt
             super<R|kotlin/Any|>()
         }
 
-        @R|kotlin/jvm/JvmStatic|() @R|com/faizilham/prototype/versioning/VersionOverloads|() public final fun withlam(x: R|kotlin/Int|, y: R|kotlin/Int| = Int(0), @R|com/faizilham/prototype/versioning/IntroducedAt|(versionNumber = String(1.2)) z: R|kotlin/Int| = Int(0), @R|com/faizilham/prototype/versioning/IntroducedAt|(versionNumber = String(1.3)) a1: R|kotlin/Int| = Int(0), @R|com/faizilham/prototype/versioning/IntroducedAt|(versionNumber = String(1.4)) a2: R|kotlin/Int| = Int(0), f: R|(kotlin/Int) -> kotlin/Int|): R|kotlin/Int| {
+        @R|kotlin/jvm/JvmStatic|() public final fun withlam(x: R|kotlin/Int|, y: R|kotlin/Int| = Int(0), @R|com/faizilham/prototype/versioning/IntroducedAt|(version = String(1.2)) z: R|kotlin/Int| = Int(0), @R|com/faizilham/prototype/versioning/IntroducedAt|(version = String(1.3)) a1: R|kotlin/Int| = Int(0), @R|com/faizilham/prototype/versioning/IntroducedAt|(version = String(1.4)) a2: R|kotlin/Int| = Int(0), f: R|(kotlin/Int) -> kotlin/Int|): R|kotlin/Int| {
             ^withlam R|<local>/f|.R|SubstitutionOverride<kotlin/Function1.invoke: R|kotlin/Int|>|(R|<local>/x|.R|kotlin/Int.plus|(R|<local>/y|).R|kotlin/Int.plus|(R|<local>/z|).R|kotlin/Int.plus|(R|<local>/a1|).R|kotlin/Int.plus|(R|<local>/a2|))
         }
 
-        @R|kotlin/jvm/JvmStatic|() @R|com/faizilham/prototype/versioning/VersionOverloads|() public final fun withDefLam(x: R|kotlin/Int|, y: R|kotlin/Int| = Int(0), @R|com/faizilham/prototype/versioning/IntroducedAt|(versionNumber = String(1.2)) z: R|kotlin/Int| = Int(0), @R|com/faizilham/prototype/versioning/IntroducedAt|(versionNumber = String(1.3)) a: R|kotlin/Int| = Int(0), f: R|(kotlin/Int) -> kotlin/Int| = fun <anonymous>(it: R|kotlin/Int|): R|kotlin/Int| <inline=Unknown>  {
+        @R|kotlin/jvm/JvmStatic|() public final fun withDefLam(x: R|kotlin/Int|, y: R|kotlin/Int| = Int(0), @R|com/faizilham/prototype/versioning/IntroducedAt|(version = String(1.2)) z: R|kotlin/Int| = Int(0), @R|com/faizilham/prototype/versioning/IntroducedAt|(version = String(1.3)) a: R|kotlin/Int| = Int(0), f: R|(kotlin/Int) -> kotlin/Int| = fun <anonymous>(it: R|kotlin/Int|): R|kotlin/Int| <inline=Unknown>  {
             ^ R|<local>/it|
         }
         ): R|kotlin/Int| {
             ^withDefLam R|<local>/f|.R|SubstitutionOverride<kotlin/Function1.invoke: R|kotlin/Int|>|(R|<local>/x|.R|kotlin/Int.plus|(R|<local>/y|).R|kotlin/Int.plus|(R|<local>/z|).R|kotlin/Int.plus|(R|<local>/a|))
         }
 
-        @R|kotlin/jvm/JvmStatic|() @R|com/faizilham/prototype/versioning/VersionOverloads|() public final fun middle(x: R|kotlin/Float|, @R|com/faizilham/prototype/versioning/IntroducedAt|(versionNumber = String(1.2)) x1: R|kotlin/Float| = Float(0.0), y: R|kotlin/Int| = Int(0), @R|com/faizilham/prototype/versioning/IntroducedAt|(versionNumber = String(1.3)) y1: R|kotlin/Int| = Int(0), @R|com/faizilham/prototype/versioning/IntroducedAt|(versionNumber = String(1.2)) z: R|kotlin/Float| = Float(0.0), f: R|(kotlin/Float) -> kotlin/Float|): R|kotlin/Float| {
+        @R|kotlin/jvm/JvmStatic|() public final fun middle(x: R|kotlin/Float|, @R|com/faizilham/prototype/versioning/IntroducedAt|(version = String(1.2)) x1: R|kotlin/Float| = Float(0.0), y: R|kotlin/Int| = Int(0), @R|com/faizilham/prototype/versioning/IntroducedAt|(version = String(1.3)) y1: R|kotlin/Int| = Int(0), @R|com/faizilham/prototype/versioning/IntroducedAt|(version = String(1.2)) z: R|kotlin/Float| = Float(0.0), f: R|(kotlin/Float) -> kotlin/Float|): R|kotlin/Float| {
             ^middle R|<local>/f|.R|SubstitutionOverride<kotlin/Function1.invoke: R|kotlin/Float|>|(R|<local>/x|.R|kotlin/Float.plus|(R|<local>/x1|).R|kotlin/Float.plus|(R|<local>/y|).R|kotlin/Float.plus|(R|<local>/y1|).R|kotlin/Float.plus|(R|<local>/z|))
         }
 

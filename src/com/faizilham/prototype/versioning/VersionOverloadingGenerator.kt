@@ -1,5 +1,8 @@
 package com.faizilham.prototype.versioning
 
+import com.faizilham.prototype.versioning.Constants.CopyMethodName
+import com.faizilham.prototype.versioning.Constants.IntroducedAtFqName
+import com.faizilham.prototype.versioning.Constants.VERSION_OVERLOAD_WRAPPER
 import org.jetbrains.kotlin.backend.common.extensions.IrPluginContext
 import org.jetbrains.kotlin.ir.IrElement
 import org.jetbrains.kotlin.ir.UNDEFINED_OFFSET
@@ -14,8 +17,6 @@ import org.jetbrains.kotlin.ir.expressions.impl.*
 import org.jetbrains.kotlin.ir.types.defaultType
 import org.jetbrains.kotlin.ir.util.*
 import org.jetbrains.kotlin.ir.visitors.IrElementVisitor
-import org.jetbrains.kotlin.name.FqName
-import org.jetbrains.kotlin.name.Name
 import org.jetbrains.kotlin.name.StandardClassIds
 import java.lang.Runtime.Version
 import java.util.*
@@ -33,12 +34,6 @@ class VersionOverloadingGenerator(context: IrPluginContext) : IrElementVisitor<U
     private val irBuiltIns = context.irBuiltIns
 
     private val deprecationBuilder = DeprecationBuilder(context)
-
-    companion object {
-        val IntroducedAtAnnotation = FqName("com.faizilham.prototype.versioning.IntroducedAt")
-        val VERSION_OVERLOAD_WRAPPER by IrDeclarationOriginImpl
-        val COPY_METHOD_NAME = Name.identifier("copy")
-    }
 
     override fun visitElement(element: IrElement, data: VisitorContext?) {
         when (element) {
@@ -63,7 +58,7 @@ class VersionOverloadingGenerator(context: IrPluginContext) : IrElementVisitor<U
         if (data == null) return
 
         val versionParamIndexes =
-            if (data.isDataClass && func.name == COPY_METHOD_NAME) {
+            if (data.isDataClass && func.name == CopyMethodName) {
                 data.primaryConstructorVersions
             } else {
                 getSortedVersionParameterIndexes(func)
@@ -116,7 +111,7 @@ class VersionOverloadingGenerator(context: IrPluginContext) : IrElementVisitor<U
     }
 
     private fun IrValueParameter.getVersionNumber() : Version? {
-        val annotation = getAnnotation(IntroducedAtAnnotation) ?: return null
+        val annotation = getAnnotation(IntroducedAtFqName) ?: return null
         val versionString = (annotation.valueArguments[0] as? IrConst)?.value as? String ?: return null
 
         return try {

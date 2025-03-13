@@ -35,8 +35,6 @@ fun TestConfigurationBuilder.commonFirWithPluginFrontendConfiguration() {
         +JvmEnvironmentConfigurationDirectives.FULL_JDK
     }
 
-
-
     useConfigurators(
         ::PluginAnnotationsProvider,
         ::PluginRegistrarConfigurator

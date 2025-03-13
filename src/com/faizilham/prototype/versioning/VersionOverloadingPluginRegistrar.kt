@@ -1,6 +1,5 @@
 package com.faizilham.prototype.versioning
 
-import com.faizilham.prototype.versioning.checkers.VersioningFirRegistrar
 import org.jetbrains.kotlin.backend.common.extensions.IrGenerationExtension
 import org.jetbrains.kotlin.compiler.plugin.CompilerPluginRegistrar
 import org.jetbrains.kotlin.config.CompilerConfiguration
@@ -11,7 +10,8 @@ class VersionOverloadingPluginRegistrar : CompilerPluginRegistrar() {
         get() = true
 
     override fun ExtensionStorage.registerExtensions(configuration: CompilerConfiguration) {
-        IrGenerationExtension.registerExtension(VersionOverloadingExtension())
-        FirExtensionRegistrarAdapter.registerExtension(VersioningFirRegistrar())
+        val extension = VersionOverloadingExtension()
+        FirExtensionRegistrarAdapter.registerExtension(extension)
+        IrGenerationExtension.registerExtension(extension)
     }
 }

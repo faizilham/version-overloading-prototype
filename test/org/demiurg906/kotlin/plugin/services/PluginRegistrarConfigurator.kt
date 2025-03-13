@@ -1,7 +1,6 @@
 package org.demiurg906.kotlin.plugin.services
 
 import com.faizilham.prototype.versioning.VersionOverloadingExtension
-import com.faizilham.prototype.versioning.checkers.VersioningFirRegistrar
 import org.jetbrains.kotlin.backend.common.extensions.IrGenerationExtension
 import org.jetbrains.kotlin.compiler.plugin.CompilerPluginRegistrar
 import org.jetbrains.kotlin.config.CompilerConfiguration
@@ -15,7 +14,8 @@ class PluginRegistrarConfigurator(testServices: TestServices) : EnvironmentConfi
         module: TestModule,
         configuration: CompilerConfiguration
     ) {
-        FirExtensionRegistrarAdapter.registerExtension(VersioningFirRegistrar())
-        IrGenerationExtension.registerExtension(VersionOverloadingExtension())
+        val extension = VersionOverloadingExtension()
+        FirExtensionRegistrarAdapter.registerExtension(extension)
+        IrGenerationExtension.registerExtension(extension)
     }
 }

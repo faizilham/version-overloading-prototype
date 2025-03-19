@@ -47,18 +47,20 @@ FILE fqName:<root> fileName:/m1.kt
               receiver: GET_VAR '<this>: <root>.Simple declared in <root>.Simple.<get-z2>' type=<root>.Simple origin=null
     CONSTRUCTOR VERSION_OVERLOAD_WRAPPER visibility:public <> (x:kotlin.Int) returnType:<root>.Simple
       annotations:
-        Deprecated(message = "Deprecated", replaceWith = <null>, level = GET_ENUM 'ENUM_ENTRY name:HIDDEN' type=kotlin.DeprecationLevel)
+        Deprecated(message = "Deprecated", replaceWith = <null>, level = GET_ENUM 'ENUM_ENTRY IR_EXTERNAL_DECLARATION_STUB name:HIDDEN' type=kotlin.DeprecationLevel)
       VALUE_PARAMETER name:x index:0 type:kotlin.Int
       BLOCK_BODY
         DELEGATING_CONSTRUCTOR_CALL 'public constructor <init> (x: kotlin.Int, y: kotlin.Int, z1: kotlin.Long, z2: kotlin.Int) declared in <root>.Simple'
           x: GET_VAR 'x: kotlin.Int declared in <root>.Simple.<init>' type=kotlin.Int origin=null
     CONSTRUCTOR VERSION_OVERLOAD_WRAPPER visibility:public <> (x:kotlin.Int, y:kotlin.Int) returnType:<root>.Simple
       annotations:
-        Deprecated(message = "Deprecated", replaceWith = <null>, level = GET_ENUM 'ENUM_ENTRY name:HIDDEN' type=kotlin.DeprecationLevel)
+        Deprecated(message = "Deprecated", replaceWith = <null>, level = GET_ENUM 'ENUM_ENTRY IR_EXTERNAL_DECLARATION_STUB name:HIDDEN' type=kotlin.DeprecationLevel)
       VALUE_PARAMETER name:x index:0 type:kotlin.Int
       VALUE_PARAMETER name:y index:1 type:kotlin.Int
         annotations:
           IntroducedAt(version = "1.1")
+        EXPRESSION_BODY
+          CONST Int type=kotlin.Int value=0
       BLOCK_BODY
         DELEGATING_CONSTRUCTOR_CALL 'public constructor <init> (x: kotlin.Int, y: kotlin.Int, z1: kotlin.Long, z2: kotlin.Int) declared in <root>.Simple'
           x: GET_VAR 'x: kotlin.Int declared in <root>.Simple.<init>' type=kotlin.Int origin=null
@@ -82,7 +84,7 @@ FILE fqName:<root> fileName:/m1.kt
           CONST Int type=kotlin.Int value=0
       BLOCK_BODY
         DELEGATING_CONSTRUCTOR_CALL 'public constructor <init> () declared in kotlin.Any'
-        INSTANCE_INITIALIZER_CALL classDescriptor='CLASS CLASS name:Simple modality:FINAL visibility:public superTypes:[kotlin.Any]'
+        INSTANCE_INITIALIZER_CALL classDescriptor='CLASS CLASS name:Simple modality:FINAL visibility:public superTypes:[kotlin.Any]' type=kotlin.Unit
     FUN FAKE_OVERRIDE name:equals visibility:public modality:OPEN <> ($this:kotlin.Any, other:kotlin.Any?) returnType:kotlin.Boolean [fake_override,operator]
       overridden:
         public open fun equals (other: kotlin.Any?): kotlin.Boolean declared in kotlin.Any
@@ -204,7 +206,7 @@ FILE fqName:<root> fileName:/main.kt
                     FUN LOCAL_FUNCTION_FOR_LAMBDA name:<anonymous> visibility:local modality:FINAL <> (<destruct>:@[FlexibleNullability] kotlin.Pair<@[FlexibleNullability] kotlin.String?, @[FlexibleNullability] kotlin.Boolean?>?) returnType:kotlin.Boolean
                       VALUE_PARAMETER DESTRUCTURED_OBJECT_PARAMETER name:<destruct> index:0 type:@[FlexibleNullability] kotlin.Pair<@[FlexibleNullability] kotlin.String?, @[FlexibleNullability] kotlin.Boolean?>?
                       BLOCK_BODY
-                        VAR name:sign type:@[FlexibleNullability] kotlin.String? [val]
+                        VAR IR_DESTRUCTURED_PARAMETER_VARIABLE name:sign type:@[FlexibleNullability] kotlin.String? [val]
                           CALL 'public final fun component1 (): A of kotlin.Pair declared in kotlin.Pair' type=@[FlexibleNullability] kotlin.String? origin=COMPONENT_N(index=1)
                             $this: GET_VAR '<destruct>: @[FlexibleNullability] kotlin.Pair<@[FlexibleNullability] kotlin.String?, @[FlexibleNullability] kotlin.Boolean?>? declared in <root>.box.<anonymous>' type=@[FlexibleNullability] kotlin.Pair<@[FlexibleNullability] kotlin.String?, @[FlexibleNullability] kotlin.Boolean?>? origin=null
                         RETURN type=kotlin.Nothing from='local final fun <anonymous> (<destruct>: @[FlexibleNullability] kotlin.Pair<@[FlexibleNullability] kotlin.String?, @[FlexibleNullability] kotlin.Boolean?>?): kotlin.Boolean declared in <root>.box'

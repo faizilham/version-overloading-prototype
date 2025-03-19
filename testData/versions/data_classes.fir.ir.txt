@@ -58,24 +58,30 @@ FILE fqName:<root> fileName:/m1.kt
               receiver: GET_VAR '<this>: <root>.Data declared in <root>.Data.<get-z>' type=<root>.Data origin=null
     CONSTRUCTOR VERSION_OVERLOAD_WRAPPER visibility:public <> (x:kotlin.Int) returnType:<root>.Data
       annotations:
-        Deprecated(message = "Deprecated", replaceWith = <null>, level = GET_ENUM 'ENUM_ENTRY name:HIDDEN' type=kotlin.DeprecationLevel)
+        Deprecated(message = "Deprecated", replaceWith = <null>, level = GET_ENUM 'ENUM_ENTRY IR_EXTERNAL_DECLARATION_STUB name:HIDDEN' type=kotlin.DeprecationLevel)
       VALUE_PARAMETER name:x index:0 type:kotlin.Int
       BLOCK_BODY
         DELEGATING_CONSTRUCTOR_CALL 'public constructor <init> (x: kotlin.Int, x1: kotlin.Long, y: kotlin.Int, y2: kotlin.Int, z: kotlin.Int) declared in <root>.Data'
           x: GET_VAR 'x: kotlin.Int declared in <root>.Data.<init>' type=kotlin.Int origin=null
     CONSTRUCTOR VERSION_OVERLOAD_WRAPPER visibility:public <> (x:kotlin.Int, x1:kotlin.Long, y:kotlin.Int, y2:kotlin.Int) returnType:<root>.Data
       annotations:
-        Deprecated(message = "Deprecated", replaceWith = <null>, level = GET_ENUM 'ENUM_ENTRY name:HIDDEN' type=kotlin.DeprecationLevel)
+        Deprecated(message = "Deprecated", replaceWith = <null>, level = GET_ENUM 'ENUM_ENTRY IR_EXTERNAL_DECLARATION_STUB name:HIDDEN' type=kotlin.DeprecationLevel)
       VALUE_PARAMETER name:x index:0 type:kotlin.Int
       VALUE_PARAMETER name:x1 index:1 type:kotlin.Long
         annotations:
           IntroducedAt(version = "1.2")
+        EXPRESSION_BODY
+          CONST Long type=kotlin.Long value=0
       VALUE_PARAMETER name:y index:2 type:kotlin.Int
         annotations:
           IntroducedAt(version = "1.1")
+        EXPRESSION_BODY
+          CONST Int type=kotlin.Int value=0
       VALUE_PARAMETER name:y2 index:3 type:kotlin.Int
         annotations:
           IntroducedAt(version = "1.2")
+        EXPRESSION_BODY
+          CONST Int type=kotlin.Int value=0
       BLOCK_BODY
         DELEGATING_CONSTRUCTOR_CALL 'public constructor <init> (x: kotlin.Int, x1: kotlin.Long, y: kotlin.Int, y2: kotlin.Int, z: kotlin.Int) declared in <root>.Data'
           x: GET_VAR 'x: kotlin.Int declared in <root>.Data.<init>' type=kotlin.Int origin=null
@@ -84,11 +90,13 @@ FILE fqName:<root> fileName:/m1.kt
           y2: GET_VAR 'y2: kotlin.Int declared in <root>.Data.<init>' type=kotlin.Int origin=null
     CONSTRUCTOR VERSION_OVERLOAD_WRAPPER visibility:public <> (x:kotlin.Int, y:kotlin.Int) returnType:<root>.Data
       annotations:
-        Deprecated(message = "Deprecated", replaceWith = <null>, level = GET_ENUM 'ENUM_ENTRY name:HIDDEN' type=kotlin.DeprecationLevel)
+        Deprecated(message = "Deprecated", replaceWith = <null>, level = GET_ENUM 'ENUM_ENTRY IR_EXTERNAL_DECLARATION_STUB name:HIDDEN' type=kotlin.DeprecationLevel)
       VALUE_PARAMETER name:x index:0 type:kotlin.Int
       VALUE_PARAMETER name:y index:1 type:kotlin.Int
         annotations:
           IntroducedAt(version = "1.1")
+        EXPRESSION_BODY
+          CONST Int type=kotlin.Int value=0
       BLOCK_BODY
         DELEGATING_CONSTRUCTOR_CALL 'public constructor <init> (x: kotlin.Int, x1: kotlin.Long, y: kotlin.Int, y2: kotlin.Int, z: kotlin.Int) declared in <root>.Data'
           x: GET_VAR 'x: kotlin.Int declared in <root>.Data.<init>' type=kotlin.Int origin=null
@@ -117,7 +125,7 @@ FILE fqName:<root> fileName:/m1.kt
           CONST Int type=kotlin.Int value=0
       BLOCK_BODY
         DELEGATING_CONSTRUCTOR_CALL 'public constructor <init> () declared in kotlin.Any'
-        INSTANCE_INITIALIZER_CALL classDescriptor='CLASS CLASS name:Data modality:FINAL visibility:public [data] superTypes:[kotlin.Any]'
+        INSTANCE_INITIALIZER_CALL classDescriptor='CLASS CLASS name:Data modality:FINAL visibility:public [data] superTypes:[kotlin.Any]' type=kotlin.Unit
     FUN GENERATED_DATA_CLASS_MEMBER name:component1 visibility:public modality:FINAL <> ($this:<root>.Data) returnType:kotlin.Int [operator]
       $this: VALUE_PARAMETER name:<this> type:<root>.Data
       BLOCK_BODY
@@ -333,27 +341,42 @@ FILE fqName:<root> fileName:/m1.kt
             CONST String type=kotlin.String value=")"
     FUN VERSION_OVERLOAD_WRAPPER name:copy visibility:public modality:FINAL <> ($this:<root>.Data, x:kotlin.Int) returnType:<root>.Data
       annotations:
-        Deprecated(message = "Deprecated", replaceWith = <null>, level = GET_ENUM 'ENUM_ENTRY name:HIDDEN' type=kotlin.DeprecationLevel)
+        Deprecated(message = "Deprecated", replaceWith = <null>, level = GET_ENUM 'ENUM_ENTRY IR_EXTERNAL_DECLARATION_STUB name:HIDDEN' type=kotlin.DeprecationLevel)
       $this: VALUE_PARAMETER name:<this> type:<root>.Data
       VALUE_PARAMETER name:x index:0 type:kotlin.Int
+        EXPRESSION_BODY
+          GET_FIELD 'FIELD PROPERTY_BACKING_FIELD name:x type:kotlin.Int visibility:private [final]' type=kotlin.Int origin=null
+            receiver: GET_VAR '<this>: <root>.Data declared in <root>.Data.copy' type=<root>.Data origin=null
       EXPRESSION_BODY
         CALL 'public final fun copy (x: kotlin.Int, x1: kotlin.Long, y: kotlin.Int, y2: kotlin.Int, z: kotlin.Int): <root>.Data declared in <root>.Data' type=<root>.Data origin=null
           $this: GET_VAR '<this>: <root>.Data declared in <root>.Data.copy' type=<root>.Data origin=null
           x: GET_VAR 'x: kotlin.Int declared in <root>.Data.copy' type=kotlin.Int origin=null
     FUN VERSION_OVERLOAD_WRAPPER name:copy visibility:public modality:FINAL <> ($this:<root>.Data, x:kotlin.Int, x1:kotlin.Long, y:kotlin.Int, y2:kotlin.Int) returnType:<root>.Data
       annotations:
-        Deprecated(message = "Deprecated", replaceWith = <null>, level = GET_ENUM 'ENUM_ENTRY name:HIDDEN' type=kotlin.DeprecationLevel)
+        Deprecated(message = "Deprecated", replaceWith = <null>, level = GET_ENUM 'ENUM_ENTRY IR_EXTERNAL_DECLARATION_STUB name:HIDDEN' type=kotlin.DeprecationLevel)
       $this: VALUE_PARAMETER name:<this> type:<root>.Data
       VALUE_PARAMETER name:x index:0 type:kotlin.Int
+        EXPRESSION_BODY
+          GET_FIELD 'FIELD PROPERTY_BACKING_FIELD name:x type:kotlin.Int visibility:private [final]' type=kotlin.Int origin=null
+            receiver: GET_VAR '<this>: <root>.Data declared in <root>.Data.copy' type=<root>.Data origin=null
       VALUE_PARAMETER name:x1 index:1 type:kotlin.Long
         annotations:
           IntroducedAt(version = "1.2")
+        EXPRESSION_BODY
+          GET_FIELD 'FIELD PROPERTY_BACKING_FIELD name:x1 type:kotlin.Long visibility:private [final]' type=kotlin.Long origin=null
+            receiver: GET_VAR '<this>: <root>.Data declared in <root>.Data.copy' type=<root>.Data origin=null
       VALUE_PARAMETER name:y index:2 type:kotlin.Int
         annotations:
           IntroducedAt(version = "1.1")
+        EXPRESSION_BODY
+          GET_FIELD 'FIELD PROPERTY_BACKING_FIELD name:y type:kotlin.Int visibility:private [final]' type=kotlin.Int origin=null
+            receiver: GET_VAR '<this>: <root>.Data declared in <root>.Data.copy' type=<root>.Data origin=null
       VALUE_PARAMETER name:y2 index:3 type:kotlin.Int
         annotations:
           IntroducedAt(version = "1.2")
+        EXPRESSION_BODY
+          GET_FIELD 'FIELD PROPERTY_BACKING_FIELD name:y2 type:kotlin.Int visibility:private [final]' type=kotlin.Int origin=null
+            receiver: GET_VAR '<this>: <root>.Data declared in <root>.Data.copy' type=<root>.Data origin=null
       EXPRESSION_BODY
         CALL 'public final fun copy (x: kotlin.Int, x1: kotlin.Long, y: kotlin.Int, y2: kotlin.Int, z: kotlin.Int): <root>.Data declared in <root>.Data' type=<root>.Data origin=null
           $this: GET_VAR '<this>: <root>.Data declared in <root>.Data.copy' type=<root>.Data origin=null
@@ -363,12 +386,18 @@ FILE fqName:<root> fileName:/m1.kt
           y2: GET_VAR 'y2: kotlin.Int declared in <root>.Data.copy' type=kotlin.Int origin=null
     FUN VERSION_OVERLOAD_WRAPPER name:copy visibility:public modality:FINAL <> ($this:<root>.Data, x:kotlin.Int, y:kotlin.Int) returnType:<root>.Data
       annotations:
-        Deprecated(message = "Deprecated", replaceWith = <null>, level = GET_ENUM 'ENUM_ENTRY name:HIDDEN' type=kotlin.DeprecationLevel)
+        Deprecated(message = "Deprecated", replaceWith = <null>, level = GET_ENUM 'ENUM_ENTRY IR_EXTERNAL_DECLARATION_STUB name:HIDDEN' type=kotlin.DeprecationLevel)
       $this: VALUE_PARAMETER name:<this> type:<root>.Data
       VALUE_PARAMETER name:x index:0 type:kotlin.Int
+        EXPRESSION_BODY
+          GET_FIELD 'FIELD PROPERTY_BACKING_FIELD name:x type:kotlin.Int visibility:private [final]' type=kotlin.Int origin=null
+            receiver: GET_VAR '<this>: <root>.Data declared in <root>.Data.copy' type=<root>.Data origin=null
       VALUE_PARAMETER name:y index:1 type:kotlin.Int
         annotations:
           IntroducedAt(version = "1.1")
+        EXPRESSION_BODY
+          GET_FIELD 'FIELD PROPERTY_BACKING_FIELD name:y type:kotlin.Int visibility:private [final]' type=kotlin.Int origin=null
+            receiver: GET_VAR '<this>: <root>.Data declared in <root>.Data.copy' type=<root>.Data origin=null
       EXPRESSION_BODY
         CALL 'public final fun copy (x: kotlin.Int, x1: kotlin.Long, y: kotlin.Int, y2: kotlin.Int, z: kotlin.Int): <root>.Data declared in <root>.Data' type=<root>.Data origin=null
           $this: GET_VAR '<this>: <root>.Data declared in <root>.Data.copy' type=<root>.Data origin=null
@@ -532,7 +561,7 @@ FILE fqName:<root> fileName:/main.kt
                     FUN LOCAL_FUNCTION_FOR_LAMBDA name:<anonymous> visibility:local modality:FINAL <> (<destruct>:@[FlexibleNullability] kotlin.Pair<@[FlexibleNullability] kotlin.String?, @[FlexibleNullability] kotlin.Boolean?>?) returnType:kotlin.Boolean
                       VALUE_PARAMETER DESTRUCTURED_OBJECT_PARAMETER name:<destruct> index:0 type:@[FlexibleNullability] kotlin.Pair<@[FlexibleNullability] kotlin.String?, @[FlexibleNullability] kotlin.Boolean?>?
                       BLOCK_BODY
-                        VAR name:sign type:@[FlexibleNullability] kotlin.String? [val]
+                        VAR IR_DESTRUCTURED_PARAMETER_VARIABLE name:sign type:@[FlexibleNullability] kotlin.String? [val]
                           CALL 'public final fun component1 (): A of kotlin.Pair declared in kotlin.Pair' type=@[FlexibleNullability] kotlin.String? origin=COMPONENT_N(index=1)
                             $this: GET_VAR '<destruct>: @[FlexibleNullability] kotlin.Pair<@[FlexibleNullability] kotlin.String?, @[FlexibleNullability] kotlin.Boolean?>? declared in <root>.box.<anonymous>' type=@[FlexibleNullability] kotlin.Pair<@[FlexibleNullability] kotlin.String?, @[FlexibleNullability] kotlin.Boolean?>? origin=null
                         RETURN type=kotlin.Nothing from='local final fun <anonymous> (<destruct>: @[FlexibleNullability] kotlin.Pair<@[FlexibleNullability] kotlin.String?, @[FlexibleNullability] kotlin.Boolean?>?): kotlin.Boolean declared in <root>.box'

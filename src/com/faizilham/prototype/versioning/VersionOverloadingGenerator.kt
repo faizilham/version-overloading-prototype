@@ -13,10 +13,12 @@ import org.jetbrains.kotlin.ir.builders.setSourceRange
 import org.jetbrains.kotlin.ir.declarations.*
 import org.jetbrains.kotlin.ir.expressions.IrConst
 import org.jetbrains.kotlin.ir.expressions.IrConstructorCall
+import org.jetbrains.kotlin.ir.expressions.IrGetValue
 import org.jetbrains.kotlin.ir.expressions.impl.*
 import org.jetbrains.kotlin.ir.types.defaultType
 import org.jetbrains.kotlin.ir.util.*
-import org.jetbrains.kotlin.ir.visitors.IrElementVisitor
+import org.jetbrains.kotlin.ir.visitors.IrElementTransformerVoid
+import org.jetbrains.kotlin.ir.visitors.IrVisitor
 import org.jetbrains.kotlin.name.StandardClassIds
 import java.lang.Runtime.Version
 import java.util.*
@@ -29,7 +31,7 @@ import java.util.*
 //    and non-annotated parameters are in the head
 // 4. Version annotations are either in increasing order, or must be provided by name
 
-class VersionOverloadingGenerator(context: IrPluginContext) : IrElementVisitor<Unit, VersionOverloadingGenerator.VisitorContext?> {
+class VersionOverloadingGenerator(context: IrPluginContext) : IrVisitor<Unit, VersionOverloadingGenerator.VisitorContext?>() {
     private val irFactory = context.irFactory
     private val irBuiltIns = context.irBuiltIns
 
@@ -40,8 +42,7 @@ class VersionOverloadingGenerator(context: IrPluginContext) : IrElementVisitor<U
             is IrClass -> {
                 val visitorContext = VisitorContext(isDataClass = element.isData)
                 element.acceptChildren(this, visitorContext)
-                element.addAll(visitorContext.generatedFunctions)
-
+                element.addChildren(visitorContext.generatedFunctions)
             }
             is IrFile -> {
                 val visitorContext = VisitorContext(isDataClass = false)
@@ -54,19 +55,19 @@ class VersionOverloadingGenerator(context: IrPluginContext) : IrElementVisitor<U
         }
     }
 
-    override fun visitFunction(func: IrFunction, data: VisitorContext?) {
+    override fun visitFunction(declaration: IrFunction, data: VisitorContext?) {
         if (data == null) return
 
         val versionParamIndexes =
-            if (data.isDataClass && func.name == CopyMethodName) {
+            if (data.isDataClass && declaration.name == CopyMethodName) {
                 data.primaryConstructorVersions
             } else {
-                getSortedVersionParameterIndexes(func)
+                getSortedVersionParameterIndexes(declaration)
             }
 
-        generateVersions(func, data, versionParamIndexes)
+        generateVersions(declaration, data, versionParamIndexes)
 
-        if (data.isDataClass && func is IrConstructor && func.isPrimary) {
+        if (data.isDataClass && declaration is IrConstructor && declaration.isPrimary) {
             data.primaryConstructorVersions = versionParamIndexes
         }
     }
@@ -111,6 +112,7 @@ class VersionOverloadingGenerator(context: IrPluginContext) : IrElementVisitor<U
     }
 
     private fun IrValueParameter.getVersionNumber() : Version? {
+        if (defaultValue == null) return null
         val annotation = getAnnotation(IntroducedAtFqName) ?: return null
         val versionString = (annotation.valueArguments[0] as? IrConst)?.value as? String ?: return null
 
@@ -186,6 +188,7 @@ class VersionOverloadingGenerator(context: IrPluginContext) : IrElementVisitor<U
                     visibility = oldFunction.visibility
                     returnType = oldFunction.returnType
                     isInline = oldFunction.isInline
+                    containerSource = oldFunction.containerSource
                 }
             }
             is IrSimpleFunction -> buildFun {
@@ -197,6 +200,7 @@ class VersionOverloadingGenerator(context: IrPluginContext) : IrElementVisitor<U
                 returnType = oldFunction.returnType
                 isInline = oldFunction.isInline
                 isSuspend = oldFunction.isSuspend
+                containerSource = oldFunction.containerSource
             }
         }
 
@@ -213,12 +217,22 @@ class VersionOverloadingGenerator(context: IrPluginContext) : IrElementVisitor<U
 
     private fun IrFunction.generateNewValueParameters(oldFunction: IrFunction, includedParams: List<Boolean>): List<IrValueParameter> {
         val result = mutableListOf<IrValueParameter>()
+        val containerClass = this.parent as? IrClass
 
-        oldFunction.valueParameters.forEachIndexed { i, param ->
-            if (includedParams[i]) {
-                // FIXME?: if the overload defaultValue is copied instead of set to null, IR invalidation fails because somehow
-                //         $this is not within the scope of the generated copy() function's value parameter expression
-                result.add(param.copyTo(this, defaultValue = null))
+        // FIXME: copy default value? older version of fun$default is not available for older kotlin function if it is not copied
+        if (containerClass != null) {
+            oldFunction.valueParameters.forEachIndexed { i, param ->
+                if (includedParams[i]) {
+                    val newParam = param.copyTo(this).transform(GetValueTransformer(containerClass, this), null)
+                    result.add(newParam)
+                }
+            }
+        } else {
+            oldFunction.valueParameters.forEachIndexed { i, param ->
+                if (includedParams[i]) {
+                    val newParam = param.copyTo(this)
+                    result.add(newParam)
+                }
             }
         }
 
@@ -228,6 +242,15 @@ class VersionOverloadingGenerator(context: IrPluginContext) : IrElementVisitor<U
     private fun IrFunction.addDeprecatedAnnotation(level: DeprecationLevel) {
         val annotation = deprecationBuilder.buildAnnotationCall(level) ?: return
         annotations += annotation
+    }
+}
+
+private class GetValueTransformer(val irClass: IrClass, val irFunction: IrFunction) : IrElementTransformerVoid() {
+    override fun visitGetValue(expression: IrGetValue): IrGetValue {
+        return (super.visitGetValue(expression) as IrGetValue).remapSymbolParent(
+            classRemapper = { irClass },
+            functionRemapper = { irFunction }
+        )
     }
 }
 

@@ -1,11 +1,97 @@
 Module: lib
 FILE fqName:lib fileName:/lib.kt
+  PROPERTY name:abcd visibility:public modality:FINAL [val]
+    FIELD PROPERTY_BACKING_FIELD name:abcd type:kotlin.Int visibility:private [final,static]
+      EXPRESSION_BODY
+        CONST Int type=kotlin.Int value=1
+    FUN DEFAULT_PROPERTY_ACCESSOR name:<get-abcd> visibility:public modality:FINAL <> () returnType:kotlin.Int
+      correspondingProperty: PROPERTY name:abcd visibility:public modality:FINAL [val]
+      BLOCK_BODY
+        RETURN type=kotlin.Nothing from='public final fun <get-abcd> (): kotlin.Int declared in lib'
+          GET_FIELD 'FIELD PROPERTY_BACKING_FIELD name:abcd type:kotlin.Int visibility:private [final,static]' type=kotlin.Int origin=null
+  CLASS CLASS name:Example2 modality:FINAL visibility:public superTypes:[kotlin.Any]
+    $this: VALUE_PARAMETER INSTANCE_RECEIVER name:<this> type:lib.Example2
+    PROPERTY name:yz visibility:public modality:FINAL [val]
+      FIELD PROPERTY_BACKING_FIELD name:yz type:kotlin.Int visibility:private [final]
+        EXPRESSION_BODY
+          CONST Int type=kotlin.Int value=1
+      FUN DEFAULT_PROPERTY_ACCESSOR name:<get-yz> visibility:public modality:FINAL <> ($this:lib.Example2) returnType:kotlin.Int
+        correspondingProperty: PROPERTY name:yz visibility:public modality:FINAL [val]
+        $this: VALUE_PARAMETER name:<this> type:lib.Example2
+        BLOCK_BODY
+          RETURN type=kotlin.Nothing from='public final fun <get-yz> (): kotlin.Int declared in lib.Example2'
+            GET_FIELD 'FIELD PROPERTY_BACKING_FIELD name:yz type:kotlin.Int visibility:private [final]' type=kotlin.Int origin=null
+              receiver: GET_VAR '<this>: lib.Example2 declared in lib.Example2.<get-yz>' type=lib.Example2 origin=null
+    CONSTRUCTOR visibility:public <> () returnType:lib.Example2 [primary]
+      BLOCK_BODY
+        DELEGATING_CONSTRUCTOR_CALL 'public constructor <init> () declared in kotlin.Any'
+        INSTANCE_INITIALIZER_CALL classDescriptor='CLASS CLASS name:Example2 modality:FINAL visibility:public superTypes:[kotlin.Any]' type=kotlin.Unit
+    FUN FAKE_OVERRIDE name:equals visibility:public modality:OPEN <> ($this:kotlin.Any, other:kotlin.Any?) returnType:kotlin.Boolean [fake_override,operator]
+      overridden:
+        public open fun equals (other: kotlin.Any?): kotlin.Boolean declared in kotlin.Any
+      $this: VALUE_PARAMETER name:<this> type:kotlin.Any
+      VALUE_PARAMETER name:other index:0 type:kotlin.Any?
+    FUN FAKE_OVERRIDE name:hashCode visibility:public modality:OPEN <> ($this:kotlin.Any) returnType:kotlin.Int [fake_override]
+      overridden:
+        public open fun hashCode (): kotlin.Int declared in kotlin.Any
+      $this: VALUE_PARAMETER name:<this> type:kotlin.Any
+    FUN FAKE_OVERRIDE name:toString visibility:public modality:OPEN <> ($this:kotlin.Any) returnType:kotlin.String [fake_override]
+      overridden:
+        public open fun toString (): kotlin.String declared in kotlin.Any
+      $this: VALUE_PARAMETER name:<this> type:kotlin.Any
+    FUN VERSION_OVERLOAD_WRAPPER name:test visibility:public modality:FINAL <> ($this:lib.Example2, x:kotlin.Int, y:kotlin.Int, y1:kotlin.Int) returnType:kotlin.Unit
+      annotations:
+        Deprecated(message = "Deprecated", replaceWith = <null>, level = GET_ENUM 'ENUM_ENTRY IR_EXTERNAL_DECLARATION_STUB name:HIDDEN' type=kotlin.DeprecationLevel)
+      $this: VALUE_PARAMETER name:<this> type:lib.Example2
+      VALUE_PARAMETER name:x index:0 type:kotlin.Int
+      VALUE_PARAMETER name:y index:1 type:kotlin.Int
+        EXPRESSION_BODY
+          CALL 'public final fun <get-yz> (): kotlin.Int declared in lib.Example2' type=kotlin.Int origin=GET_PROPERTY
+            $this: GET_VAR '<this>: lib.Example2 declared in lib.Example2.test' type=lib.Example2 origin=null
+      VALUE_PARAMETER name:y1 index:2 type:kotlin.Int
+        EXPRESSION_BODY
+          CALL 'public final fun <get-yz> (): kotlin.Int declared in lib.Example2' type=kotlin.Int origin=GET_PROPERTY
+            $this: GET_VAR '<this>: lib.Example2 declared in lib.Example2.test' type=lib.Example2 origin=null
+      EXPRESSION_BODY
+        CALL 'public final fun test (x: kotlin.Int, y: kotlin.Int, y1: kotlin.Int, z: kotlin.Int): kotlin.Unit declared in lib.Example2' type=kotlin.Unit origin=null
+          $this: GET_VAR '<this>: lib.Example2 declared in lib.Example2.test' type=lib.Example2 origin=null
+          x: GET_VAR 'x: kotlin.Int declared in lib.Example2.test' type=kotlin.Int origin=null
+          y: GET_VAR 'y: kotlin.Int declared in lib.Example2.test' type=kotlin.Int origin=null
+          y1: GET_VAR 'y1: kotlin.Int declared in lib.Example2.test' type=kotlin.Int origin=null
+    FUN name:test visibility:public modality:FINAL <> ($this:lib.Example2, x:kotlin.Int, y:kotlin.Int, y1:kotlin.Int, z:kotlin.Int) returnType:kotlin.Unit
+      $this: VALUE_PARAMETER name:<this> type:lib.Example2
+      VALUE_PARAMETER name:x index:0 type:kotlin.Int
+      VALUE_PARAMETER name:y index:1 type:kotlin.Int
+        EXPRESSION_BODY
+          CALL 'public final fun <get-yz> (): kotlin.Int declared in lib.Example2' type=kotlin.Int origin=GET_PROPERTY
+            $this: GET_VAR '<this>: lib.Example2 declared in lib.Example2.test' type=lib.Example2 origin=null
+      VALUE_PARAMETER name:y1 index:2 type:kotlin.Int
+        EXPRESSION_BODY
+          CALL 'public final fun <get-yz> (): kotlin.Int declared in lib.Example2' type=kotlin.Int origin=GET_PROPERTY
+            $this: GET_VAR '<this>: lib.Example2 declared in lib.Example2.test' type=lib.Example2 origin=null
+      VALUE_PARAMETER name:z index:3 type:kotlin.Int
+        annotations:
+          IntroducedAt(version = "1.2")
+        EXPRESSION_BODY
+          CONST Int type=kotlin.Int value=1
+      BLOCK_BODY
   CLASS OBJECT name:MyExample modality:FINAL visibility:public superTypes:[kotlin.Any]
     $this: VALUE_PARAMETER INSTANCE_RECEIVER name:<this> type:lib.MyExample
+    PROPERTY name:zero visibility:public modality:FINAL [val]
+      FIELD PROPERTY_BACKING_FIELD name:zero type:kotlin.Int visibility:private [final]
+        EXPRESSION_BODY
+          CONST Int type=kotlin.Int value=0
+      FUN DEFAULT_PROPERTY_ACCESSOR name:<get-zero> visibility:public modality:FINAL <> ($this:lib.MyExample) returnType:kotlin.Int
+        correspondingProperty: PROPERTY name:zero visibility:public modality:FINAL [val]
+        $this: VALUE_PARAMETER name:<this> type:lib.MyExample
+        BLOCK_BODY
+          RETURN type=kotlin.Nothing from='public final fun <get-zero> (): kotlin.Int declared in lib.MyExample'
+            GET_FIELD 'FIELD PROPERTY_BACKING_FIELD name:zero type:kotlin.Int visibility:private [final]' type=kotlin.Int origin=null
+              receiver: GET_VAR '<this>: lib.MyExample declared in lib.MyExample.<get-zero>' type=lib.MyExample origin=null
     CONSTRUCTOR visibility:private <> () returnType:lib.MyExample [primary]
       BLOCK_BODY
         DELEGATING_CONSTRUCTOR_CALL 'public constructor <init> () declared in kotlin.Any'
-        INSTANCE_INITIALIZER_CALL classDescriptor='CLASS OBJECT name:MyExample modality:FINAL visibility:public superTypes:[kotlin.Any]'
+        INSTANCE_INITIALIZER_CALL classDescriptor='CLASS OBJECT name:MyExample modality:FINAL visibility:public superTypes:[kotlin.Any]' type=kotlin.Unit
     FUN FAKE_OVERRIDE name:equals visibility:public modality:OPEN <> ($this:kotlin.Any, other:kotlin.Any?) returnType:kotlin.Boolean [fake_override,operator]
       overridden:
         public open fun equals (other: kotlin.Any?): kotlin.Boolean declared in kotlin.Any
@@ -21,17 +107,23 @@ FILE fqName:lib fileName:/lib.kt
       $this: VALUE_PARAMETER name:<this> type:kotlin.Any
     FUN VERSION_OVERLOAD_WRAPPER name:middle visibility:public modality:FINAL <> ($this:lib.MyExample, x:kotlin.Float, x1:kotlin.Float, y:kotlin.Int, z:kotlin.Float) returnType:kotlin.Float
       annotations:
-        Deprecated(message = "Deprecated", replaceWith = <null>, level = GET_ENUM 'ENUM_ENTRY name:HIDDEN' type=kotlin.DeprecationLevel)
+        Deprecated(message = "Deprecated", replaceWith = <null>, level = GET_ENUM 'ENUM_ENTRY IR_EXTERNAL_DECLARATION_STUB name:HIDDEN' type=kotlin.DeprecationLevel)
         JvmStatic
       $this: VALUE_PARAMETER name:<this> type:lib.MyExample
       VALUE_PARAMETER name:x index:0 type:kotlin.Float
       VALUE_PARAMETER name:x1 index:1 type:kotlin.Float
         annotations:
           IntroducedAt(version = "1.2")
+        EXPRESSION_BODY
+          CONST Float type=kotlin.Float value=0.0
       VALUE_PARAMETER name:y index:2 type:kotlin.Int
+        EXPRESSION_BODY
+          CONST Int type=kotlin.Int value=0
       VALUE_PARAMETER name:z index:3 type:kotlin.Float
         annotations:
           IntroducedAt(version = "1.2")
+        EXPRESSION_BODY
+          CONST Float type=kotlin.Float value=0.0
       EXPRESSION_BODY
         CALL 'public final fun middle (x: kotlin.Float, x1: kotlin.Float, y: kotlin.Int, y1: kotlin.Int, z: kotlin.Float): kotlin.Float declared in lib.MyExample' type=kotlin.Float origin=null
           $this: GET_VAR '<this>: lib.MyExample declared in lib.MyExample.middle' type=lib.MyExample origin=null
@@ -41,11 +133,13 @@ FILE fqName:lib fileName:/lib.kt
           z: GET_VAR 'z: kotlin.Float declared in lib.MyExample.middle' type=kotlin.Float origin=null
     FUN VERSION_OVERLOAD_WRAPPER name:middle visibility:public modality:FINAL <> ($this:lib.MyExample, x:kotlin.Float, y:kotlin.Int) returnType:kotlin.Float
       annotations:
-        Deprecated(message = "Deprecated", replaceWith = <null>, level = GET_ENUM 'ENUM_ENTRY name:HIDDEN' type=kotlin.DeprecationLevel)
+        Deprecated(message = "Deprecated", replaceWith = <null>, level = GET_ENUM 'ENUM_ENTRY IR_EXTERNAL_DECLARATION_STUB name:HIDDEN' type=kotlin.DeprecationLevel)
         JvmStatic
       $this: VALUE_PARAMETER name:<this> type:lib.MyExample
       VALUE_PARAMETER name:x index:0 type:kotlin.Float
       VALUE_PARAMETER name:y index:1 type:kotlin.Int
+        EXPRESSION_BODY
+          CONST Int type=kotlin.Int value=0
       EXPRESSION_BODY
         CALL 'public final fun middle (x: kotlin.Float, x1: kotlin.Float, y: kotlin.Int, y1: kotlin.Int, z: kotlin.Float): kotlin.Float declared in lib.MyExample' type=kotlin.Float origin=null
           $this: GET_VAR '<this>: lib.MyExample declared in lib.MyExample.middle' type=lib.MyExample origin=null
@@ -53,11 +147,13 @@ FILE fqName:lib fileName:/lib.kt
           y: GET_VAR 'y: kotlin.Int declared in lib.MyExample.middle' type=kotlin.Int origin=null
     FUN VERSION_OVERLOAD_WRAPPER name:myAdd visibility:public modality:FINAL <> ($this:lib.MyExample, x:kotlin.Int, y:kotlin.Int) returnType:kotlin.Int
       annotations:
-        Deprecated(message = "Deprecated", replaceWith = <null>, level = GET_ENUM 'ENUM_ENTRY name:HIDDEN' type=kotlin.DeprecationLevel)
+        Deprecated(message = "Deprecated", replaceWith = <null>, level = GET_ENUM 'ENUM_ENTRY IR_EXTERNAL_DECLARATION_STUB name:HIDDEN' type=kotlin.DeprecationLevel)
         JvmStatic
       $this: VALUE_PARAMETER name:<this> type:lib.MyExample
       VALUE_PARAMETER name:x index:0 type:kotlin.Int
       VALUE_PARAMETER name:y index:1 type:kotlin.Int
+        EXPRESSION_BODY
+          CONST Int type=kotlin.Int value=0
       EXPRESSION_BODY
         CALL 'public final fun myAdd (x: kotlin.Int, y: kotlin.Int, z: kotlin.Int, a1: kotlin.Int, a2: kotlin.Int): kotlin.Int declared in lib.MyExample' type=kotlin.Int origin=null
           $this: GET_VAR '<this>: lib.MyExample declared in lib.MyExample.myAdd' type=lib.MyExample origin=null
@@ -65,14 +161,18 @@ FILE fqName:lib fileName:/lib.kt
           y: GET_VAR 'y: kotlin.Int declared in lib.MyExample.myAdd' type=kotlin.Int origin=null
     FUN VERSION_OVERLOAD_WRAPPER name:myAdd visibility:public modality:FINAL <> ($this:lib.MyExample, x:kotlin.Int, y:kotlin.Int, z:kotlin.Int) returnType:kotlin.Int
       annotations:
-        Deprecated(message = "Deprecated", replaceWith = <null>, level = GET_ENUM 'ENUM_ENTRY name:HIDDEN' type=kotlin.DeprecationLevel)
+        Deprecated(message = "Deprecated", replaceWith = <null>, level = GET_ENUM 'ENUM_ENTRY IR_EXTERNAL_DECLARATION_STUB name:HIDDEN' type=kotlin.DeprecationLevel)
         JvmStatic
       $this: VALUE_PARAMETER name:<this> type:lib.MyExample
       VALUE_PARAMETER name:x index:0 type:kotlin.Int
       VALUE_PARAMETER name:y index:1 type:kotlin.Int
+        EXPRESSION_BODY
+          CONST Int type=kotlin.Int value=0
       VALUE_PARAMETER name:z index:2 type:kotlin.Int
         annotations:
           IntroducedAt(version = "1.2")
+        EXPRESSION_BODY
+          CONST Int type=kotlin.Int value=0
       EXPRESSION_BODY
         CALL 'public final fun myAdd (x: kotlin.Int, y: kotlin.Int, z: kotlin.Int, a1: kotlin.Int, a2: kotlin.Int): kotlin.Int declared in lib.MyExample' type=kotlin.Int origin=null
           $this: GET_VAR '<this>: lib.MyExample declared in lib.MyExample.myAdd' type=lib.MyExample origin=null
@@ -108,7 +208,10 @@ FILE fqName:lib fileName:/lib.kt
             $this: CALL 'public final fun plus (other: kotlin.Int): kotlin.Float declared in kotlin.Float' type=kotlin.Float origin=PLUS
               $this: CALL 'public final fun plus (other: kotlin.Int): kotlin.Float declared in kotlin.Float' type=kotlin.Float origin=PLUS
                 $this: CALL 'public final fun plus (other: kotlin.Float): kotlin.Float declared in kotlin.Float' type=kotlin.Float origin=PLUS
-                  $this: GET_VAR 'x: kotlin.Float declared in lib.MyExample.middle' type=kotlin.Float origin=null
+                  $this: CALL 'public final fun plus (other: kotlin.Float): kotlin.Float declared in kotlin.Int' type=kotlin.Float origin=PLUS
+                    $this: CALL 'public final fun <get-zero> (): kotlin.Int declared in lib.MyExample' type=kotlin.Int origin=GET_PROPERTY
+                      $this: GET_VAR '<this>: lib.MyExample declared in lib.MyExample.middle' type=lib.MyExample origin=null
+                    other: GET_VAR 'x: kotlin.Float declared in lib.MyExample.middle' type=kotlin.Float origin=null
                   other: GET_VAR 'x1: kotlin.Float declared in lib.MyExample.middle' type=kotlin.Float origin=null
                 other: GET_VAR 'y: kotlin.Int declared in lib.MyExample.middle' type=kotlin.Int origin=null
               other: GET_VAR 'y1: kotlin.Int declared in lib.MyExample.middle' type=kotlin.Int origin=null
@@ -147,6 +250,35 @@ FILE fqName:lib fileName:/lib.kt
                 other: GET_VAR 'z: kotlin.Int declared in lib.MyExample.myAdd' type=kotlin.Int origin=null
               other: GET_VAR 'a1: kotlin.Int declared in lib.MyExample.myAdd' type=kotlin.Int origin=null
             other: GET_VAR 'a2: kotlin.Int declared in lib.MyExample.myAdd' type=kotlin.Int origin=null
+  FUN VERSION_OVERLOAD_WRAPPER name:outside visibility:public modality:FINAL <> (x:kotlin.Int, y:kotlin.Int, y1:kotlin.Int) returnType:kotlin.Unit
+    annotations:
+      Deprecated(message = "Deprecated", replaceWith = <null>, level = GET_ENUM 'ENUM_ENTRY IR_EXTERNAL_DECLARATION_STUB name:HIDDEN' type=kotlin.DeprecationLevel)
+    VALUE_PARAMETER name:x index:0 type:kotlin.Int
+    VALUE_PARAMETER name:y index:1 type:kotlin.Int
+      EXPRESSION_BODY
+        CALL 'public final fun <get-abcd> (): kotlin.Int declared in lib' type=kotlin.Int origin=GET_PROPERTY
+    VALUE_PARAMETER name:y1 index:2 type:kotlin.Int
+      EXPRESSION_BODY
+        CALL 'public final fun <get-abcd> (): kotlin.Int declared in lib' type=kotlin.Int origin=GET_PROPERTY
+    EXPRESSION_BODY
+      CALL 'public final fun outside (x: kotlin.Int, y: kotlin.Int, y1: kotlin.Int, z: kotlin.Int): kotlin.Unit declared in lib' type=kotlin.Unit origin=null
+        x: GET_VAR 'x: kotlin.Int declared in lib.outside' type=kotlin.Int origin=null
+        y: GET_VAR 'y: kotlin.Int declared in lib.outside' type=kotlin.Int origin=null
+        y1: GET_VAR 'y1: kotlin.Int declared in lib.outside' type=kotlin.Int origin=null
+  FUN name:outside visibility:public modality:FINAL <> (x:kotlin.Int, y:kotlin.Int, y1:kotlin.Int, z:kotlin.Int) returnType:kotlin.Unit
+    VALUE_PARAMETER name:x index:0 type:kotlin.Int
+    VALUE_PARAMETER name:y index:1 type:kotlin.Int
+      EXPRESSION_BODY
+        CALL 'public final fun <get-abcd> (): kotlin.Int declared in lib' type=kotlin.Int origin=GET_PROPERTY
+    VALUE_PARAMETER name:y1 index:2 type:kotlin.Int
+      EXPRESSION_BODY
+        CALL 'public final fun <get-abcd> (): kotlin.Int declared in lib' type=kotlin.Int origin=GET_PROPERTY
+    VALUE_PARAMETER name:z index:3 type:kotlin.Int
+      annotations:
+        IntroducedAt(version = "1.2")
+      EXPRESSION_BODY
+        CONST Int type=kotlin.Int value=1
+    BLOCK_BODY
   PROPERTY name:VERSION_1_2 visibility:public modality:FINAL [const,val]
     FIELD PROPERTY_BACKING_FIELD name:VERSION_1_2 type:kotlin.String visibility:public [final,static]
       EXPRESSION_BODY
@@ -223,16 +355,40 @@ FILE fqName:lib fileName:/main.kt
               $receiver: CONST String type=kotlin.String value="middle"
               that: CONST Int type=kotlin.Int value=3
       BLOCK type=kotlin.Unit origin=FOR_LOOP
-        VAR FOR_LOOP_ITERATOR name:tmp_0 type:kotlin.collections.Iterator<kotlin.Pair<kotlin.String, kotlin.Boolean>> [val]
+        VAR FOR_LOOP_ITERATOR name:tmp_0 type:kotlin.collections.MutableIterator<@[EnhancedNullability] @[FlexibleNullability] kotlin.Pair<@[FlexibleNullability] kotlin.String?, @[FlexibleNullability] kotlin.Boolean?>?> [val]
+          TYPE_OP type=kotlin.collections.MutableIterator<@[EnhancedNullability] @[FlexibleNullability] kotlin.Pair<@[FlexibleNullability] kotlin.String?, @[FlexibleNullability] kotlin.Boolean?>?> origin=IMPLICIT_NOTNULL typeOperand=kotlin.collections.MutableIterator<@[EnhancedNullability] @[FlexibleNullability] kotlin.Pair<@[FlexibleNullability] kotlin.String?, @[FlexibleNullability] kotlin.Boolean?>?>
+            CALL 'public open fun iterator (): @[EnhancedNullability] kotlin.collections.MutableIterator<@[EnhancedNullability] E of java.util.HashSet> declared in java.util.HashSet' type=@[EnhancedNullability] kotlin.collections.MutableIterator<@[EnhancedNullability] @[FlexibleNullability] kotlin.Pair<@[FlexibleNullability] kotlin.String?, @[FlexibleNullability] kotlin.Boolean?>?> origin=null
+              $this: GET_VAR 'val methods: @[FlexibleNullability] java.util.HashSet<@[FlexibleNullability] kotlin.Pair<@[FlexibleNullability] kotlin.String?, @[FlexibleNullability] kotlin.Boolean?>?>? declared in lib.box' type=@[FlexibleNullability] java.util.HashSet<@[FlexibleNullability] kotlin.Pair<@[FlexibleNullability] kotlin.String?, @[FlexibleNullability] kotlin.Boolean?>?>? origin=null
+        WHILE label=null origin=FOR_LOOP_INNER_WHILE
+          condition: CALL 'public abstract fun hasNext (): kotlin.Boolean declared in kotlin.collections.MutableIterator' type=kotlin.Boolean origin=FOR_LOOP_HAS_NEXT
+            $this: GET_VAR 'val tmp_0: kotlin.collections.MutableIterator<@[EnhancedNullability] @[FlexibleNullability] kotlin.Pair<@[FlexibleNullability] kotlin.String?, @[FlexibleNullability] kotlin.Boolean?>?> declared in lib.box' type=kotlin.collections.MutableIterator<@[EnhancedNullability] @[FlexibleNullability] kotlin.Pair<@[FlexibleNullability] kotlin.String?, @[FlexibleNullability] kotlin.Boolean?>?> origin=null
+          body: BLOCK type=kotlin.Unit origin=FOR_LOOP_INNER_WHILE
+            VAR IR_TEMPORARY_VARIABLE name:tmp_1 type:@[FlexibleNullability] kotlin.Pair<@[FlexibleNullability] kotlin.String?, @[FlexibleNullability] kotlin.Boolean?>? [val]
+              CALL 'public abstract fun next (): T of kotlin.collections.MutableIterator declared in kotlin.collections.MutableIterator' type=@[EnhancedNullability] @[FlexibleNullability] kotlin.Pair<@[FlexibleNullability] kotlin.String?, @[FlexibleNullability] kotlin.Boolean?>? origin=FOR_LOOP_NEXT
+                $this: GET_VAR 'val tmp_0: kotlin.collections.MutableIterator<@[EnhancedNullability] @[FlexibleNullability] kotlin.Pair<@[FlexibleNullability] kotlin.String?, @[FlexibleNullability] kotlin.Boolean?>?> declared in lib.box' type=kotlin.collections.MutableIterator<@[EnhancedNullability] @[FlexibleNullability] kotlin.Pair<@[FlexibleNullability] kotlin.String?, @[FlexibleNullability] kotlin.Boolean?>?> origin=null
+            VAR name:methodName type:@[FlexibleNullability] kotlin.String? [val]
+              CALL 'public final fun component1 (): A of kotlin.Pair declared in kotlin.Pair' type=@[FlexibleNullability] kotlin.String? origin=COMPONENT_N(index=1)
+                $this: GET_VAR 'val tmp_1: @[FlexibleNullability] kotlin.Pair<@[FlexibleNullability] kotlin.String?, @[FlexibleNullability] kotlin.Boolean?>? declared in lib.box' type=@[FlexibleNullability] kotlin.Pair<@[FlexibleNullability] kotlin.String?, @[FlexibleNullability] kotlin.Boolean?>? origin=null
+            VAR name:syn type:@[FlexibleNullability] kotlin.Boolean? [val]
+              CALL 'public final fun component2 (): B of kotlin.Pair declared in kotlin.Pair' type=@[FlexibleNullability] kotlin.Boolean? origin=COMPONENT_N(index=2)
+                $this: GET_VAR 'val tmp_1: @[FlexibleNullability] kotlin.Pair<@[FlexibleNullability] kotlin.String?, @[FlexibleNullability] kotlin.Boolean?>? declared in lib.box' type=@[FlexibleNullability] kotlin.Pair<@[FlexibleNullability] kotlin.String?, @[FlexibleNullability] kotlin.Boolean?>? origin=null
+            BLOCK type=kotlin.Unit origin=null
+              CALL 'public final fun println (message: kotlin.Any?): kotlin.Unit declared in kotlin.io' type=kotlin.Unit origin=null
+                message: STRING_CONCATENATION type=kotlin.String
+                  GET_VAR 'val methodName: @[FlexibleNullability] kotlin.String? declared in lib.box' type=@[FlexibleNullability] kotlin.String? origin=null
+                  CONST String type=kotlin.String value=", syn: "
+                  GET_VAR 'val syn: @[FlexibleNullability] kotlin.Boolean? declared in lib.box' type=@[FlexibleNullability] kotlin.Boolean? origin=null
+      BLOCK type=kotlin.Unit origin=FOR_LOOP
+        VAR FOR_LOOP_ITERATOR name:tmp_2 type:kotlin.collections.Iterator<kotlin.Pair<kotlin.String, kotlin.Boolean>> [val]
           CALL 'public abstract fun iterator (): kotlin.collections.Iterator<E of kotlin.collections.List> declared in kotlin.collections.List' type=kotlin.collections.Iterator<kotlin.Pair<kotlin.String, kotlin.Boolean>> origin=FOR_LOOP_ITERATOR
             $this: GET_VAR 'val overloads: kotlin.collections.List<kotlin.Pair<kotlin.String, kotlin.Boolean>> declared in lib.box' type=kotlin.collections.List<kotlin.Pair<kotlin.String, kotlin.Boolean>> origin=null
         WHILE label=null origin=FOR_LOOP_INNER_WHILE
           condition: CALL 'public abstract fun hasNext (): kotlin.Boolean declared in kotlin.collections.Iterator' type=kotlin.Boolean origin=FOR_LOOP_HAS_NEXT
-            $this: GET_VAR 'val tmp_0: kotlin.collections.Iterator<kotlin.Pair<kotlin.String, kotlin.Boolean>> declared in lib.box' type=kotlin.collections.Iterator<kotlin.Pair<kotlin.String, kotlin.Boolean>> origin=null
+            $this: GET_VAR 'val tmp_2: kotlin.collections.Iterator<kotlin.Pair<kotlin.String, kotlin.Boolean>> declared in lib.box' type=kotlin.collections.Iterator<kotlin.Pair<kotlin.String, kotlin.Boolean>> origin=null
           body: BLOCK type=kotlin.Unit origin=FOR_LOOP_INNER_WHILE
             VAR FOR_LOOP_VARIABLE name:overload type:kotlin.Pair<kotlin.String, kotlin.Boolean> [val]
               CALL 'public abstract fun next (): T of kotlin.collections.Iterator declared in kotlin.collections.Iterator' type=kotlin.Pair<kotlin.String, kotlin.Boolean> origin=FOR_LOOP_NEXT
-                $this: GET_VAR 'val tmp_0: kotlin.collections.Iterator<kotlin.Pair<kotlin.String, kotlin.Boolean>> declared in lib.box' type=kotlin.collections.Iterator<kotlin.Pair<kotlin.String, kotlin.Boolean>> origin=null
+                $this: GET_VAR 'val tmp_2: kotlin.collections.Iterator<kotlin.Pair<kotlin.String, kotlin.Boolean>> declared in lib.box' type=kotlin.collections.Iterator<kotlin.Pair<kotlin.String, kotlin.Boolean>> origin=null
             BLOCK type=kotlin.Unit origin=null
               WHEN type=kotlin.Unit origin=IF
                 BRANCH
@@ -241,32 +397,6 @@ FILE fqName:lib fileName:/main.kt
                       $this: GET_VAR 'val methods: @[FlexibleNullability] java.util.HashSet<@[FlexibleNullability] kotlin.Pair<@[FlexibleNullability] kotlin.String?, @[FlexibleNullability] kotlin.Boolean?>?>? declared in lib.box' type=@[FlexibleNullability] java.util.HashSet<@[FlexibleNullability] kotlin.Pair<@[FlexibleNullability] kotlin.String?, @[FlexibleNullability] kotlin.Boolean?>?>? origin=null
                       p0: GET_VAR 'val overload: kotlin.Pair<kotlin.String, kotlin.Boolean> declared in lib.box' type=kotlin.Pair<kotlin.String, kotlin.Boolean> origin=null
                   then: BLOCK type=kotlin.Unit origin=null
-                    CALL 'public final fun println (message: kotlin.Any?): kotlin.Unit declared in kotlin.io' type=kotlin.Unit origin=null
-                      message: CONST String type=kotlin.String value="Overload check fail"
-                    BLOCK type=kotlin.Unit origin=FOR_LOOP
-                      VAR FOR_LOOP_ITERATOR name:tmp_1 type:kotlin.collections.MutableIterator<@[EnhancedNullability] @[FlexibleNullability] kotlin.Pair<@[FlexibleNullability] kotlin.String?, @[FlexibleNullability] kotlin.Boolean?>?> [val]
-                        TYPE_OP type=kotlin.collections.MutableIterator<@[EnhancedNullability] @[FlexibleNullability] kotlin.Pair<@[FlexibleNullability] kotlin.String?, @[FlexibleNullability] kotlin.Boolean?>?> origin=IMPLICIT_NOTNULL typeOperand=kotlin.collections.MutableIterator<@[EnhancedNullability] @[FlexibleNullability] kotlin.Pair<@[FlexibleNullability] kotlin.String?, @[FlexibleNullability] kotlin.Boolean?>?>
-                          CALL 'public open fun iterator (): @[EnhancedNullability] kotlin.collections.MutableIterator<@[EnhancedNullability] E of java.util.HashSet> declared in java.util.HashSet' type=@[EnhancedNullability] kotlin.collections.MutableIterator<@[EnhancedNullability] @[FlexibleNullability] kotlin.Pair<@[FlexibleNullability] kotlin.String?, @[FlexibleNullability] kotlin.Boolean?>?> origin=null
-                            $this: GET_VAR 'val methods: @[FlexibleNullability] java.util.HashSet<@[FlexibleNullability] kotlin.Pair<@[FlexibleNullability] kotlin.String?, @[FlexibleNullability] kotlin.Boolean?>?>? declared in lib.box' type=@[FlexibleNullability] java.util.HashSet<@[FlexibleNullability] kotlin.Pair<@[FlexibleNullability] kotlin.String?, @[FlexibleNullability] kotlin.Boolean?>?>? origin=null
-                      WHILE label=null origin=FOR_LOOP_INNER_WHILE
-                        condition: CALL 'public abstract fun hasNext (): kotlin.Boolean declared in kotlin.collections.MutableIterator' type=kotlin.Boolean origin=FOR_LOOP_HAS_NEXT
-                          $this: GET_VAR 'val tmp_1: kotlin.collections.MutableIterator<@[EnhancedNullability] @[FlexibleNullability] kotlin.Pair<@[FlexibleNullability] kotlin.String?, @[FlexibleNullability] kotlin.Boolean?>?> declared in lib.box' type=kotlin.collections.MutableIterator<@[EnhancedNullability] @[FlexibleNullability] kotlin.Pair<@[FlexibleNullability] kotlin.String?, @[FlexibleNullability] kotlin.Boolean?>?> origin=null
-                        body: BLOCK type=kotlin.Unit origin=FOR_LOOP_INNER_WHILE
-                          VAR IR_TEMPORARY_VARIABLE name:tmp_2 type:@[FlexibleNullability] kotlin.Pair<@[FlexibleNullability] kotlin.String?, @[FlexibleNullability] kotlin.Boolean?>? [val]
-                            CALL 'public abstract fun next (): T of kotlin.collections.MutableIterator declared in kotlin.collections.MutableIterator' type=@[EnhancedNullability] @[FlexibleNullability] kotlin.Pair<@[FlexibleNullability] kotlin.String?, @[FlexibleNullability] kotlin.Boolean?>? origin=FOR_LOOP_NEXT
-                              $this: GET_VAR 'val tmp_1: kotlin.collections.MutableIterator<@[EnhancedNullability] @[FlexibleNullability] kotlin.Pair<@[FlexibleNullability] kotlin.String?, @[FlexibleNullability] kotlin.Boolean?>?> declared in lib.box' type=kotlin.collections.MutableIterator<@[EnhancedNullability] @[FlexibleNullability] kotlin.Pair<@[FlexibleNullability] kotlin.String?, @[FlexibleNullability] kotlin.Boolean?>?> origin=null
-                          VAR name:methodName type:@[FlexibleNullability] kotlin.String? [val]
-                            CALL 'public final fun component1 (): A of kotlin.Pair declared in kotlin.Pair' type=@[FlexibleNullability] kotlin.String? origin=COMPONENT_N(index=1)
-                              $this: GET_VAR 'val tmp_2: @[FlexibleNullability] kotlin.Pair<@[FlexibleNullability] kotlin.String?, @[FlexibleNullability] kotlin.Boolean?>? declared in lib.box' type=@[FlexibleNullability] kotlin.Pair<@[FlexibleNullability] kotlin.String?, @[FlexibleNullability] kotlin.Boolean?>? origin=null
-                          VAR name:syn type:@[FlexibleNullability] kotlin.Boolean? [val]
-                            CALL 'public final fun component2 (): B of kotlin.Pair declared in kotlin.Pair' type=@[FlexibleNullability] kotlin.Boolean? origin=COMPONENT_N(index=2)
-                              $this: GET_VAR 'val tmp_2: @[FlexibleNullability] kotlin.Pair<@[FlexibleNullability] kotlin.String?, @[FlexibleNullability] kotlin.Boolean?>? declared in lib.box' type=@[FlexibleNullability] kotlin.Pair<@[FlexibleNullability] kotlin.String?, @[FlexibleNullability] kotlin.Boolean?>? origin=null
-                          BLOCK type=kotlin.Unit origin=null
-                            CALL 'public final fun println (message: kotlin.Any?): kotlin.Unit declared in kotlin.io' type=kotlin.Unit origin=null
-                              message: STRING_CONCATENATION type=kotlin.String
-                                GET_VAR 'val methodName: @[FlexibleNullability] kotlin.String? declared in lib.box' type=@[FlexibleNullability] kotlin.String? origin=null
-                                CONST String type=kotlin.String value=", syn: "
-                                GET_VAR 'val syn: @[FlexibleNullability] kotlin.Boolean? declared in lib.box' type=@[FlexibleNullability] kotlin.Boolean? origin=null
                     RETURN type=kotlin.Nothing from='public final fun box (): kotlin.String declared in lib'
                       STRING_CONCATENATION type=kotlin.String
                         CONST String type=kotlin.String value="Fail: overload not found "
@@ -308,7 +438,7 @@ FILE fqName:lib fileName:/main.kt
                     FUN LOCAL_FUNCTION_FOR_LAMBDA name:<anonymous> visibility:local modality:FINAL <> (<destruct>:@[FlexibleNullability] kotlin.Pair<@[FlexibleNullability] kotlin.String?, @[FlexibleNullability] kotlin.Boolean?>?) returnType:kotlin.Boolean
                       VALUE_PARAMETER DESTRUCTURED_OBJECT_PARAMETER name:<destruct> index:0 type:@[FlexibleNullability] kotlin.Pair<@[FlexibleNullability] kotlin.String?, @[FlexibleNullability] kotlin.Boolean?>?
                       BLOCK_BODY
-                        VAR name:sign type:@[FlexibleNullability] kotlin.String? [val]
+                        VAR IR_DESTRUCTURED_PARAMETER_VARIABLE name:sign type:@[FlexibleNullability] kotlin.String? [val]
                           CALL 'public final fun component1 (): A of kotlin.Pair declared in kotlin.Pair' type=@[FlexibleNullability] kotlin.String? origin=COMPONENT_N(index=1)
                             $this: GET_VAR '<destruct>: @[FlexibleNullability] kotlin.Pair<@[FlexibleNullability] kotlin.String?, @[FlexibleNullability] kotlin.Boolean?>? declared in lib.box.<anonymous>' type=@[FlexibleNullability] kotlin.Pair<@[FlexibleNullability] kotlin.String?, @[FlexibleNullability] kotlin.Boolean?>? origin=null
                         RETURN type=kotlin.Nothing from='local final fun <anonymous> (<destruct>: @[FlexibleNullability] kotlin.Pair<@[FlexibleNullability] kotlin.String?, @[FlexibleNullability] kotlin.Boolean?>?): kotlin.Boolean declared in lib.box'
@@ -348,24 +478,24 @@ FILE fqName:m2 fileName:/m2.kt
     BLOCK_BODY
       TYPE_OP type=kotlin.Unit origin=IMPLICIT_COERCION_TO_UNIT typeOperand=kotlin.Unit
         CALL 'public final fun myAdd (x: kotlin.Int, y: kotlin.Int, z: kotlin.Int, a1: kotlin.Int, a2: kotlin.Int): kotlin.Int declared in lib.MyExample' type=kotlin.Int origin=null
-          $this: GET_OBJECT 'CLASS OBJECT name:MyExample modality:FINAL visibility:public superTypes:[kotlin.Any]' type=lib.MyExample
+          $this: GET_OBJECT 'CLASS IR_EXTERNAL_DECLARATION_STUB OBJECT name:MyExample modality:FINAL visibility:public superTypes:[kotlin.Any]' type=lib.MyExample
           x: CONST Int type=kotlin.Int value=1
       TYPE_OP type=kotlin.Unit origin=IMPLICIT_COERCION_TO_UNIT typeOperand=kotlin.Unit
         CALL 'public final fun myAdd (x: kotlin.Int, y: kotlin.Int, z: kotlin.Int, a1: kotlin.Int, a2: kotlin.Int): kotlin.Int declared in lib.MyExample' type=kotlin.Int origin=null
-          $this: GET_OBJECT 'CLASS OBJECT name:MyExample modality:FINAL visibility:public superTypes:[kotlin.Any]' type=lib.MyExample
+          $this: GET_OBJECT 'CLASS IR_EXTERNAL_DECLARATION_STUB OBJECT name:MyExample modality:FINAL visibility:public superTypes:[kotlin.Any]' type=lib.MyExample
           x: CONST Int type=kotlin.Int value=1
           y: CONST Int type=kotlin.Int value=1
   FUN name:test2 visibility:public modality:FINAL <> () returnType:kotlin.Unit
     BLOCK_BODY
       TYPE_OP type=kotlin.Unit origin=IMPLICIT_COERCION_TO_UNIT typeOperand=kotlin.Unit
         CALL 'public final fun myAdd (x: kotlin.Int, y: kotlin.Int, z: kotlin.Int, a1: kotlin.Int, a2: kotlin.Int): kotlin.Int declared in lib.MyExample' type=kotlin.Int origin=null
-          $this: GET_OBJECT 'CLASS OBJECT name:MyExample modality:FINAL visibility:public superTypes:[kotlin.Any]' type=lib.MyExample
+          $this: GET_OBJECT 'CLASS IR_EXTERNAL_DECLARATION_STUB OBJECT name:MyExample modality:FINAL visibility:public superTypes:[kotlin.Any]' type=lib.MyExample
           x: CONST Int type=kotlin.Int value=1
           y: CONST Int type=kotlin.Int value=1
           z: CONST Int type=kotlin.Int value=1
       TYPE_OP type=kotlin.Unit origin=IMPLICIT_COERCION_TO_UNIT typeOperand=kotlin.Unit
         CALL 'public final fun myAdd (x: kotlin.Int, y: kotlin.Int, z: kotlin.Int, a1: kotlin.Int, a2: kotlin.Int): kotlin.Int declared in lib.MyExample' type=kotlin.Int origin=null
-          $this: GET_OBJECT 'CLASS OBJECT name:MyExample modality:FINAL visibility:public superTypes:[kotlin.Any]' type=lib.MyExample
+          $this: GET_OBJECT 'CLASS IR_EXTERNAL_DECLARATION_STUB OBJECT name:MyExample modality:FINAL visibility:public superTypes:[kotlin.Any]' type=lib.MyExample
           x: CONST Int type=kotlin.Int value=1
           y: CONST Int type=kotlin.Int value=1
           z: CONST Int type=kotlin.Int value=1

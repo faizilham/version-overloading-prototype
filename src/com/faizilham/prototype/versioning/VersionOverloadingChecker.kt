@@ -17,15 +17,15 @@ import org.jetbrains.kotlin.fir.types.isSomeFunctionType
 import org.jetbrains.kotlin.name.Name
 
 object VersionOverloadingChecker : FirFunctionChecker(MppCheckerKind.Common) {
-    override fun check(func: FirFunction, context: CheckerContext, reporter: DiagnosticReporter) {
+    override fun check(declaration: FirFunction, context: CheckerContext, reporter: DiagnosticReporter) {
         var inVersionedPart = false
 
-        for ((i, param) in func.valueParameters.withIndex()) {
+        for ((i, param) in declaration.valueParameters.withIndex()) {
             val isOptional = param.defaultValue != null
             val versionAnnotation = param.getAnnotationByClassId(IntroducedAtClassId, context.session)
 
             if (!isOptional) {
-                val isTrailingLambda = (i == func.valueParameters.size - 1) &&
+                val isTrailingLambda = (i == declaration.valueParameters.size - 1) &&
                                         param.returnTypeRef.coneType.isSomeFunctionType(context.session)
 
                 if (inVersionedPart && !isTrailingLambda) {

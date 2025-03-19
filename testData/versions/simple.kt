@@ -11,6 +11,8 @@ const val VERSION_1_2 = "1.2"
 const val VERSION_1_3 = "1.3"
 
 object MyExample {
+    val zero = 0
+
     @JvmStatic
     fun myAdd(
         x: Int,
@@ -27,9 +29,32 @@ object MyExample {
         y: Int = 0,
         @IntroducedAt(VERSION_1_3) y1: Int = 0,
         @IntroducedAt(VERSION_1_2) z: Float = 0.0f,
-    ): Float = x + x1 + y + y1 + z
+    ): Float = this.zero + x + x1 + y + y1 + z
 }
 
+val abcd = 1
+
+class Example2 {
+    val yz = 1
+
+    fun test(
+        x: Int,
+        y: Int = this.yz,
+        y1: Int = yz,
+        @IntroducedAt("1.2") z: Int = 1,
+    ) {
+
+    }
+}
+
+fun outside(
+    x: Int,
+    y: Int = abcd,
+    y1: Int = abcd,
+    @IntroducedAt("1.2") z: Int = 1,
+) {
+
+}
 
 //data class DataCls(val x: Int, val y: Int = 0, val z: Int = 0)
 
@@ -100,12 +125,12 @@ fun box() : String {
         "middle" to 3
     )
 
+    for ((methodName, syn) in methods) {
+        println("$methodName, syn: $syn")
+    }
+
     for (overload in overloads) {
         if (!methods.contains(overload)) {
-            println("Overload check fail")
-            for ((methodName, syn) in methods) {
-                println("$methodName, syn: $syn")
-            }
             return "Fail: overload not found $overload"
         }
     }

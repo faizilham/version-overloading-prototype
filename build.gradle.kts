@@ -3,7 +3,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     java
-    kotlin("jvm") version "2.1.20-RC2"
+    kotlin("jvm") version "2.1.20"
 }
 
 group = "org.demiurg906.kotlin.plugin"

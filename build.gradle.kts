@@ -1,9 +1,11 @@
+
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     java
     kotlin("jvm") version "2.1.20-RC2"
 }
+
 group = "org.demiurg906.kotlin.plugin"
 version = "0.1"
 
@@ -51,12 +53,15 @@ tasks.test {
     dependsOn(project(":plugin-annotations").tasks.getByName("jar"))
     useJUnitPlatform()
     doFirst {
-        setLibraryProperty("org.jetbrains.kotlin.test.kotlin-stdlib", "kotlin-stdlib")
-        setLibraryProperty("org.jetbrains.kotlin.test.kotlin-stdlib-jdk8", "kotlin-stdlib-jdk8")
-        setLibraryProperty("org.jetbrains.kotlin.test.kotlin-reflect", "kotlin-reflect")
-        setLibraryProperty("org.jetbrains.kotlin.test.kotlin-test", "kotlin-test")
-        setLibraryProperty("org.jetbrains.kotlin.test.kotlin-script-runtime", "kotlin-script-runtime")
-        setLibraryProperty("org.jetbrains.kotlin.test.kotlin-annotations-jvm", "kotlin-annotations-jvm")
+        setLibraryProperties("kotlin-stdlib", "org.jetbrains.kotlin.test.kotlin-stdlib", "kotlin.full.stdlib.path", "kotlin.minimal.stdlib.path")
+
+        setLibraryProperties("kotlin-stdlib-jdk8", "org.jetbrains.kotlin.test.kotlin-stdlib-jdk8")
+
+        setLibraryProperties("kotlin-reflect", "org.jetbrains.kotlin.test.kotlin-reflect", "kotlin.reflect.jar.path")
+
+        setLibraryProperties("kotlin-test", "org.jetbrains.kotlin.test.kotlin-test", "kotlin.test.jar.path")
+        setLibraryProperties("kotlin-script-runtime", "org.jetbrains.kotlin.test.kotlin-script-runtime", "kotlin.script.runtime.path")
+        setLibraryProperties("kotlin-annotations-jvm", "org.jetbrains.kotlin.test.kotlin-annotations-jvm")
     }
 }
 
@@ -78,12 +83,15 @@ val compileTestKotlin by tasks.getting {
     }
 }
 
-fun Test.setLibraryProperty(propName: String, jarName: String) {
+fun Test.setLibraryProperties(jarName: String, vararg propNames: String){
     val path = project.configurations
         .testRuntimeClasspath.get()
         .files
         .find { """$jarName-\d.*jar""".toRegex().matches(it.name) }
         ?.absolutePath
         ?: return
-    systemProperty(propName, path)
+
+    for (propName in propNames) {
+        systemProperty(propName, path)
+    }
 }

@@ -34,6 +34,8 @@ abstract class BaseTestRunner : AbstractKotlinCompilerTest() {
     fun TestConfigurationBuilder.commonFirWithPluginFrontendConfiguration() {
         baseFirDiagnosticTestConfiguration()
 
+        useAdditionalService { createKotlinStandardLibrariesPathProvider() }
+
         defaultDirectives {
             +FirDiagnosticsDirectives.ENABLE_PLUGIN_PHASES
             +FirDiagnosticsDirectives.FIR_DUMP

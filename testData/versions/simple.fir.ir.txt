@@ -355,40 +355,16 @@ FILE fqName:lib fileName:/main.kt
               $receiver: CONST String type=kotlin.String value="middle"
               that: CONST Int type=kotlin.Int value=3
       BLOCK type=kotlin.Unit origin=FOR_LOOP
-        VAR FOR_LOOP_ITERATOR name:tmp_0 type:kotlin.collections.MutableIterator<@[EnhancedNullability] @[FlexibleNullability] kotlin.Pair<@[FlexibleNullability] kotlin.String?, @[FlexibleNullability] kotlin.Boolean?>?> [val]
-          TYPE_OP type=kotlin.collections.MutableIterator<@[EnhancedNullability] @[FlexibleNullability] kotlin.Pair<@[FlexibleNullability] kotlin.String?, @[FlexibleNullability] kotlin.Boolean?>?> origin=IMPLICIT_NOTNULL typeOperand=kotlin.collections.MutableIterator<@[EnhancedNullability] @[FlexibleNullability] kotlin.Pair<@[FlexibleNullability] kotlin.String?, @[FlexibleNullability] kotlin.Boolean?>?>
-            CALL 'public open fun iterator (): @[EnhancedNullability] kotlin.collections.MutableIterator<@[EnhancedNullability] E of java.util.HashSet> declared in java.util.HashSet' type=@[EnhancedNullability] kotlin.collections.MutableIterator<@[EnhancedNullability] @[FlexibleNullability] kotlin.Pair<@[FlexibleNullability] kotlin.String?, @[FlexibleNullability] kotlin.Boolean?>?> origin=null
-              $this: GET_VAR 'val methods: @[FlexibleNullability] java.util.HashSet<@[FlexibleNullability] kotlin.Pair<@[FlexibleNullability] kotlin.String?, @[FlexibleNullability] kotlin.Boolean?>?>? declared in lib.box' type=@[FlexibleNullability] java.util.HashSet<@[FlexibleNullability] kotlin.Pair<@[FlexibleNullability] kotlin.String?, @[FlexibleNullability] kotlin.Boolean?>?>? origin=null
-        WHILE label=null origin=FOR_LOOP_INNER_WHILE
-          condition: CALL 'public abstract fun hasNext (): kotlin.Boolean declared in kotlin.collections.MutableIterator' type=kotlin.Boolean origin=FOR_LOOP_HAS_NEXT
-            $this: GET_VAR 'val tmp_0: kotlin.collections.MutableIterator<@[EnhancedNullability] @[FlexibleNullability] kotlin.Pair<@[FlexibleNullability] kotlin.String?, @[FlexibleNullability] kotlin.Boolean?>?> declared in lib.box' type=kotlin.collections.MutableIterator<@[EnhancedNullability] @[FlexibleNullability] kotlin.Pair<@[FlexibleNullability] kotlin.String?, @[FlexibleNullability] kotlin.Boolean?>?> origin=null
-          body: BLOCK type=kotlin.Unit origin=FOR_LOOP_INNER_WHILE
-            VAR IR_TEMPORARY_VARIABLE name:tmp_1 type:@[FlexibleNullability] kotlin.Pair<@[FlexibleNullability] kotlin.String?, @[FlexibleNullability] kotlin.Boolean?>? [val]
-              CALL 'public abstract fun next (): T of kotlin.collections.MutableIterator declared in kotlin.collections.MutableIterator' type=@[EnhancedNullability] @[FlexibleNullability] kotlin.Pair<@[FlexibleNullability] kotlin.String?, @[FlexibleNullability] kotlin.Boolean?>? origin=FOR_LOOP_NEXT
-                $this: GET_VAR 'val tmp_0: kotlin.collections.MutableIterator<@[EnhancedNullability] @[FlexibleNullability] kotlin.Pair<@[FlexibleNullability] kotlin.String?, @[FlexibleNullability] kotlin.Boolean?>?> declared in lib.box' type=kotlin.collections.MutableIterator<@[EnhancedNullability] @[FlexibleNullability] kotlin.Pair<@[FlexibleNullability] kotlin.String?, @[FlexibleNullability] kotlin.Boolean?>?> origin=null
-            VAR name:methodName type:@[FlexibleNullability] kotlin.String? [val]
-              CALL 'public final fun component1 (): A of kotlin.Pair declared in kotlin.Pair' type=@[FlexibleNullability] kotlin.String? origin=COMPONENT_N(index=1)
-                $this: GET_VAR 'val tmp_1: @[FlexibleNullability] kotlin.Pair<@[FlexibleNullability] kotlin.String?, @[FlexibleNullability] kotlin.Boolean?>? declared in lib.box' type=@[FlexibleNullability] kotlin.Pair<@[FlexibleNullability] kotlin.String?, @[FlexibleNullability] kotlin.Boolean?>? origin=null
-            VAR name:syn type:@[FlexibleNullability] kotlin.Boolean? [val]
-              CALL 'public final fun component2 (): B of kotlin.Pair declared in kotlin.Pair' type=@[FlexibleNullability] kotlin.Boolean? origin=COMPONENT_N(index=2)
-                $this: GET_VAR 'val tmp_1: @[FlexibleNullability] kotlin.Pair<@[FlexibleNullability] kotlin.String?, @[FlexibleNullability] kotlin.Boolean?>? declared in lib.box' type=@[FlexibleNullability] kotlin.Pair<@[FlexibleNullability] kotlin.String?, @[FlexibleNullability] kotlin.Boolean?>? origin=null
-            BLOCK type=kotlin.Unit origin=null
-              CALL 'public final fun println (message: kotlin.Any?): kotlin.Unit declared in kotlin.io' type=kotlin.Unit origin=null
-                message: STRING_CONCATENATION type=kotlin.String
-                  GET_VAR 'val methodName: @[FlexibleNullability] kotlin.String? declared in lib.box' type=@[FlexibleNullability] kotlin.String? origin=null
-                  CONST String type=kotlin.String value=", syn: "
-                  GET_VAR 'val syn: @[FlexibleNullability] kotlin.Boolean? declared in lib.box' type=@[FlexibleNullability] kotlin.Boolean? origin=null
-      BLOCK type=kotlin.Unit origin=FOR_LOOP
-        VAR FOR_LOOP_ITERATOR name:tmp_2 type:kotlin.collections.Iterator<kotlin.Pair<kotlin.String, kotlin.Boolean>> [val]
+        VAR FOR_LOOP_ITERATOR name:tmp_0 type:kotlin.collections.Iterator<kotlin.Pair<kotlin.String, kotlin.Boolean>> [val]
           CALL 'public abstract fun iterator (): kotlin.collections.Iterator<E of kotlin.collections.List> declared in kotlin.collections.List' type=kotlin.collections.Iterator<kotlin.Pair<kotlin.String, kotlin.Boolean>> origin=FOR_LOOP_ITERATOR
             $this: GET_VAR 'val overloads: kotlin.collections.List<kotlin.Pair<kotlin.String, kotlin.Boolean>> declared in lib.box' type=kotlin.collections.List<kotlin.Pair<kotlin.String, kotlin.Boolean>> origin=null
         WHILE label=null origin=FOR_LOOP_INNER_WHILE
           condition: CALL 'public abstract fun hasNext (): kotlin.Boolean declared in kotlin.collections.Iterator' type=kotlin.Boolean origin=FOR_LOOP_HAS_NEXT
-            $this: GET_VAR 'val tmp_2: kotlin.collections.Iterator<kotlin.Pair<kotlin.String, kotlin.Boolean>> declared in lib.box' type=kotlin.collections.Iterator<kotlin.Pair<kotlin.String, kotlin.Boolean>> origin=null
+            $this: GET_VAR 'val tmp_0: kotlin.collections.Iterator<kotlin.Pair<kotlin.String, kotlin.Boolean>> declared in lib.box' type=kotlin.collections.Iterator<kotlin.Pair<kotlin.String, kotlin.Boolean>> origin=null
           body: BLOCK type=kotlin.Unit origin=FOR_LOOP_INNER_WHILE
             VAR FOR_LOOP_VARIABLE name:overload type:kotlin.Pair<kotlin.String, kotlin.Boolean> [val]
               CALL 'public abstract fun next (): T of kotlin.collections.Iterator declared in kotlin.collections.Iterator' type=kotlin.Pair<kotlin.String, kotlin.Boolean> origin=FOR_LOOP_NEXT
-                $this: GET_VAR 'val tmp_2: kotlin.collections.Iterator<kotlin.Pair<kotlin.String, kotlin.Boolean>> declared in lib.box' type=kotlin.collections.Iterator<kotlin.Pair<kotlin.String, kotlin.Boolean>> origin=null
+                $this: GET_VAR 'val tmp_0: kotlin.collections.Iterator<kotlin.Pair<kotlin.String, kotlin.Boolean>> declared in lib.box' type=kotlin.collections.Iterator<kotlin.Pair<kotlin.String, kotlin.Boolean>> origin=null
             BLOCK type=kotlin.Unit origin=null
               WHEN type=kotlin.Unit origin=IF
                 BRANCH
@@ -402,28 +378,28 @@ FILE fqName:lib fileName:/main.kt
                         CONST String type=kotlin.String value="Fail: overload not found "
                         GET_VAR 'val overload: kotlin.Pair<kotlin.String, kotlin.Boolean> declared in lib.box' type=kotlin.Pair<kotlin.String, kotlin.Boolean> origin=null
       BLOCK type=kotlin.Unit origin=FOR_LOOP
-        VAR FOR_LOOP_ITERATOR name:tmp_3 type:kotlin.collections.Iterator<kotlin.collections.Map.Entry<kotlin.String, kotlin.Int>> [val]
+        VAR FOR_LOOP_ITERATOR name:tmp_1 type:kotlin.collections.Iterator<kotlin.collections.Map.Entry<kotlin.String, kotlin.Int>> [val]
           CALL 'public final fun iterator <K, V> (): kotlin.collections.Iterator<kotlin.collections.Map.Entry<K of kotlin.collections.iterator, V of kotlin.collections.iterator>> declared in kotlin.collections' type=kotlin.collections.Iterator<kotlin.collections.Map.Entry<kotlin.String, kotlin.Int>> origin=FOR_LOOP_ITERATOR
             <K>: kotlin.String
             <V>: kotlin.Int
             $receiver: GET_VAR 'val overloadCounts: kotlin.collections.Map<kotlin.String, kotlin.Int> declared in lib.box' type=kotlin.collections.Map<kotlin.String, kotlin.Int> origin=null
         WHILE label=null origin=FOR_LOOP_INNER_WHILE
           condition: CALL 'public abstract fun hasNext (): kotlin.Boolean declared in kotlin.collections.Iterator' type=kotlin.Boolean origin=FOR_LOOP_HAS_NEXT
-            $this: GET_VAR 'val tmp_3: kotlin.collections.Iterator<kotlin.collections.Map.Entry<kotlin.String, kotlin.Int>> declared in lib.box' type=kotlin.collections.Iterator<kotlin.collections.Map.Entry<kotlin.String, kotlin.Int>> origin=null
+            $this: GET_VAR 'val tmp_1: kotlin.collections.Iterator<kotlin.collections.Map.Entry<kotlin.String, kotlin.Int>> declared in lib.box' type=kotlin.collections.Iterator<kotlin.collections.Map.Entry<kotlin.String, kotlin.Int>> origin=null
           body: BLOCK type=kotlin.Unit origin=FOR_LOOP_INNER_WHILE
-            VAR IR_TEMPORARY_VARIABLE name:tmp_4 type:kotlin.collections.Map.Entry<kotlin.String, kotlin.Int> [val]
+            VAR IR_TEMPORARY_VARIABLE name:tmp_2 type:kotlin.collections.Map.Entry<kotlin.String, kotlin.Int> [val]
               CALL 'public abstract fun next (): T of kotlin.collections.Iterator declared in kotlin.collections.Iterator' type=kotlin.collections.Map.Entry<kotlin.String, kotlin.Int> origin=FOR_LOOP_NEXT
-                $this: GET_VAR 'val tmp_3: kotlin.collections.Iterator<kotlin.collections.Map.Entry<kotlin.String, kotlin.Int>> declared in lib.box' type=kotlin.collections.Iterator<kotlin.collections.Map.Entry<kotlin.String, kotlin.Int>> origin=null
+                $this: GET_VAR 'val tmp_1: kotlin.collections.Iterator<kotlin.collections.Map.Entry<kotlin.String, kotlin.Int>> declared in lib.box' type=kotlin.collections.Iterator<kotlin.collections.Map.Entry<kotlin.String, kotlin.Int>> origin=null
             VAR name:name type:kotlin.String [val]
               CALL 'public final fun component1 <K, V> (): K of kotlin.collections.component1 declared in kotlin.collections' type=kotlin.String origin=COMPONENT_N(index=1)
                 <K>: kotlin.String
                 <V>: kotlin.Int
-                $receiver: GET_VAR 'val tmp_4: kotlin.collections.Map.Entry<kotlin.String, kotlin.Int> declared in lib.box' type=kotlin.collections.Map.Entry<kotlin.String, kotlin.Int> origin=null
+                $receiver: GET_VAR 'val tmp_2: kotlin.collections.Map.Entry<kotlin.String, kotlin.Int> declared in lib.box' type=kotlin.collections.Map.Entry<kotlin.String, kotlin.Int> origin=null
             VAR name:expected type:kotlin.Int [val]
               CALL 'public final fun component2 <K, V> (): V of kotlin.collections.component2 declared in kotlin.collections' type=kotlin.Int origin=COMPONENT_N(index=2)
                 <K>: kotlin.String
                 <V>: kotlin.Int
-                $receiver: GET_VAR 'val tmp_4: kotlin.collections.Map.Entry<kotlin.String, kotlin.Int> declared in lib.box' type=kotlin.collections.Map.Entry<kotlin.String, kotlin.Int> origin=null
+                $receiver: GET_VAR 'val tmp_2: kotlin.collections.Map.Entry<kotlin.String, kotlin.Int> declared in lib.box' type=kotlin.collections.Map.Entry<kotlin.String, kotlin.Int> origin=null
             BLOCK type=kotlin.Unit origin=null
               VAR name:pattern type:kotlin.String [val]
                 STRING_CONCATENATION type=kotlin.String

@@ -48,20 +48,6 @@ FILE: main.kt
         lval overloads: R|kotlin/collections/List<kotlin/Pair<kotlin/String, kotlin/Boolean>>| = R|kotlin/collections/listOf|<R|kotlin/Pair<kotlin/String, kotlin/Boolean>|>(vararg(R|kotlin/Pair.Pair|<R|kotlin/String|, R|kotlin/Boolean|>(String(public static final int lib.MyExample.myAdd(int,int)), Boolean(true)), R|kotlin/Pair.Pair|<R|kotlin/String|, R|kotlin/Boolean|>(String(public static final int lib.MyExample.myAdd(int,int,int)), Boolean(true)), R|kotlin/Pair.Pair|<R|kotlin/String|, R|kotlin/Boolean|>(String(public static final int lib.MyExample.myAdd(int,int,int,int,int)), Boolean(false)), R|kotlin/Pair.Pair|<R|kotlin/String|, R|kotlin/Boolean|>(String(public static final float lib.MyExample.middle(float,int)), Boolean(true)), R|kotlin/Pair.Pair|<R|kotlin/String|, R|kotlin/Boolean|>(String(public static final float lib.MyExample.middle(float,float,int,float)), Boolean(true)), R|kotlin/Pair.Pair|<R|kotlin/String|, R|kotlin/Boolean|>(String(public static final float lib.MyExample.middle(float,float,int,int,float)), Boolean(false))))
         lval overloadCounts: R|kotlin/collections/Map<kotlin/String, kotlin/Int>| = R|kotlin/collections/mapOf|<R|kotlin/String|, R|kotlin/Int|>(vararg(String(myAdd).R|kotlin/to|<R|kotlin/String|, R|kotlin/Int|>(Int(3)), String(middle).R|kotlin/to|<R|kotlin/String|, R|kotlin/Int|>(Int(3))))
          {
-            lval <iterator>: R|kotlin/collections/MutableIterator<ft<@EnhancedNullability kotlin/Pair<kotlin/String!, kotlin/Boolean!>, @EnhancedNullability kotlin/Pair<kotlin/String!, kotlin/Boolean!>?>>| = R|<local>/methods|.R|SubstitutionOverride<java/util/HashSet.iterator: R|@EnhancedNullability kotlin/collections/MutableIterator<ft<@EnhancedNullability kotlin/Pair<kotlin/String!, kotlin/Boolean!>, @EnhancedNullability kotlin/Pair<kotlin/String!, kotlin/Boolean!>?>>|>|()
-            while(R|<local>/<iterator>|.R|SubstitutionOverride<kotlin/collections/MutableIterator.hasNext: R|kotlin/Boolean|>|()) {
-                lval <destruct>: R|ft<kotlin/Pair<kotlin/String!, kotlin/Boolean!>, kotlin/Pair<kotlin/String!, kotlin/Boolean!>?>| = R|<local>/<iterator>|.R|SubstitutionOverride<kotlin/collections/MutableIterator.next: R|ft<@EnhancedNullability kotlin/Pair<kotlin/String!, kotlin/Boolean!>, @EnhancedNullability kotlin/Pair<kotlin/String!, kotlin/Boolean!>?>|>|()
-                lval methodName: R|kotlin/String!| = R|<local>/<destruct>|.R|SubstitutionOverride<kotlin/Pair.component1: R|kotlin/String!|>|()
-                lval syn: R|kotlin/Boolean!| = R|<local>/<destruct>|.R|SubstitutionOverride<kotlin/Pair.component2: R|kotlin/Boolean!|>|()
-                 {
-                    R|kotlin/io/println|(<strcat>(R|<local>/methodName|, String(, syn: ), R|<local>/syn|))
-                }
-
-            }
-
-        }
-
-         {
             lval <iterator>: R|kotlin/collections/Iterator<kotlin/Pair<kotlin/String, kotlin/Boolean>>| = R|<local>/overloads|.R|SubstitutionOverride<kotlin/collections/List.iterator: R|kotlin/collections/Iterator<kotlin/Pair<kotlin/String, kotlin/Boolean>>|>|()
             while(R|<local>/<iterator>|.R|SubstitutionOverride<kotlin/collections/Iterator.hasNext: R|kotlin/Boolean|>|()) {
                 lval overload: R|kotlin/Pair<kotlin/String, kotlin/Boolean>| = R|<local>/<iterator>|.R|SubstitutionOverride<kotlin/collections/Iterator.next: R|kotlin/Pair<kotlin/String, kotlin/Boolean>|>|()

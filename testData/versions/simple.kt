@@ -125,9 +125,9 @@ fun box() : String {
         "middle" to 3
     )
 
-    for ((methodName, syn) in methods) {
-        println("$methodName, syn: $syn")
-    }
+//    for ((methodName, syn) in methods) {
+//        println("$methodName, syn: $syn")
+//    }
 
     for (overload in overloads) {
         if (!methods.contains(overload)) {

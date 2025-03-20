@@ -5,7 +5,6 @@ import com.faizilham.prototype.versioning.Constants.IntroducedAtFqName
 import com.faizilham.prototype.versioning.Constants.VERSION_OVERLOAD_WRAPPER
 import org.jetbrains.kotlin.backend.common.extensions.IrPluginContext
 import org.jetbrains.kotlin.ir.IrElement
-import org.jetbrains.kotlin.ir.UNDEFINED_OFFSET
 import org.jetbrains.kotlin.ir.backend.js.utils.valueArguments
 import org.jetbrains.kotlin.ir.builders.declarations.buildConstructor
 import org.jetbrains.kotlin.ir.builders.declarations.buildFun
@@ -34,25 +33,16 @@ import java.util.*
 class VersionOverloadingGenerator(context: IrPluginContext) : IrVisitor<Unit, VersionOverloadingGenerator.VisitorContext?>() {
     private val irFactory = context.irFactory
     private val irBuiltIns = context.irBuiltIns
-
     private val deprecationBuilder = DeprecationBuilder(context)
 
     override fun visitElement(element: IrElement, data: VisitorContext?) {
-        when (element) {
-            is IrClass -> {
-                val visitorContext = VisitorContext(isDataClass = element.isData)
-                element.acceptChildren(this, visitorContext)
-                element.addChildren(visitorContext.generatedFunctions)
-            }
-            is IrFile -> {
-                val visitorContext = VisitorContext(isDataClass = false)
-                element.acceptChildren(this, visitorContext)
-                element.addChildren(visitorContext.generatedFunctions)
-            }
-            is IrDeclaration,
-            is IrModuleFragment -> element.acceptChildren(this, null)
-            else -> {}
+        if (element !is IrDeclarationContainer) {
+            return element.acceptChildren(this, data)
         }
+
+        val visitorContext = VisitorContext(isDataClass = element is IrClass && element.isData)
+        element.acceptChildren(this, visitorContext)
+        element.declarations.addAll(visitorContext.generatedFunctions)
     }
 
     override fun visitFunction(declaration: IrFunction, data: VisitorContext?) {
@@ -72,10 +62,16 @@ class VersionOverloadingGenerator(context: IrPluginContext) : IrVisitor<Unit, Ve
         }
     }
 
+    class VisitorContext(
+        val isDataClass: Boolean,
+        val generatedFunctions: MutableList<IrFunction> = mutableListOf(),
+        var primaryConstructorVersions: SortedMap<Version?, MutableList<Int>>? = null
+    )
+
     private fun generateVersions(func: IrFunction, data: VisitorContext, versionParamIndexes: SortedMap<Version?, MutableList<Int>>?) {
         if (versionParamIndexes == null || versionParamIndexes.size < 2) return
 
-        var lastIncludedParameters = MutableList<Boolean>(func.valueParameters.size) { true }
+        var lastIncludedParameters = BooleanArray(func.valueParameters.size) { true }
 
         versionParamIndexes.asIterable().forEachIndexed { i, (_, paramIndexes) ->
             if (i > 0) {
@@ -88,12 +84,6 @@ class VersionOverloadingGenerator(context: IrPluginContext) : IrVisitor<Unit, Ve
             }
         }
     }
-
-    class VisitorContext(
-        val isDataClass: Boolean,
-        val generatedFunctions: MutableList<IrFunction> = mutableListOf(),
-        var primaryConstructorVersions: SortedMap<Version?, MutableList<Int>>? = null
-    )
 
     private fun getSortedVersionParameterIndexes(func: IrFunction): SortedMap<Version?, MutableList<Int>> {
         val versionIndexes = sortedMapOf<Version?, MutableList<Int>> (nullsLast(compareByDescending { it }))
@@ -118,21 +108,21 @@ class VersionOverloadingGenerator(context: IrPluginContext) : IrVisitor<Unit, Ve
 
         return try {
             Version.parse(versionString)
-        } catch (_: Exception) {
+        } catch (_: IllegalArgumentException) {
             null
         }
     }
 
-    private fun generateWrapper(target: IrFunction, includedParams: List<Boolean>): IrFunction? {
-        val wrapperIrFunction = irFactory.generateWrapperHeader(target, includedParams) ?: return null
+    private fun generateWrapper(original: IrFunction, includedParams: BooleanArray): IrFunction? {
+        val wrapperIrFunction = irFactory.generateWrapperHeader(original, includedParams) ?: return null
 
-        val call = when (target) {
+        val call = when (original) {
             is IrConstructor ->
                 IrDelegatingConstructorCallImpl.fromSymbolOwner(
-                    UNDEFINED_OFFSET, UNDEFINED_OFFSET, irBuiltIns.unitType, target.symbol
+                    SYNTHETIC_OFFSET, SYNTHETIC_OFFSET, irBuiltIns.unitType, original.symbol
                 )
             is IrSimpleFunction ->
-                IrCallImpl.fromSymbolOwner(UNDEFINED_OFFSET, UNDEFINED_OFFSET, target.returnType, target.symbol)
+                IrCallImpl.fromSymbolOwner(SYNTHETIC_OFFSET, SYNTHETIC_OFFSET, original.returnType, original.symbol)
         }
 
         for (arg in wrapperIrFunction.allTypeParameters) {
@@ -141,98 +131,87 @@ class VersionOverloadingGenerator(context: IrPluginContext) : IrVisitor<Unit, Ve
 
         call.dispatchReceiver = wrapperIrFunction.dispatchReceiverParameter?.let { dispatchReceiver ->
             IrGetValueImpl(
-                UNDEFINED_OFFSET, UNDEFINED_OFFSET,
+                SYNTHETIC_OFFSET, SYNTHETIC_OFFSET,
                 dispatchReceiver.symbol
             )
         }
 
         call.extensionReceiver = wrapperIrFunction.extensionReceiverParameter?.let { extensionReceiver ->
             IrGetValueImpl(
-                UNDEFINED_OFFSET, UNDEFINED_OFFSET,
+                SYNTHETIC_OFFSET, SYNTHETIC_OFFSET,
                 extensionReceiver.symbol
             )
         }
 
         var lastWrapperIndex = 0
-
-        target.valueParameters.forEachIndexed { targetIndex, targetParam ->
-            if (!includedParams[targetIndex]) {
-                call.putValueArgument(targetIndex, null)
-                return@forEachIndexed
+        for (originalIndex in original.valueParameters.indices) {
+            if (!includedParams[originalIndex]) {
+                call.putValueArgument(originalIndex, null)
+                continue
             }
 
             val wrapperParam = wrapperIrFunction.valueParameters[lastWrapperIndex]
-            call.putValueArgument(targetIndex, IrGetValueImpl(UNDEFINED_OFFSET, UNDEFINED_OFFSET, wrapperParam.symbol))
+            call.putValueArgument(originalIndex, IrGetValueImpl(SYNTHETIC_OFFSET, SYNTHETIC_OFFSET, wrapperParam.symbol))
             lastWrapperIndex += 1
         }
 
-        wrapperIrFunction.body = when (target) {
+        wrapperIrFunction.body = when (original) {
             is IrConstructor -> {
-                irFactory.createBlockBody(UNDEFINED_OFFSET, UNDEFINED_OFFSET, listOf(call))
+                irFactory.createBlockBody(SYNTHETIC_OFFSET, SYNTHETIC_OFFSET, listOf(call))
             }
             is IrSimpleFunction -> {
-                irFactory.createExpressionBody(UNDEFINED_OFFSET, UNDEFINED_OFFSET, call)
+                irFactory.createExpressionBody(SYNTHETIC_OFFSET, SYNTHETIC_OFFSET, call)
             }
         }
 
         return wrapperIrFunction
     }
 
-    private fun IrFactory.generateWrapperHeader(oldFunction: IrFunction, includedParams: List<Boolean>): IrFunction? {
-        val res = when (oldFunction) {
+    private fun IrFactory.generateWrapperHeader(original: IrFunction, includedParams: BooleanArray): IrFunction? {
+        val res = when (original) {
             is IrConstructor -> {
                 buildConstructor {
-                    setSourceRange(oldFunction)
+                    setSourceRange(original)
                     origin = VERSION_OVERLOAD_WRAPPER
-                    name = oldFunction.name
-                    visibility = oldFunction.visibility
-                    returnType = oldFunction.returnType
-                    isInline = oldFunction.isInline
-                    containerSource = oldFunction.containerSource
+                    name = original.name
+                    visibility = original.visibility
+                    returnType = original.returnType
+                    isInline = original.isInline
+                    containerSource = original.containerSource
                 }
             }
             is IrSimpleFunction -> buildFun {
-                setSourceRange(oldFunction)
+                setSourceRange(original)
                 origin = VERSION_OVERLOAD_WRAPPER
-                name = oldFunction.name
-                visibility = oldFunction.visibility
-                modality = oldFunction.modality
-                returnType = oldFunction.returnType
-                isInline = oldFunction.isInline
-                isSuspend = oldFunction.isSuspend
-                containerSource = oldFunction.containerSource
+                name = original.name
+                visibility = original.visibility
+                modality = original.modality
+                returnType = original.returnType
+                isInline = original.isInline
+                isSuspend = original.isSuspend
+                containerSource = original.containerSource
             }
         }
 
-        res.parent = oldFunction.parent
+        res.parent = original.parent
         res.addDeprecatedAnnotation(DeprecationLevel.HIDDEN)
-        res.copyAnnotationsFrom(oldFunction)
-        res.copyTypeParametersFrom(oldFunction)
-        res.dispatchReceiverParameter = oldFunction.dispatchReceiverParameter?.copyTo(res)
-        res.extensionReceiverParameter = oldFunction.extensionReceiverParameter?.copyTo(res)
-        res.valueParameters = res.generateNewValueParameters(oldFunction, includedParams)
+        res.copyAnnotationsFrom(original)
+        res.copyTypeParametersFrom(original)
+        res.dispatchReceiverParameter = original.dispatchReceiverParameter?.copyTo(res)
+        res.extensionReceiverParameter = original.extensionReceiverParameter?.copyTo(res)
+        res.valueParameters = res.generateNewValueParameters(original, includedParams)
 
         return res
     }
 
-    private fun IrFunction.generateNewValueParameters(oldFunction: IrFunction, includedParams: List<Boolean>): List<IrValueParameter> {
+    private fun IrFunction.generateNewValueParameters(original: IrFunction, includedParams: BooleanArray): List<IrValueParameter> {
         val result = mutableListOf<IrValueParameter>()
-        val containerClass = this.parent as? IrClass
 
-        // FIXME: copy default value? older version of fun$default is not available for older kotlin function if it is not copied
-        if (containerClass != null) {
-            oldFunction.valueParameters.forEachIndexed { i, param ->
-                if (includedParams[i]) {
-                    val newParam = param.copyTo(this).transform(GetValueTransformer(containerClass, this), null)
-                    result.add(newParam)
-                }
-            }
-        } else {
-            oldFunction.valueParameters.forEachIndexed { i, param ->
-                if (includedParams[i]) {
-                    val newParam = param.copyTo(this)
-                    result.add(newParam)
-                }
+        original.valueParameters.forEachIndexed { i, param ->
+            if (includedParams[i]) {
+                // NOTE: default value is copied because kotlin binaries calls the generated $default function
+                val newParam = param.copyTo(this).transform(GetValueTransformer(this), null)
+                result.add(newParam)
             }
         }
 
@@ -245,10 +224,10 @@ class VersionOverloadingGenerator(context: IrPluginContext) : IrVisitor<Unit, Ve
     }
 }
 
-private class GetValueTransformer(val irClass: IrClass, val irFunction: IrFunction) : IrElementTransformerVoid() {
+private class GetValueTransformer(val irFunction: IrFunction) : IrElementTransformerVoid() {
     override fun visitGetValue(expression: IrGetValue): IrGetValue {
         return (super.visitGetValue(expression) as IrGetValue).remapSymbolParent(
-            classRemapper = { irClass },
+            classRemapper = { irFunction.parent as? IrClass ?: it },
             functionRemapper = { irFunction }
         )
     }

@@ -16,34 +16,42 @@ import org.jetbrains.kotlin.fir.types.coneType
 import org.jetbrains.kotlin.fir.types.isSomeFunctionType
 import org.jetbrains.kotlin.name.Name
 
+// Checks:
+// 1. Version annotations are only added at optional parameters
+// 2. The version number conforms to the java.lang.Runtime.Version format
+// 3. Optional parameters with version annotations are in the tail positions or before a trailing lambda,
+//    and non-annotated parameters are in the head
+// 4. [CURRENTLY UNCHECKED] Version annotations are either in increasing order, or must be provided by name
+
 object VersionOverloadingChecker : FirFunctionChecker(MppCheckerKind.Common) {
     override fun check(declaration: FirFunction, context: CheckerContext, reporter: DiagnosticReporter) {
         var inVersionedPart = false
 
         for ((i, param) in declaration.valueParameters.withIndex()) {
-            val isOptional = param.defaultValue != null
             val versionAnnotation = param.getAnnotationByClassId(IntroducedAtClassId, context.session)
 
-            if (!isOptional) {
-                val isTrailingLambda = (i == declaration.valueParameters.size - 1) &&
+            if (param.defaultValue == null) {
+                val isTrailingLambda = (i == declaration.valueParameters.lastIndex) &&
                                         param.returnTypeRef.coneType.isSomeFunctionType(context.session)
 
-                if (inVersionedPart && !isTrailingLambda) {
-                    reporter.reportOn(param.source, INVALID_NON_OPTIONAL_PARAMETER_POSITION, context)
-                } else if (versionAnnotation != null) {
-                    reporter.reportOn(param.source, INVALID_VERSIONING_ON_NON_OPTIONAL, context)
+                when {
+                    inVersionedPart && !isTrailingLambda ->
+                        reporter.reportOn(param.source, INVALID_NON_OPTIONAL_PARAMETER_POSITION, context)
+                    versionAnnotation != null ->
+                        reporter.reportOn(param.source, INVALID_VERSIONING_ON_NON_OPTIONAL, context)
                 }
 
                 continue
-            } else if (versionAnnotation == null) continue
+            }
+
+            if (versionAnnotation == null) continue
 
             inVersionedPart = true
-
             val versionString = versionAnnotation.getStringArgument(Name.identifier("version"), context.session) ?: continue
 
             try {
                 Runtime.Version.parse(versionString)
-            } catch (_: Exception) {
+            } catch (_: IllegalArgumentException) {
                 reporter.reportOn(param.source, INVALID_VERSION_NUMBER_FORMAT, context)
             }
         }

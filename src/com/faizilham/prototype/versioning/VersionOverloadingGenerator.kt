@@ -27,13 +27,19 @@ import java.util.*
 // 1. Version annotations are only added at optional parameters
 // 2. The version number conforms to the java.lang.Runtime.Version format
 // 3. Optional parameters with version annotations are in the tail positions or before a trailing lambda,
-//    and non-annotated parameters are in the head
+//    and non-optional parameters are in the head. Non-annotated optionals may appear anywhere before trailing lambda.
 // 4. Version annotations are either in increasing order, or must be provided by name
 
 class VersionOverloadingGenerator(context: IrPluginContext) : IrVisitor<Unit, VersionOverloadingGenerator.VisitorContext?>() {
     private val irFactory = context.irFactory
     private val irBuiltIns = context.irBuiltIns
-    private val deprecationBuilder = DeprecationBuilder(context)
+    private val deprecationBuilder = DeprecationBuilder(context, level=DeprecationLevel.HIDDEN)
+
+    class VisitorContext(
+        val isDataClass: Boolean,
+        val generatedFunctions: MutableList<IrFunction> = mutableListOf(),
+        var primaryConstructorVersions: SortedMap<Version?, MutableList<Int>>? = null
+    )
 
     override fun visitElement(element: IrElement, data: VisitorContext?) {
         if (element !is IrDeclarationContainer) {
@@ -62,12 +68,6 @@ class VersionOverloadingGenerator(context: IrPluginContext) : IrVisitor<Unit, Ve
         }
     }
 
-    class VisitorContext(
-        val isDataClass: Boolean,
-        val generatedFunctions: MutableList<IrFunction> = mutableListOf(),
-        var primaryConstructorVersions: SortedMap<Version?, MutableList<Int>>? = null
-    )
-
     private fun generateVersions(func: IrFunction, data: VisitorContext, versionParamIndexes: SortedMap<Version?, MutableList<Int>>?) {
         if (versionParamIndexes == null || versionParamIndexes.size < 2) return
 
@@ -75,8 +75,7 @@ class VersionOverloadingGenerator(context: IrPluginContext) : IrVisitor<Unit, Ve
 
         versionParamIndexes.asIterable().forEachIndexed { i, (_, paramIndexes) ->
             if (i > 0) {
-                val wrapper = generateWrapper(func, lastIncludedParameters) ?: return@forEachIndexed
-                data.generatedFunctions.add(wrapper)
+                data.generatedFunctions.add(generateWrapper(func, lastIncludedParameters))
             }
 
             paramIndexes.forEach {
@@ -113,8 +112,8 @@ class VersionOverloadingGenerator(context: IrPluginContext) : IrVisitor<Unit, Ve
         }
     }
 
-    private fun generateWrapper(original: IrFunction, includedParams: BooleanArray): IrFunction? {
-        val wrapperIrFunction = irFactory.generateWrapperHeader(original, includedParams) ?: return null
+    private fun generateWrapper(original: IrFunction, includedParams: BooleanArray): IrFunction {
+        val wrapperIrFunction = irFactory.generateWrapperHeader(original, includedParams)
 
         val call = when (original) {
             is IrConstructor ->
@@ -130,17 +129,11 @@ class VersionOverloadingGenerator(context: IrPluginContext) : IrVisitor<Unit, Ve
         }
 
         call.dispatchReceiver = wrapperIrFunction.dispatchReceiverParameter?.let { dispatchReceiver ->
-            IrGetValueImpl(
-                SYNTHETIC_OFFSET, SYNTHETIC_OFFSET,
-                dispatchReceiver.symbol
-            )
+            IrGetValueImpl(SYNTHETIC_OFFSET, SYNTHETIC_OFFSET, dispatchReceiver.symbol)
         }
 
         call.extensionReceiver = wrapperIrFunction.extensionReceiverParameter?.let { extensionReceiver ->
-            IrGetValueImpl(
-                SYNTHETIC_OFFSET, SYNTHETIC_OFFSET,
-                extensionReceiver.symbol
-            )
+            IrGetValueImpl(SYNTHETIC_OFFSET, SYNTHETIC_OFFSET, extensionReceiver.symbol)
         }
 
         var lastWrapperIndex = 0
@@ -167,8 +160,8 @@ class VersionOverloadingGenerator(context: IrPluginContext) : IrVisitor<Unit, Ve
         return wrapperIrFunction
     }
 
-    private fun IrFactory.generateWrapperHeader(original: IrFunction, includedParams: BooleanArray): IrFunction? {
-        val res = when (original) {
+    private fun IrFactory.generateWrapperHeader(original: IrFunction, includedParams: BooleanArray): IrFunction {
+        return when (original) {
             is IrConstructor -> {
                 buildConstructor {
                     setSourceRange(original)
@@ -191,36 +184,23 @@ class VersionOverloadingGenerator(context: IrPluginContext) : IrVisitor<Unit, Ve
                 isSuspend = original.isSuspend
                 containerSource = original.containerSource
             }
+        }.apply {
+            parent = original.parent
+            annotations += deprecationBuilder.buildAnnotationCall()
+            copyAnnotationsFrom(original)
+            copyTypeParametersFrom(original)
+            dispatchReceiverParameter = original.dispatchReceiverParameter?.copyTo(this)
+            extensionReceiverParameter = original.extensionReceiverParameter?.copyTo(this)
+            generateNewValueParameters(original, includedParams)
         }
-
-        res.parent = original.parent
-        res.addDeprecatedAnnotation(DeprecationLevel.HIDDEN)
-        res.copyAnnotationsFrom(original)
-        res.copyTypeParametersFrom(original)
-        res.dispatchReceiverParameter = original.dispatchReceiverParameter?.copyTo(res)
-        res.extensionReceiverParameter = original.extensionReceiverParameter?.copyTo(res)
-        res.valueParameters = res.generateNewValueParameters(original, includedParams)
-
-        return res
     }
 
-    private fun IrFunction.generateNewValueParameters(original: IrFunction, includedParams: BooleanArray): List<IrValueParameter> {
-        val result = mutableListOf<IrValueParameter>()
-
-        original.valueParameters.forEachIndexed { i, param ->
-            if (includedParams[i]) {
-                // NOTE: default value is copied because kotlin binaries calls the generated $default function
-                val newParam = param.copyTo(this).transform(GetValueTransformer(this), null)
-                result.add(newParam)
-            }
+    private fun IrFunction.generateNewValueParameters(original: IrFunction, includedParams: BooleanArray) {
+        val transformer = GetValueTransformer(this)
+        valueParameters = original.valueParameters.withIndex().mapNotNull { (i, param) ->
+            if (!includedParams[i]) null
+            else param.copyTo(this).transform(transformer, null)
         }
-
-        return result
-    }
-
-    private fun IrFunction.addDeprecatedAnnotation(level: DeprecationLevel) {
-        val annotation = deprecationBuilder.buildAnnotationCall(level) ?: return
-        annotations += annotation
     }
 }
 
@@ -233,17 +213,14 @@ private class GetValueTransformer(val irFunction: IrFunction) : IrElementTransfo
     }
 }
 
-private class DeprecationBuilder(private val context: IrPluginContext) {
-    private val classSymbol = context.referenceClass(StandardClassIds.Annotations.Deprecated)
-    private val deprecationLevelClass = context.referenceClass(StandardClassIds.DeprecationLevel)?.owner
+private class DeprecationBuilder(private val context: IrPluginContext, level: DeprecationLevel) {
+    private val classSymbol = context.referenceClass(StandardClassIds.Annotations.Deprecated)!!
+    private val deprecationLevelClass = context.referenceClass(StandardClassIds.DeprecationLevel)!!.owner
+    private val levelSymbol = deprecationLevelClass.declarations
+                                .filterIsInstance<IrEnumEntry>()
+                                .single { it.name.toString() == level.name }.symbol
 
-    fun buildAnnotationCall(level: DeprecationLevel) : IrConstructorCall? {
-        if (classSymbol == null || deprecationLevelClass == null) return null
-
-        val levelSymbol = deprecationLevelClass.declarations
-            .filterIsInstance<IrEnumEntry>()
-            .single { it.name.toString() == level.name }.symbol
-
+    fun buildAnnotationCall() : IrConstructorCall {
         return IrConstructorCallImpl.fromSymbolOwner(
             SYNTHETIC_OFFSET,
             SYNTHETIC_OFFSET,

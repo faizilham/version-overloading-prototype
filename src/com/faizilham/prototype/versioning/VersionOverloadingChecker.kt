@@ -20,10 +20,12 @@ import org.jetbrains.kotlin.name.Name
 // 1. Version annotations are only added at optional parameters
 // 2. The version number conforms to the java.lang.Runtime.Version format
 // 3. Optional parameters with version annotations are in the tail positions or before a trailing lambda,
-//    and non-annotated parameters are in the head
+//    and non-optional parameters are in the head. Non-annotated optionals may appear anywhere before trailing lambda.
 // 4. [CURRENTLY UNCHECKED] Version annotations are either in increasing order, or must be provided by name
 
 object VersionOverloadingChecker : FirFunctionChecker(MppCheckerKind.Common) {
+    private val versionNumberArgument = Name.identifier("version")
+
     override fun check(declaration: FirFunction, context: CheckerContext, reporter: DiagnosticReporter) {
         var inVersionedPart = false
 
@@ -47,7 +49,7 @@ object VersionOverloadingChecker : FirFunctionChecker(MppCheckerKind.Common) {
             if (versionAnnotation == null) continue
 
             inVersionedPart = true
-            val versionString = versionAnnotation.getStringArgument(Name.identifier("version"), context.session) ?: continue
+            val versionString = versionAnnotation.getStringArgument(versionNumberArgument, context.session) ?: continue
 
             try {
                 Runtime.Version.parse(versionString)

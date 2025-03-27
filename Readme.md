@@ -84,5 +84,7 @@ The plugin checks the following conditions when validating any instance of `@Int
 2. The version number string conforms to the `java.lang.Runtime.Version` format.
 3. Optional parameters with version annotations are in the tail positions or before a trailing lambda,
    and non-optional parameters are in the head. Non-annotated optionals may appear anywhere before trailing lambda.
-4. Version annotations are either in increasing order (following the ordering of `java.lang.Runtime.Version`), or must be provided by name when called. 
- This is currently unchecked until the named parameter proposal is implemented, so it is advisable to encourage for providing the optional arguments by names.
+
+
+It is also advisable for the version annotated parameters to be either in increasing order (i.e. new optional parameters are always added after older ones), or must be provided by name when called.
+Currently, the plugin cannot check this until there is a uniform way to [enforce providing arguments by name](https://youtrack.jetbrains.com/issue/KT-14934).

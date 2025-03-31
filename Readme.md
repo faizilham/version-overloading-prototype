@@ -51,7 +51,7 @@ fun makeButton(
     color: Color = DefaultColor,
     borderColor: Color = DefautColor,
     onClick: () -> Unit
-) = Button(label, color, borderColor, DefautBorderStyle, 1, onClick)
+) = makeButton(label, color, borderColor, DefautBorderStyle, 1, onClick)
 
 // oldest version, presumably 1.0
 @Deprecated("Deprecated", level=DeprecationLevel.HIDDEN)
@@ -59,7 +59,7 @@ fun makeButton(
     label: String = "",
     color: Color = DefaultColor,
     onClick: () -> Unit
-) = Button(label, color, DefautBorderColor, DefautBorderStyle, 1, onClick)
+) = makeButton(label, color, DefautBorderColor, DefautBorderStyle, 1, onClick)
 ```
 
 It is also possible to annotate constructor parameters with `@IntroducedAt`.

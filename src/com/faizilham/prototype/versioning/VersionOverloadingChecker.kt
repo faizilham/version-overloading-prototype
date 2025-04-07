@@ -4,6 +4,7 @@ import com.faizilham.prototype.versioning.Constants.IntroducedAtClassId
 import com.faizilham.prototype.versioning.Errors.INVALID_NON_OPTIONAL_PARAMETER_POSITION
 import com.faizilham.prototype.versioning.Errors.INVALID_VERSIONING_ON_NON_OPTIONAL
 import com.faizilham.prototype.versioning.Errors.INVALID_VERSION_NUMBER_FORMAT
+import org.jetbrains.kotlin.config.MavenComparableVersion
 import org.jetbrains.kotlin.diagnostics.DiagnosticReporter
 import org.jetbrains.kotlin.diagnostics.reportOn
 import org.jetbrains.kotlin.fir.analysis.checkers.MppCheckerKind
@@ -18,7 +19,7 @@ import org.jetbrains.kotlin.name.Name
 
 // Checks:
 // 1. Version annotations are only added at optional parameters
-// 2. The version number conforms to the java.lang.Runtime.Version format
+// 2. The version number conforms to the org.jetbrains.kotlin.config.MavenComparableVersion format
 // 3. Optional parameters with version annotations are in the tail positions or before a trailing lambda,
 //    and non-optional parameters are in the head. Non-annotated optionals may appear anywhere before trailing lambda.
 // 4. [CURRENTLY UNCHECKED] Version annotations are either in increasing order, or must be provided by name
@@ -52,8 +53,8 @@ object VersionOverloadingChecker : FirFunctionChecker(MppCheckerKind.Common) {
             val versionString = versionAnnotation.getStringArgument(versionNumberArgument, context.session) ?: continue
 
             try {
-                Runtime.Version.parse(versionString)
-            } catch (_: IllegalArgumentException) {
+                MavenComparableVersion(versionString)
+            } catch (_: Exception) {
                 reporter.reportOn(param.source, INVALID_VERSION_NUMBER_FORMAT, context)
             }
         }

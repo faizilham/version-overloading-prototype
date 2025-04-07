@@ -5,7 +5,6 @@ const val VERSION_1_2 = "1.2"
 
 fun err1(
   <!INVALID_VERSIONING_ON_NON_OPTIONAL!>@IntroducedAt("1.1") abc: Int<!>,
-  <!INVALID_VERSION_NUMBER_FORMAT!>@IntroducedAt("1.1...") xyz: Int = 0<!>,
 ) {
 
 }

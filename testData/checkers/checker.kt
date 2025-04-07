@@ -18,6 +18,17 @@ fun err2(
 
 }
 
+fun err3(
+  a: Int,
+  b: Int = a,
+  @IntroducedAt("1.1") c: Int = a + b,
+  @IntroducedAt("1.2") c1: Int = b + c,
+  <!INVALID_DEFAULT_VALUE_DEPENDENCY!>@IntroducedAt("1.1") d: Int = c + c1<!>,
+  callback : () -> Unit
+) {
+
+}
+
 fun ok1(
   a: Int,
   @IntroducedAt("1") a1: Int = 0,
@@ -56,6 +67,19 @@ fun ok4(
   b: Int,
   c: Int = 0,
   d: Int,
+  callback : () -> Unit
+) {
+
+}
+
+fun ok4(
+  a: Int,
+  b: Int = a,
+  @IntroducedAt("3") b1: Int = b,
+  @IntroducedAt("1") c: Int = b,
+  @IntroducedAt("1") c1: Int = c,
+  @IntroducedAt("2") d: Int = b + c1,
+  @IntroducedAt("2") d1: Int = c1 + d,
   callback : () -> Unit
 ) {
 

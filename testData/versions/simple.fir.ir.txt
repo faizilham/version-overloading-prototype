@@ -58,6 +58,38 @@ FILE fqName:lib fileName:/lib.kt
           x: GET_VAR 'x: kotlin.Int declared in lib.Example2.test' type=kotlin.Int origin=null
           y: GET_VAR 'y: kotlin.Int declared in lib.Example2.test' type=kotlin.Int origin=null
           y1: GET_VAR 'y1: kotlin.Int declared in lib.Example2.test' type=kotlin.Int origin=null
+    FUN VERSION_OVERLOAD_WRAPPER name:test3 visibility:public modality:FINAL <> ($this:lib.Example2, x:kotlin.Int, y:kotlin.Int) returnType:kotlin.Unit
+      annotations:
+        Deprecated(message = "Deprecated", replaceWith = <null>, level = GET_ENUM 'ENUM_ENTRY IR_EXTERNAL_DECLARATION_STUB name:HIDDEN' type=kotlin.DeprecationLevel)
+      $this: VALUE_PARAMETER name:<this> type:lib.Example2
+      VALUE_PARAMETER name:x index:0 type:kotlin.Int
+      VALUE_PARAMETER name:y index:1 type:kotlin.Int
+        EXPRESSION_BODY
+          CONST Int type=kotlin.Int value=0
+      EXPRESSION_BODY
+        CALL 'public final fun test3 (x: kotlin.Int, y: kotlin.Int, z: kotlin.Int, z1: kotlin.Int): kotlin.Unit declared in lib.Example2' type=kotlin.Unit origin=null
+          $this: GET_VAR '<this>: lib.Example2 declared in lib.Example2.test3' type=lib.Example2 origin=null
+          x: GET_VAR 'x: kotlin.Int declared in lib.Example2.test3' type=kotlin.Int origin=null
+          y: GET_VAR 'y: kotlin.Int declared in lib.Example2.test3' type=kotlin.Int origin=null
+    FUN VERSION_OVERLOAD_WRAPPER name:test3 visibility:public modality:FINAL <> ($this:lib.Example2, x:kotlin.Int, y:kotlin.Int, z:kotlin.Int) returnType:kotlin.Unit
+      annotations:
+        Deprecated(message = "Deprecated", replaceWith = <null>, level = GET_ENUM 'ENUM_ENTRY IR_EXTERNAL_DECLARATION_STUB name:HIDDEN' type=kotlin.DeprecationLevel)
+      $this: VALUE_PARAMETER name:<this> type:lib.Example2
+      VALUE_PARAMETER name:x index:0 type:kotlin.Int
+      VALUE_PARAMETER name:y index:1 type:kotlin.Int
+        EXPRESSION_BODY
+          CONST Int type=kotlin.Int value=0
+      VALUE_PARAMETER name:z index:2 type:kotlin.Int
+        annotations:
+          IntroducedAt(version = "1.1")
+        EXPRESSION_BODY
+          GET_VAR 'y: kotlin.Int declared in lib.Example2.test3' type=kotlin.Int origin=null
+      EXPRESSION_BODY
+        CALL 'public final fun test3 (x: kotlin.Int, y: kotlin.Int, z: kotlin.Int, z1: kotlin.Int): kotlin.Unit declared in lib.Example2' type=kotlin.Unit origin=null
+          $this: GET_VAR '<this>: lib.Example2 declared in lib.Example2.test3' type=lib.Example2 origin=null
+          x: GET_VAR 'x: kotlin.Int declared in lib.Example2.test3' type=kotlin.Int origin=null
+          y: GET_VAR 'y: kotlin.Int declared in lib.Example2.test3' type=kotlin.Int origin=null
+          z: GET_VAR 'z: kotlin.Int declared in lib.Example2.test3' type=kotlin.Int origin=null
     FUN name:test visibility:public modality:FINAL <> ($this:lib.Example2, x:kotlin.Int, y:kotlin.Int, y1:kotlin.Int, z:kotlin.Int) returnType:kotlin.Unit
       $this: VALUE_PARAMETER name:<this> type:lib.Example2
       VALUE_PARAMETER name:x index:0 type:kotlin.Int
@@ -74,6 +106,23 @@ FILE fqName:lib fileName:/lib.kt
           IntroducedAt(version = "1.2")
         EXPRESSION_BODY
           CONST Int type=kotlin.Int value=1
+      BLOCK_BODY
+    FUN name:test3 visibility:public modality:FINAL <> ($this:lib.Example2, x:kotlin.Int, y:kotlin.Int, z:kotlin.Int, z1:kotlin.Int) returnType:kotlin.Unit
+      $this: VALUE_PARAMETER name:<this> type:lib.Example2
+      VALUE_PARAMETER name:x index:0 type:kotlin.Int
+      VALUE_PARAMETER name:y index:1 type:kotlin.Int
+        EXPRESSION_BODY
+          CONST Int type=kotlin.Int value=0
+      VALUE_PARAMETER name:z index:2 type:kotlin.Int
+        annotations:
+          IntroducedAt(version = "1.1")
+        EXPRESSION_BODY
+          GET_VAR 'y: kotlin.Int declared in lib.Example2.test3' type=kotlin.Int origin=null
+      VALUE_PARAMETER name:z1 index:3 type:kotlin.Int
+        annotations:
+          IntroducedAt(version = "1.2")
+        EXPRESSION_BODY
+          CONST Int type=kotlin.Int value=0
       BLOCK_BODY
   CLASS OBJECT name:MyExample modality:FINAL visibility:public superTypes:[kotlin.Any]
     $this: VALUE_PARAMETER INSTANCE_RECEIVER name:<this> type:lib.MyExample

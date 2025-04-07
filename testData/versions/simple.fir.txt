@@ -36,6 +36,9 @@ FILE: lib.kt
         public final fun test(x: R|kotlin/Int|, y: R|kotlin/Int| = this@R|lib/Example2|.R|lib/Example2.yz|, y1: R|kotlin/Int| = this@R|lib/Example2|.R|lib/Example2.yz|, @R|com/faizilham/prototype/versioning/IntroducedAt|(version = String(1.2)) z: R|kotlin/Int| = Int(1)): R|kotlin/Unit| {
         }
 
+        public final fun test3(x: R|kotlin/Int|, y: R|kotlin/Int| = Int(0), @R|com/faizilham/prototype/versioning/IntroducedAt|(version = String(1.1)) z: R|kotlin/Int| = R|<local>/y|, @R|com/faizilham/prototype/versioning/IntroducedAt|(version = String(1.2)) z1: R|kotlin/Int| = Int(0)): R|kotlin/Unit| {
+        }
+
     }
     public final fun outside(x: R|kotlin/Int|, y: R|kotlin/Int| = R|lib/abcd|, y1: R|kotlin/Int| = R|lib/abcd|, @R|com/faizilham/prototype/versioning/IntroducedAt|(version = String(1.2)) z: R|kotlin/Int| = Int(1)): R|kotlin/Unit| {
     }

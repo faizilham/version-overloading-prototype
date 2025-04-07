@@ -7,6 +7,8 @@ FILE: checker.kt
     }
     public final fun err2(a: R|kotlin/Int|, @R|com/faizilham/prototype/versioning/IntroducedAt|(version = String(1.1)) b: R|kotlin/Int| = Int(0), c: R|kotlin/Int| = Int(0), d: R|kotlin/Int|): R|kotlin/Unit| {
     }
+    public final fun err3(a: R|kotlin/Int|, b: R|kotlin/Int| = R|<local>/a|, @R|com/faizilham/prototype/versioning/IntroducedAt|(version = String(1.1)) c: R|kotlin/Int| = R|<local>/a|.R|kotlin/Int.plus|(R|<local>/b|), @R|com/faizilham/prototype/versioning/IntroducedAt|(version = String(1.2)) c1: R|kotlin/Int| = R|<local>/b|.R|kotlin/Int.plus|(R|<local>/c|), @R|com/faizilham/prototype/versioning/IntroducedAt|(version = String(1.1)) d: R|kotlin/Int| = R|<local>/c|.R|kotlin/Int.plus|(R|<local>/c1|), callback: R|() -> kotlin/Unit|): R|kotlin/Unit| {
+    }
     public final fun ok1(a: R|kotlin/Int|, @R|com/faizilham/prototype/versioning/IntroducedAt|(version = String(1)) a1: R|kotlin/Int| = Int(0), b: R|kotlin/Int| = Int(0), @R|com/faizilham/prototype/versioning/IntroducedAt|(version = R|/VERSION_1_1|) c: R|kotlin/Int| = Int(0), @R|com/faizilham/prototype/versioning/IntroducedAt|(version = R|/VERSION_1_2|) d: R|kotlin/Int| = Int(0), callback: R|() -> kotlin/Unit|): R|kotlin/Unit| {
     }
     public final fun ok2(a: R|kotlin/Int|, @R|com/faizilham/prototype/versioning/IntroducedAt|(version = R|/VERSION_1_1|) a1: R|kotlin/Int| = Int(0), b: R|kotlin/Int| = Int(0), @R|com/faizilham/prototype/versioning/IntroducedAt|(version = R|/VERSION_1_1|) c: R|kotlin/Int| = Int(0), @R|com/faizilham/prototype/versioning/IntroducedAt|(version = R|/VERSION_1_2|) d: R|kotlin/Int| = Int(0), callback: R|() -> kotlin/Unit| = fun <anonymous>(): R|kotlin/Unit| <inline=Unknown>  {
@@ -17,4 +19,6 @@ FILE: checker.kt
     public final fun ok3(a: R|kotlin/Int|, a1: R|kotlin/Int| = Int(0), b: R|kotlin/Int|, @R|com/faizilham/prototype/versioning/IntroducedAt|(version = R|/VERSION_1_1|) c: R|kotlin/Int| = Int(0), callback: R|() -> kotlin/Unit|): R|kotlin/Unit| {
     }
     public final fun ok4(a: R|kotlin/Int|, a1: R|kotlin/Int| = Int(0), b: R|kotlin/Int|, c: R|kotlin/Int| = Int(0), d: R|kotlin/Int|, callback: R|() -> kotlin/Unit|): R|kotlin/Unit| {
+    }
+    public final fun ok4(a: R|kotlin/Int|, b: R|kotlin/Int| = R|<local>/a|, @R|com/faizilham/prototype/versioning/IntroducedAt|(version = String(3)) b1: R|kotlin/Int| = R|<local>/b|, @R|com/faizilham/prototype/versioning/IntroducedAt|(version = String(1)) c: R|kotlin/Int| = R|<local>/b|, @R|com/faizilham/prototype/versioning/IntroducedAt|(version = String(1)) c1: R|kotlin/Int| = R|<local>/c|, @R|com/faizilham/prototype/versioning/IntroducedAt|(version = String(2)) d: R|kotlin/Int| = R|<local>/b|.R|kotlin/Int.plus|(R|<local>/c1|), @R|com/faizilham/prototype/versioning/IntroducedAt|(version = String(2)) d1: R|kotlin/Int| = R|<local>/c1|.R|kotlin/Int.plus|(R|<local>/d|), callback: R|() -> kotlin/Unit|): R|kotlin/Unit| {
     }

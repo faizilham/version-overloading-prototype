@@ -4,6 +4,7 @@ import com.faizilham.prototype.versioning.Constants.CopyMethodName
 import com.faizilham.prototype.versioning.Constants.IntroducedAtFqName
 import com.faizilham.prototype.versioning.Constants.VERSION_OVERLOAD_WRAPPER
 import org.jetbrains.kotlin.backend.common.extensions.IrPluginContext
+import org.jetbrains.kotlin.backend.common.push
 import org.jetbrains.kotlin.config.MavenComparableVersion
 import org.jetbrains.kotlin.ir.IrElement
 import org.jetbrains.kotlin.ir.backend.js.utils.valueArguments
@@ -13,6 +14,7 @@ import org.jetbrains.kotlin.ir.builders.setSourceRange
 import org.jetbrains.kotlin.ir.declarations.*
 import org.jetbrains.kotlin.ir.expressions.IrConst
 import org.jetbrains.kotlin.ir.expressions.IrConstructorCall
+import org.jetbrains.kotlin.ir.expressions.IrExpressionBody
 import org.jetbrains.kotlin.ir.expressions.IrGetValue
 import org.jetbrains.kotlin.ir.expressions.impl.*
 import org.jetbrains.kotlin.ir.types.defaultType
@@ -23,12 +25,6 @@ import org.jetbrains.kotlin.name.StandardClassIds
 import java.util.*
 
 // Generate hidden overloads for each previous versions of a function to maintain binary compatibility
-// Assumptions (enforced by checker):
-// 1. Version annotations are only added at optional parameters
-// 2. The version number conforms to the org.jetbrains.kotlin.config.MavenComparableVersion format
-// 3. Optional parameters with version annotations are in the tail positions or before a trailing lambda,
-//    and non-optional parameters are in the head. Non-annotated optionals may appear anywhere before trailing lambda.
-// 4. Version annotations are either in increasing order, or must be provided by name
 
 private typealias Version = MavenComparableVersion
 
@@ -194,11 +190,28 @@ class VersionOverloadingGenerator(context: IrPluginContext) : IrVisitor<Unit, Ve
     }
 
     private fun IrFunction.generateNewValueParameters(original: IrFunction, includedParams: BooleanArray) {
-        val transformer = GetValueTransformer(this)
+        val originalDefaults = mutableListOf<IrExpressionBody?>()
         valueParameters = original.valueParameters.withIndex().mapNotNull { (i, param) ->
             if (!includedParams[i]) null
-            else param.copyTo(this).transform(transformer, null)
+            else {
+                originalDefaults.push(param.defaultValue)
+                param.copyTo(this, defaultValue = null)
+            }
         }
+
+        // copy the value params first before the default values. required when there are default expressions that depend on other value params
+
+        val transformer = GetValueTransformer(this)
+        valueParameters.forEachIndexed { i, param ->
+            val originalDefault = originalDefaults[i] ?: return@forEachIndexed
+
+            param.defaultValue = factory.createExpressionBody(
+                startOffset = originalDefault.startOffset,
+                endOffset = originalDefault.endOffset,
+                expression = originalDefault.expression.deepCopyWithSymbols(this),
+            ).transform(transformer, null)
+        }
+
     }
 }
 

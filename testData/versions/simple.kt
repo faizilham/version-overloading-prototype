@@ -45,6 +45,15 @@ class Example2 {
     ) {
 
     }
+
+    fun test3(
+        x: Int,
+        y: Int = 0,
+        @IntroducedAt("1.1") z: Int = y,
+        @IntroducedAt("1.2") z1: Int = 0
+    ) {
+
+    }
 }
 
 fun outside(

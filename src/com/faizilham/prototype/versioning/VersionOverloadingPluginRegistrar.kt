@@ -4,6 +4,7 @@ import org.jetbrains.kotlin.backend.common.extensions.IrGenerationExtension
 import org.jetbrains.kotlin.compiler.plugin.CompilerPluginRegistrar
 import org.jetbrains.kotlin.config.CompilerConfiguration
 import org.jetbrains.kotlin.fir.extensions.FirExtensionRegistrarAdapter
+import kotlin.reflect.full.instanceParameter
 
 class VersionOverloadingPluginRegistrar : CompilerPluginRegistrar() {
     override val supportsK2: Boolean

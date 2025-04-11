@@ -1,4 +1,5 @@
 import com.faizilham.prototype.versioning.*
+import kotlin.jvm.JvmOverloads
 
 const val VERSION_1_1 = "1.1"
 const val VERSION_1_2 = "1.2"
@@ -28,6 +29,25 @@ fun err3(
 ) {
 
 }
+
+open class Example {
+  <!NONFINAL_VERSIONED_FUNCTION!>open fun err4(
+    a: Int = 0,
+    @IntroducedAt("1.1") abc: Int = 0,
+  ) { }<!>
+}
+
+open class Example2 {
+  <!NONFINAL_VERSIONED_FUNCTION!>fun err5(
+    a: Int = 0,
+    @IntroducedAt("1.1") abc: Int = 0,
+  ) { }<!>
+}
+
+<!CONFLICT_WITH_JVMOVERLOADS_ANNOTATION!>@JvmOverloads fun err6(
+  a: Int = 0,
+  @IntroducedAt("1.1") abc: Int = 0,
+) { }<!>
 
 fun ok1(
   a: Int,

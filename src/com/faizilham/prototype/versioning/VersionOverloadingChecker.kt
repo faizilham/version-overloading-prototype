@@ -1,10 +1,13 @@
 package com.faizilham.prototype.versioning
 
 import com.faizilham.prototype.versioning.Constants.IntroducedAtClassId
+import com.faizilham.prototype.versioning.Constants.JvmOverloadsClassId
+import com.faizilham.prototype.versioning.Errors.CONFLICT_WITH_JVMOVERLOADS_ANNOTATION
 import com.faizilham.prototype.versioning.Errors.INVALID_DEFAULT_VALUE_DEPENDENCY
 import com.faizilham.prototype.versioning.Errors.INVALID_NON_OPTIONAL_PARAMETER_POSITION
 import com.faizilham.prototype.versioning.Errors.INVALID_VERSIONING_ON_NON_OPTIONAL
 import com.faizilham.prototype.versioning.Errors.INVALID_VERSION_NUMBER_FORMAT
+import com.faizilham.prototype.versioning.Errors.NONFINAL_VERSIONED_FUNCTION
 import org.jetbrains.kotlin.config.MavenComparableVersion
 import org.jetbrains.kotlin.diagnostics.DiagnosticReporter
 import org.jetbrains.kotlin.diagnostics.reportOn
@@ -15,9 +18,12 @@ import org.jetbrains.kotlin.fir.analysis.checkers.declaration.FirFunctionChecker
 import org.jetbrains.kotlin.fir.declarations.FirFunction
 import org.jetbrains.kotlin.fir.declarations.getAnnotationByClassId
 import org.jetbrains.kotlin.fir.declarations.getStringArgument
+import org.jetbrains.kotlin.fir.declarations.hasAnnotation
+import org.jetbrains.kotlin.fir.declarations.utils.isFinal
 import org.jetbrains.kotlin.fir.expressions.FirExpression
 import org.jetbrains.kotlin.fir.expressions.FirQualifiedAccessExpression
 import org.jetbrains.kotlin.fir.expressions.toResolvedCallableSymbol
+import org.jetbrains.kotlin.fir.resolve.getContainingClass
 import org.jetbrains.kotlin.fir.symbols.impl.FirCallableSymbol
 import org.jetbrains.kotlin.fir.types.coneType
 import org.jetbrains.kotlin.fir.types.isSomeFunctionType
@@ -38,6 +44,7 @@ object VersionOverloadingChecker : FirFunctionChecker(MppCheckerKind.Common) {
     override fun check(declaration: FirFunction, context: CheckerContext, reporter: DiagnosticReporter) {
         var inVersionedPart = false
         var positionValid = true
+        var hasVersionAnnotation = false
         val paramVersion = mutableMapOf<FirCallableSymbol<*>, MavenComparableVersion>()
 
         for ((i, param) in declaration.valueParameters.withIndex()) {
@@ -55,6 +62,7 @@ object VersionOverloadingChecker : FirFunctionChecker(MppCheckerKind.Common) {
                     versionAnnotation != null -> {
                         reporter.reportOn(param.source, INVALID_VERSIONING_ON_NON_OPTIONAL, context)
                         positionValid = false
+                        hasVersionAnnotation = true
                     }
                 }
 
@@ -62,9 +70,12 @@ object VersionOverloadingChecker : FirFunctionChecker(MppCheckerKind.Common) {
             }
 
             if (versionAnnotation == null) continue
+            hasVersionAnnotation = true
 
             inVersionedPart = true
             val versionString = versionAnnotation.getStringArgument(versionNumberArgument, context.session) ?: continue
+
+
 
             try {
                 val version = MavenComparableVersion(versionString)
@@ -75,16 +86,32 @@ object VersionOverloadingChecker : FirFunctionChecker(MppCheckerKind.Common) {
             }
         }
 
+        if (hasVersionAnnotation) {
+            when {
+                declaration.isOverridable() -> {
+                    reporter.reportOn(declaration.source, NONFINAL_VERSIONED_FUNCTION, context)
+                    positionValid = false
+                }
+
+                declaration.hasAnnotation(JvmOverloadsClassId, context.session) -> {
+                    reporter.reportOn(declaration.source, CONFLICT_WITH_JVMOVERLOADS_ANNOTATION, context)
+                    positionValid = false
+                }
+            }
+        }
+
         if (positionValid) {
             checkDependency(declaration, context, reporter, paramVersion)
         }
     }
 
+    private fun FirFunction.isOverridable(): Boolean = !isFinal || getContainingClass()?.isFinal == false
+
     private fun checkDependency(
         declaration: FirFunction,
         context: CheckerContext,
         reporter: DiagnosticReporter,
-        paramVersions: MutableMap<FirCallableSymbol<*>, MavenComparableVersion>
+        paramVersions: Map<FirCallableSymbol<*>, MavenComparableVersion>
     ) {
         val visitor = LatestDependencyCollector(paramVersions)
 

@@ -30,6 +30,14 @@ fun err3(
 
 }
 
+fun err4(
+  <!INVALID_VERSION_NUMBER_FORMAT!>@IntroducedAt("1.....1") a: Int = 0<!>,
+  <!INVALID_VERSION_NUMBER_FORMAT!>@IntroducedAt("1.-1") a1: Int = 0<!>,
+  <!INVALID_VERSION_NUMBER_FORMAT!>@IntroducedAt("1.a") a2: Int = 0<!>
+) {
+
+}
+
 open class Example {
   <!NONFINAL_VERSIONED_FUNCTION!>open fun err4(
     a: Int = 0,

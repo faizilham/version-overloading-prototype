@@ -8,7 +8,6 @@ import com.faizilham.prototype.versioning.Errors.INVALID_NON_OPTIONAL_PARAMETER_
 import com.faizilham.prototype.versioning.Errors.INVALID_VERSIONING_ON_NON_OPTIONAL
 import com.faizilham.prototype.versioning.Errors.INVALID_VERSION_NUMBER_FORMAT
 import com.faizilham.prototype.versioning.Errors.NONFINAL_VERSIONED_FUNCTION
-import org.jetbrains.kotlin.config.MavenComparableVersion
 import org.jetbrains.kotlin.diagnostics.DiagnosticReporter
 import org.jetbrains.kotlin.diagnostics.reportOn
 import org.jetbrains.kotlin.fir.FirElement
@@ -32,7 +31,7 @@ import org.jetbrains.kotlin.name.Name
 
 // Validations:
 // 1. Version annotations are only added at optional parameters
-// 2. The version number conforms to the org.jetbrains.kotlin.config.MavenComparableVersion format
+// 2. The version number has the correct format
 // 3. Optional parameters with version annotations are in the tail positions or before a trailing lambda,
 //    and non-optional parameters are in the head. Non-annotated optionals may appear anywhere before trailing lambda.
 // 4. [CURRENTLY UNCHECKED] Version annotations are either in increasing order, or must be provided by name
@@ -45,7 +44,7 @@ object VersionOverloadingChecker : FirFunctionChecker(MppCheckerKind.Common) {
         var inVersionedPart = false
         var positionValid = true
         var hasVersionAnnotation = false
-        val paramVersion = mutableMapOf<FirCallableSymbol<*>, MavenComparableVersion>()
+        val paramVersion = mutableMapOf<FirCallableSymbol<*>, VersionNumber>()
 
         for ((i, param) in declaration.valueParameters.withIndex()) {
             val versionAnnotation = param.getAnnotationByClassId(IntroducedAtClassId, context.session)
@@ -78,7 +77,7 @@ object VersionOverloadingChecker : FirFunctionChecker(MppCheckerKind.Common) {
 
 
             try {
-                val version = MavenComparableVersion(versionString)
+                val version = VersionNumber(versionString)
                 paramVersion[param.symbol] = version
             } catch (_: Exception) {
                 reporter.reportOn(param.source, INVALID_VERSION_NUMBER_FORMAT, context)
@@ -111,7 +110,7 @@ object VersionOverloadingChecker : FirFunctionChecker(MppCheckerKind.Common) {
         declaration: FirFunction,
         context: CheckerContext,
         reporter: DiagnosticReporter,
-        paramVersions: Map<FirCallableSymbol<*>, MavenComparableVersion>
+        paramVersions: Map<FirCallableSymbol<*>, VersionNumber>
     ) {
         val visitor = LatestDependencyCollector(paramVersions)
 
@@ -125,12 +124,12 @@ object VersionOverloadingChecker : FirFunctionChecker(MppCheckerKind.Common) {
         }
     }
 
-    class LatestDependencyCollector(val symbolVersions: Map<FirCallableSymbol<*>, MavenComparableVersion>)
+    class LatestDependencyCollector(val symbolVersions: Map<FirCallableSymbol<*>, VersionNumber>)
         : FirDefaultVisitor<Unit, LatestDependencyCollector.Context>() {
 
-        class Context(var latestDependency: MavenComparableVersion? = null)
+        class Context(var latestDependency: VersionNumber? = null)
 
-        fun getLatestDependency(expression: FirExpression): MavenComparableVersion? {
+        fun getLatestDependency(expression: FirExpression): VersionNumber? {
             val context = Context()
             expression.accept(this, context)
             return context.latestDependency
@@ -155,7 +154,7 @@ object VersionOverloadingChecker : FirFunctionChecker(MppCheckerKind.Common) {
         }
     }
 
-    private fun MavenComparableVersion?.lessThanEqual(other: MavenComparableVersion?): Boolean {
+    private fun VersionNumber?.lessThanEqual(other: VersionNumber?): Boolean {
         if (this == null) return true
         if (other == null) return false
 

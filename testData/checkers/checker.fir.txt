@@ -9,6 +9,8 @@ FILE: checker.kt
     }
     public final fun err3(a: R|kotlin/Int|, b: R|kotlin/Int| = R|<local>/a|, @R|com/faizilham/prototype/versioning/IntroducedAt|(version = String(1.1)) c: R|kotlin/Int| = R|<local>/a|.R|kotlin/Int.plus|(R|<local>/b|), @R|com/faizilham/prototype/versioning/IntroducedAt|(version = String(1.2)) c1: R|kotlin/Int| = R|<local>/b|.R|kotlin/Int.plus|(R|<local>/c|), @R|com/faizilham/prototype/versioning/IntroducedAt|(version = String(1.1)) d: R|kotlin/Int| = R|<local>/c|.R|kotlin/Int.plus|(R|<local>/c1|), callback: R|() -> kotlin/Unit|): R|kotlin/Unit| {
     }
+    public final fun err4(@R|com/faizilham/prototype/versioning/IntroducedAt|(version = String(1.....1)) a: R|kotlin/Int| = Int(0), @R|com/faizilham/prototype/versioning/IntroducedAt|(version = String(1.-1)) a1: R|kotlin/Int| = Int(0), @R|com/faizilham/prototype/versioning/IntroducedAt|(version = String(1.a)) a2: R|kotlin/Int| = Int(0)): R|kotlin/Unit| {
+    }
     public open class Example : R|kotlin/Any| {
         public constructor(): R|Example| {
             super<R|kotlin/Any|>()

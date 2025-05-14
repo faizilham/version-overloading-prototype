@@ -5,7 +5,6 @@ import com.faizilham.prototype.versioning.Constants.IntroducedAtFqName
 import com.faizilham.prototype.versioning.Constants.VERSION_OVERLOAD_WRAPPER
 import org.jetbrains.kotlin.backend.common.extensions.IrPluginContext
 import org.jetbrains.kotlin.backend.common.push
-import org.jetbrains.kotlin.config.MavenComparableVersion
 import org.jetbrains.kotlin.ir.IrElement
 import org.jetbrains.kotlin.ir.backend.js.utils.valueArguments
 import org.jetbrains.kotlin.ir.builders.declarations.buildConstructor
@@ -26,7 +25,6 @@ import java.util.*
 
 // Generate hidden overloads for each previous versions of a function to maintain binary compatibility
 
-private typealias Version = MavenComparableVersion
 
 class VersionOverloadingGenerator(context: IrPluginContext) : IrVisitor<Unit, VersionOverloadingGenerator.VisitorContext?>() {
     private val irFactory = context.irFactory
@@ -36,7 +34,7 @@ class VersionOverloadingGenerator(context: IrPluginContext) : IrVisitor<Unit, Ve
     class VisitorContext(
         val isDataClass: Boolean,
         val generatedFunctions: MutableList<IrFunction> = mutableListOf(),
-        var primaryConstructorVersions: SortedMap<Version?, MutableList<Int>>? = null
+        var primaryConstructorVersions: SortedMap<VersionNumber?, MutableList<Int>>? = null
     )
 
     override fun visitElement(element: IrElement, data: VisitorContext?) {
@@ -66,7 +64,7 @@ class VersionOverloadingGenerator(context: IrPluginContext) : IrVisitor<Unit, Ve
         }
     }
 
-    private fun generateVersions(func: IrFunction, data: VisitorContext, versionParamIndexes: SortedMap<Version?, MutableList<Int>>?) {
+    private fun generateVersions(func: IrFunction, data: VisitorContext, versionParamIndexes: SortedMap<VersionNumber?, MutableList<Int>>?) {
         if (versionParamIndexes == null || versionParamIndexes.size < 2) return
 
         var lastIncludedParameters = BooleanArray(func.valueParameters.size) { true }
@@ -82,8 +80,8 @@ class VersionOverloadingGenerator(context: IrPluginContext) : IrVisitor<Unit, Ve
         }
     }
 
-    private fun getSortedVersionParameterIndexes(func: IrFunction): SortedMap<Version?, MutableList<Int>> {
-        val versionIndexes = sortedMapOf<Version?, MutableList<Int>>(nullsLast(compareByDescending { it }))
+    private fun getSortedVersionParameterIndexes(func: IrFunction): SortedMap<VersionNumber?, MutableList<Int>> {
+        val versionIndexes = sortedMapOf<VersionNumber?, MutableList<Int>>(nullsLast(compareByDescending { it }))
 
         func.valueParameters.forEachIndexed { i, param ->
             val versionNumber = param.getVersionNumber()
@@ -98,7 +96,7 @@ class VersionOverloadingGenerator(context: IrPluginContext) : IrVisitor<Unit, Ve
         return versionIndexes
     }
 
-    private fun IrValueParameter.getVersionNumber() : Version? {
+    private fun IrValueParameter.getVersionNumber() : VersionNumber? {
         if (defaultValue == null) return null
         val annotation = getAnnotation(IntroducedAtFqName) ?: return null
         val versionString = (annotation.valueArguments[0] as? IrConst)?.value as? String ?: return null
@@ -215,9 +213,9 @@ class VersionOverloadingGenerator(context: IrPluginContext) : IrVisitor<Unit, Ve
     }
 }
 
-private fun parseVersion(versionString: String): Version? {
+private fun parseVersion(versionString: String): VersionNumber? {
     return try {
-        MavenComparableVersion(versionString)
+        VersionNumber(versionString)
     } catch (_: Exception) {
         null
     }

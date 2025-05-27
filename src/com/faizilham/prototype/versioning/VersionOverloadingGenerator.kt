@@ -3,10 +3,10 @@ package com.faizilham.prototype.versioning
 import com.faizilham.prototype.versioning.Constants.CopyMethodName
 import com.faizilham.prototype.versioning.Constants.IntroducedAtFqName
 import com.faizilham.prototype.versioning.Constants.VERSION_OVERLOAD_WRAPPER
+import org.jetbrains.kotlin.DeprecatedForRemovalCompilerApi
 import org.jetbrains.kotlin.backend.common.extensions.IrPluginContext
 import org.jetbrains.kotlin.backend.common.push
 import org.jetbrains.kotlin.ir.IrElement
-import org.jetbrains.kotlin.ir.backend.js.utils.valueArguments
 import org.jetbrains.kotlin.ir.builders.declarations.buildConstructor
 import org.jetbrains.kotlin.ir.builders.declarations.buildFun
 import org.jetbrains.kotlin.ir.builders.setSourceRange
@@ -25,7 +25,7 @@ import java.util.*
 
 // Generate hidden overloads for each previous versions of a function to maintain binary compatibility
 
-
+@OptIn(DeprecatedForRemovalCompilerApi::class)
 class VersionOverloadingGenerator(context: IrPluginContext) : IrVisitor<Unit, VersionOverloadingGenerator.VisitorContext?>() {
     private val irFactory = context.irFactory
     private val irBuiltIns = context.irBuiltIns
@@ -67,7 +67,7 @@ class VersionOverloadingGenerator(context: IrPluginContext) : IrVisitor<Unit, Ve
     private fun generateVersions(func: IrFunction, data: VisitorContext, versionParamIndexes: SortedMap<VersionNumber?, MutableList<Int>>?) {
         if (versionParamIndexes == null || versionParamIndexes.size < 2) return
 
-        var lastIncludedParameters = BooleanArray(func.valueParameters.size) { true }
+        val lastIncludedParameters = BooleanArray(func.valueParameters.size) { true }
 
         versionParamIndexes.asIterable().forEachIndexed { i, (_, paramIndexes) ->
             if (i > 0) {
@@ -99,7 +99,7 @@ class VersionOverloadingGenerator(context: IrPluginContext) : IrVisitor<Unit, Ve
     private fun IrValueParameter.getVersionNumber() : VersionNumber? {
         if (defaultValue == null) return null
         val annotation = getAnnotation(IntroducedAtFqName) ?: return null
-        val versionString = (annotation.valueArguments[0] as? IrConst)?.value as? String ?: return null
+        val versionString = (annotation.getValueArgument(0) as? IrConst)?.value as? String ?: return null
 
         return parseVersion(versionString)
     }
@@ -117,7 +117,7 @@ class VersionOverloadingGenerator(context: IrPluginContext) : IrVisitor<Unit, Ve
         }
 
         for (arg in wrapperIrFunction.allTypeParameters) {
-            call.putTypeArgument(arg.index, arg.defaultType)
+            call.typeArguments[arg.index] = arg.defaultType
         }
 
         call.dispatchReceiver = wrapperIrFunction.dispatchReceiverParameter?.let { dispatchReceiver ->
@@ -230,6 +230,7 @@ private class GetValueTransformer(val irFunction: IrFunction) : IrElementTransfo
     }
 }
 
+@OptIn(DeprecatedForRemovalCompilerApi::class)
 private class DeprecationBuilder(private val context: IrPluginContext, level: DeprecationLevel) {
     private val classSymbol = context.referenceClass(StandardClassIds.Annotations.Deprecated)!!
     private val deprecationLevelClass = context.referenceClass(StandardClassIds.DeprecationLevel)!!.owner

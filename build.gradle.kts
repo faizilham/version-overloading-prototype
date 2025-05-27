@@ -3,7 +3,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     java
-    kotlin("jvm") version "2.1.20"
+    kotlin("jvm") version "2.2.0-RC"
 }
 
 group = "org.demiurg906.kotlin.plugin"
@@ -21,9 +21,16 @@ sourceSets {
         java.setSrcDirs(listOf("src"))
         resources.setSrcDirs(listOf("resources"))
     }
+
     test {
         java.setSrcDirs(listOf("test", "test-gen"))
         resources.setSrcDirs(listOf("testResources"))
+    }
+}
+
+kotlin {
+    compilerOptions {
+        freeCompilerArgs.add("-Xcontext-parameters")
     }
 }
 

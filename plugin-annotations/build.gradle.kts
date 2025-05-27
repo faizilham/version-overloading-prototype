@@ -1,6 +1,6 @@
 plugins {
     java
-    kotlin("jvm") version "2.1.20"
+    kotlin("jvm") version "2.2.0-RC"
 }
 
 group = "ru.itmo.kotlin.plugin"

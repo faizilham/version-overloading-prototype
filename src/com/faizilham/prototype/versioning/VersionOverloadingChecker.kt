@@ -40,11 +40,12 @@ import org.jetbrains.kotlin.name.Name
 object VersionOverloadingChecker : FirFunctionChecker(MppCheckerKind.Common) {
     private val versionNumberArgument = Name.identifier("version")
 
-    override fun check(declaration: FirFunction, context: CheckerContext, reporter: DiagnosticReporter) {
+    context(context: CheckerContext, reporter: DiagnosticReporter)
+    override fun check(declaration: FirFunction) {
         var inVersionedPart = false
         var positionValid = true
         var hasVersionAnnotation = false
-        val paramVersion = mutableMapOf<FirCallableSymbol<*>, VersionNumber>()
+        val paramVersions = mutableMapOf<FirCallableSymbol<*>, VersionNumber>()
 
         for ((i, param) in declaration.valueParameters.withIndex()) {
             val versionAnnotation = param.getAnnotationByClassId(IntroducedAtClassId, context.session)
@@ -55,11 +56,11 @@ object VersionOverloadingChecker : FirFunctionChecker(MppCheckerKind.Common) {
 
                 when {
                     inVersionedPart && !isTrailingLambda -> {
-                        reporter.reportOn(param.source, INVALID_NON_OPTIONAL_PARAMETER_POSITION, context)
+                        reporter.reportOn(param.source, INVALID_NON_OPTIONAL_PARAMETER_POSITION)
                         positionValid = false
                     }
                     versionAnnotation != null -> {
-                        reporter.reportOn(param.source, INVALID_VERSIONING_ON_NON_OPTIONAL, context)
+                        reporter.reportOn(param.source, INVALID_VERSIONING_ON_NON_OPTIONAL)
                         positionValid = false
                         hasVersionAnnotation = true
                     }
@@ -78,9 +79,9 @@ object VersionOverloadingChecker : FirFunctionChecker(MppCheckerKind.Common) {
 
             try {
                 val version = VersionNumber(versionString)
-                paramVersion[param.symbol] = version
+                paramVersions[param.symbol] = version
             } catch (_: Exception) {
-                reporter.reportOn(param.source, INVALID_VERSION_NUMBER_FORMAT, context)
+                reporter.reportOn(param.source, INVALID_VERSION_NUMBER_FORMAT)
                 positionValid = false
             }
         }
@@ -88,28 +89,27 @@ object VersionOverloadingChecker : FirFunctionChecker(MppCheckerKind.Common) {
         if (hasVersionAnnotation) {
             when {
                 declaration.isOverridable() -> {
-                    reporter.reportOn(declaration.source, NONFINAL_VERSIONED_FUNCTION, context)
+                    reporter.reportOn(declaration.source, NONFINAL_VERSIONED_FUNCTION)
                     positionValid = false
                 }
 
                 declaration.hasAnnotation(JvmOverloadsClassId, context.session) -> {
-                    reporter.reportOn(declaration.source, CONFLICT_WITH_JVMOVERLOADS_ANNOTATION, context)
+                    reporter.reportOn(declaration.source, CONFLICT_WITH_JVMOVERLOADS_ANNOTATION)
                     positionValid = false
                 }
             }
         }
 
         if (positionValid) {
-            checkDependency(declaration, context, reporter, paramVersion)
+            checkDependency(declaration, paramVersions)
         }
     }
 
     private fun FirFunction.isOverridable(): Boolean = !isFinal || getContainingClass()?.isFinal == false
 
+    context(context: CheckerContext, reporter: DiagnosticReporter)
     private fun checkDependency(
         declaration: FirFunction,
-        context: CheckerContext,
-        reporter: DiagnosticReporter,
         paramVersions: Map<FirCallableSymbol<*>, VersionNumber>
     ) {
         val visitor = LatestDependencyCollector(paramVersions)
@@ -119,7 +119,7 @@ object VersionOverloadingChecker : FirFunctionChecker(MppCheckerKind.Common) {
             val latestDependency = visitor.getLatestDependency(defaultValue)
 
             if (!latestDependency.lessThanEqual(paramVersions[param.symbol])){
-                reporter.reportOn(param.source, INVALID_DEFAULT_VALUE_DEPENDENCY, context)
+                reporter.reportOn(param.source, INVALID_DEFAULT_VALUE_DEPENDENCY)
             }
         }
     }

@@ -13,5 +13,5 @@ object Constants {
     val CopyMethodName = Name.identifier("copy")
 
     val VERSION_OVERLOAD_WRAPPER by IrDeclarationOriginImpl
-
 }
+

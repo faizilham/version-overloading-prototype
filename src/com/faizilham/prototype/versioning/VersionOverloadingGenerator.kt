@@ -3,7 +3,6 @@ package com.faizilham.prototype.versioning
 import com.faizilham.prototype.versioning.Constants.CopyMethodName
 import com.faizilham.prototype.versioning.Constants.IntroducedAtFqName
 import com.faizilham.prototype.versioning.Constants.VERSION_OVERLOAD_WRAPPER
-import org.jetbrains.kotlin.DeprecatedForRemovalCompilerApi
 import org.jetbrains.kotlin.backend.common.extensions.IrPluginContext
 import org.jetbrains.kotlin.backend.common.push
 import org.jetbrains.kotlin.ir.IrElement
@@ -24,8 +23,6 @@ import org.jetbrains.kotlin.name.StandardClassIds
 import java.util.*
 
 // Generate hidden overloads for each previous versions of a function to maintain binary compatibility
-
-@OptIn(DeprecatedForRemovalCompilerApi::class)
 class VersionOverloadingGenerator(context: IrPluginContext) : IrVisitor<Unit, VersionOverloadingGenerator.VisitorContext?>() {
     private val irFactory = context.irFactory
     private val irBuiltIns = context.irBuiltIns
@@ -34,7 +31,7 @@ class VersionOverloadingGenerator(context: IrPluginContext) : IrVisitor<Unit, Ve
     class VisitorContext(
         val isDataClass: Boolean,
         val generatedFunctions: MutableList<IrFunction> = mutableListOf(),
-        var primaryConstructorVersions: SortedMap<VersionNumber?, MutableList<Int>>? = null
+        var copyMethodVersions: SortedMap<VersionNumber?, MutableList<Int>>? = null
     )
 
     override fun visitElement(element: IrElement, data: VisitorContext?) {
@@ -52,22 +49,29 @@ class VersionOverloadingGenerator(context: IrPluginContext) : IrVisitor<Unit, Ve
 
         val versionParamIndexes =
             if (data.isDataClass && declaration.name == CopyMethodName) {
-                data.primaryConstructorVersions
+                data.copyMethodVersions
             } else {
                 getSortedVersionParameterIndexes(declaration)
             }
 
         generateVersions(declaration, data, versionParamIndexes)
 
-        if (data.isDataClass && declaration is IrConstructor && declaration.isPrimary) {
-            data.primaryConstructorVersions = versionParamIndexes
+        if (data.isDataClass && declaration is IrConstructor && declaration.isPrimary && versionParamIndexes != null) {
+            versionParamIndexes.forEach { entry ->
+                for (i in entry.value.indices) {
+                    entry.value[i] += 1
+                }
+            }
+
+            versionParamIndexes[null]?.add(0)
+            data.copyMethodVersions = versionParamIndexes
         }
     }
 
     private fun generateVersions(func: IrFunction, data: VisitorContext, versionParamIndexes: SortedMap<VersionNumber?, MutableList<Int>>?) {
         if (versionParamIndexes == null || versionParamIndexes.size < 2) return
 
-        val lastIncludedParameters = BooleanArray(func.valueParameters.size) { true }
+        val lastIncludedParameters = BooleanArray(func.parameters.size) { true }
 
         versionParamIndexes.asIterable().forEachIndexed { i, (_, paramIndexes) ->
             if (i > 0) {
@@ -83,7 +87,7 @@ class VersionOverloadingGenerator(context: IrPluginContext) : IrVisitor<Unit, Ve
     private fun getSortedVersionParameterIndexes(func: IrFunction): SortedMap<VersionNumber?, MutableList<Int>> {
         val versionIndexes = sortedMapOf<VersionNumber?, MutableList<Int>>(nullsLast(compareByDescending { it }))
 
-        func.valueParameters.forEachIndexed { i, param ->
+        func.parameters.forEachIndexed { i, param ->
             val versionNumber = param.getVersionNumber()
 
             if (versionIndexes.containsKey(versionNumber)) {
@@ -97,9 +101,9 @@ class VersionOverloadingGenerator(context: IrPluginContext) : IrVisitor<Unit, Ve
     }
 
     private fun IrValueParameter.getVersionNumber() : VersionNumber? {
-        if (defaultValue == null) return null
+        if (kind != IrParameterKind.Regular || defaultValue == null) return null
         val annotation = getAnnotation(IntroducedAtFqName) ?: return null
-        val versionString = (annotation.getValueArgument(0) as? IrConst)?.value as? String ?: return null
+        val versionString = (annotation.arguments.first() as? IrConst)?.value as? String ?: return null
 
         return parseVersion(versionString)
     }
@@ -120,23 +124,16 @@ class VersionOverloadingGenerator(context: IrPluginContext) : IrVisitor<Unit, Ve
             call.typeArguments[arg.index] = arg.defaultType
         }
 
-        call.dispatchReceiver = wrapperIrFunction.dispatchReceiverParameter?.let { dispatchReceiver ->
-            IrGetValueImpl(SYNTHETIC_OFFSET, SYNTHETIC_OFFSET, dispatchReceiver.symbol)
-        }
-
-        call.extensionReceiver = wrapperIrFunction.extensionReceiverParameter?.let { extensionReceiver ->
-            IrGetValueImpl(SYNTHETIC_OFFSET, SYNTHETIC_OFFSET, extensionReceiver.symbol)
-        }
-
         var lastWrapperIndex = 0
-        for (originalIndex in original.valueParameters.indices) {
+        for (originalIndex in original.parameters.indices) {
             if (!includedParams[originalIndex]) {
-                call.putValueArgument(originalIndex, null)
+                call.arguments[originalIndex] = null
                 continue
             }
 
-            val wrapperParam = wrapperIrFunction.valueParameters[lastWrapperIndex]
-            call.putValueArgument(originalIndex, IrGetValueImpl(SYNTHETIC_OFFSET, SYNTHETIC_OFFSET, wrapperParam.symbol))
+            val wrapperParam = wrapperIrFunction.parameters[lastWrapperIndex]
+            call.arguments[originalIndex] =
+                IrGetValueImpl(SYNTHETIC_OFFSET, SYNTHETIC_OFFSET, wrapperParam.symbol)
             lastWrapperIndex += 1
         }
 
@@ -181,15 +178,13 @@ class VersionOverloadingGenerator(context: IrPluginContext) : IrVisitor<Unit, Ve
             annotations += deprecationBuilder.buildAnnotationCall()
             copyAnnotationsFrom(original)
             copyTypeParametersFrom(original)
-            dispatchReceiverParameter = original.dispatchReceiverParameter?.copyTo(this)
-            extensionReceiverParameter = original.extensionReceiverParameter?.copyTo(this)
             generateNewValueParameters(original, includedParams)
         }
     }
 
     private fun IrFunction.generateNewValueParameters(original: IrFunction, includedParams: BooleanArray) {
         val originalDefaults = mutableListOf<IrExpressionBody?>()
-        valueParameters = original.valueParameters.withIndex().mapNotNull { (i, param) ->
+        parameters = original.parameters.withIndex().mapNotNull { (i, param) ->
             if (!includedParams[i]) null
             else {
                 originalDefaults.push(param.defaultValue)
@@ -200,7 +195,7 @@ class VersionOverloadingGenerator(context: IrPluginContext) : IrVisitor<Unit, Ve
         // copy the value params first before the default values. required when there are default expressions that depend on other value params
 
         val transformer = GetValueTransformer(this)
-        valueParameters.forEachIndexed { i, param ->
+        parameters.forEachIndexed { i, param ->
             val originalDefault = originalDefaults[i] ?: return@forEachIndexed
 
             param.defaultValue = factory.createExpressionBody(
@@ -230,7 +225,6 @@ private class GetValueTransformer(val irFunction: IrFunction) : IrElementTransfo
     }
 }
 
-@OptIn(DeprecatedForRemovalCompilerApi::class)
 private class DeprecationBuilder(private val context: IrPluginContext, level: DeprecationLevel) {
     private val classSymbol = context.referenceClass(StandardClassIds.Annotations.Deprecated)!!
     private val deprecationLevelClass = context.referenceClass(StandardClassIds.DeprecationLevel)!!.owner
@@ -245,18 +239,17 @@ private class DeprecationBuilder(private val context: IrPluginContext, level: De
             classSymbol.defaultType,
             classSymbol.constructors.first()
         ).apply {
-            putValueArgument(
-                0,
-                IrConstImpl.string(SYNTHETIC_OFFSET, SYNTHETIC_OFFSET, context.irBuiltIns.stringType, "Deprecated")
-            )
+            arguments[0] =
+                IrConstImpl.string(
+                    SYNTHETIC_OFFSET, SYNTHETIC_OFFSET,
+                    context.irBuiltIns.stringType, "Deprecated"
+                )
 
-            putValueArgument(
-                2,
+            arguments[2] =
                 IrGetEnumValueImpl(
                     SYNTHETIC_OFFSET, SYNTHETIC_OFFSET,
                     deprecationLevelClass.defaultType, levelSymbol
                 )
-            )
         }
     }
 }

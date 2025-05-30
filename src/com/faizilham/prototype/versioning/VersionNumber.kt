@@ -29,4 +29,6 @@ class VersionNumber(versionString: String) : Comparable<VersionNumber> {
 
         return parts.size.compareTo(other.parts.size)
     }
+
+    override fun toString() = parts.joinToString(".")
 }

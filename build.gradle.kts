@@ -62,7 +62,7 @@ tasks.test {
     doFirst {
         setLibraryProperties("kotlin-stdlib", "org.jetbrains.kotlin.test.kotlin-stdlib", "kotlin.full.stdlib.path", "kotlin.minimal.stdlib.path")
 
-        setLibraryProperties("kotlin-stdlib-jdk8", "org.jetbrains.kotlin.test.kotlin-stdlib-jdk8")
+        setLibraryProperties("kotlin-stdlib-jdk8", "org.jetbrains.kotlin.test.kotlin-stdlib-jdk8", "kotlin.full.stdlib.path", "kotlin.minimal.stdlib.path")
 
         setLibraryProperties("kotlin-reflect", "org.jetbrains.kotlin.test.kotlin-reflect", "kotlin.reflect.jar.path")
 

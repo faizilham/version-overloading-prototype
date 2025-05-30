@@ -1,60 +1,48 @@
 package org.demiurg906.kotlin.plugin.runners
 
-import org.jetbrains.kotlin.platform.jvm.JvmPlatforms
+import org.demiurg906.kotlin.plugin.services.PluginAnnotationsProvider
+import org.demiurg906.kotlin.plugin.services.PluginRegistrarConfigurator
 import org.jetbrains.kotlin.test.FirParser
-import org.jetbrains.kotlin.test.TargetBackend
-import org.jetbrains.kotlin.test.backend.BlackBoxCodegenSuppressor
-import org.jetbrains.kotlin.test.backend.handlers.IrTextDumpHandler
-import org.jetbrains.kotlin.test.backend.handlers.IrTreeVerifierHandler
-import org.jetbrains.kotlin.test.backend.handlers.JvmBoxRunner
-import org.jetbrains.kotlin.test.backend.ir.JvmIrBackendFacade
 import org.jetbrains.kotlin.test.builders.TestConfigurationBuilder
-import org.jetbrains.kotlin.test.builders.irHandlersStep
-import org.jetbrains.kotlin.test.builders.jvmArtifactsHandlersStep
-import org.jetbrains.kotlin.test.directives.CodegenTestDirectives.DUMP_IR
-import org.jetbrains.kotlin.test.directives.configureFirParser
-import org.jetbrains.kotlin.test.model.DependencyKind
-import org.jetbrains.kotlin.test.runners.RunnerWithTargetBackendForTestGeneratorMarker
+import org.jetbrains.kotlin.test.directives.CodegenTestDirectives
+import org.jetbrains.kotlin.test.directives.FirDiagnosticsDirectives
+import org.jetbrains.kotlin.test.directives.JvmEnvironmentConfigurationDirectives
+import org.jetbrains.kotlin.test.runners.codegen.AbstractFirBlackBoxCodegenTestBase
+import org.jetbrains.kotlin.test.services.EnvironmentBasedStandardLibrariesPathProvider
+import org.jetbrains.kotlin.test.services.KotlinStandardLibrariesPathProvider
 
-/*
- * Containers of different directives, which can be used in tests:
- * - ModuleStructureDirectives
- * - LanguageSettingsDirectives
- * - DiagnosticsDirectives
- * - CodegenTestDirectives
- *
- * All of them are located in `org.jetbrains.kotlin.test.directives` package
- */
-open class AbstractBoxTest : BaseTestRunner(), RunnerWithTargetBackendForTestGeneratorMarker {
-    override val targetBackend: TargetBackend
-        get() = TargetBackend.JVM_IR
+open class AbstractBoxTest : AbstractFirBlackBoxCodegenTestBase(FirParser.LightTree) {
+    override fun createKotlinStandardLibrariesPathProvider(): KotlinStandardLibrariesPathProvider {
+        return EnvironmentBasedStandardLibrariesPathProvider
+    }
 
-    override fun TestConfigurationBuilder.configuration() {
-        globalDefaults {
-            targetBackend = TargetBackend.JVM_IR
-            targetPlatform = JvmPlatforms.defaultJvmPlatform
-            dependencyKind = DependencyKind.Binary
-        }
+    override fun configure(builder: TestConfigurationBuilder) {
+        super.configure(builder)
 
-        configureFirParser(FirParser.Psi)
+        with(builder) {
+            /*
+             * Containers of different directives, which can be used in tests:
+             * - ModuleStructureDirectives
+             * - LanguageSettingsDirectives
+             * - DiagnosticsDirectives
+             * - FirDiagnosticsDirectives
+             * - CodegenTestDirectives
+             * - JvmEnvironmentConfigurationDirectives
+             *
+             * All of them are located in `org.jetbrains.kotlin.test.directives` package
+             */
+            defaultDirectives {
+                +CodegenTestDirectives.DUMP_IR
+                +FirDiagnosticsDirectives.FIR_DUMP
+                +JvmEnvironmentConfigurationDirectives.FULL_JDK
 
-        defaultDirectives {
-            +DUMP_IR
-        }
+                +CodegenTestDirectives.IGNORE_DEXING // Avoids loading R8 from the classpath.
+            }
 
-        commonFirWithPluginFrontendConfiguration()
-//        fir2IrStep()
-        irHandlersStep {
-            useHandlers(
-                ::IrTextDumpHandler,
-                ::IrTreeVerifierHandler,
+            useConfigurators(
+                ::PluginAnnotationsProvider,
+                ::PluginRegistrarConfigurator
             )
         }
-        facadeStep(::JvmIrBackendFacade)
-        jvmArtifactsHandlersStep {
-            useHandlers(::JvmBoxRunner)
-        }
-
-        useAfterAnalysisCheckers(::BlackBoxCodegenSuppressor)
     }
 }
